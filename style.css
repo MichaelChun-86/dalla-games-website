@@ -76,6 +76,22 @@ a {
 .accent { color: var(--mint); }
 .font-medium { font-weight: 500; }    /* 이사만루 미디움 */
 
+/* 스크롤 페이드인: 보이기 전엔 살짝 아래+투명, 보이면 제자리+불투명 */
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* 움직임 최소화를 선호하는 사용자는 애니메이션 제거 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
 .section-inner {
   max-width: var(--maxw);
   margin: 0 auto;
@@ -181,7 +197,7 @@ a {
   position: relative;
   min-height: 100vh;
   /* 배경: 우주복 캐릭터 키 비주얼을 화면에 꽉 차게 */
-  background-image: url("images/hero-bg.png");
+  background-image: url("images/hero-bg.webp");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -231,7 +247,7 @@ a {
   width: 224px;
   max-width: 60%;
   aspect-ratio: 224 / 85;         /* 원본 비율 유지 */
-  background-image: url("images/btn-steam.png");
+  background-image: url("images/btn-steam.webp");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -240,7 +256,7 @@ a {
 .steam-btn:hover,
 .steam-btn:focus-visible {
   /* 마우스 올리면 노란색 버튼 이미지로 교체 */
-  background-image: url("images/btn-steam-hover.png");
+  background-image: url("images/btn-steam-hover.webp");
   transform: translateY(-2px);
 }
 
@@ -495,7 +511,7 @@ a {
   .hero {
     flex-direction: column;
     align-items: center;
-    background-image: url("images/hero-bg-mobile.png");  /* 모바일 전용 키비주얼 */
+    background-image: url("images/hero-bg-mobile.webp");  /* 모바일 전용 키비주얼 */
     background-position: top center;    /* 캐릭터(상단)부터 보이게 */
     background-size: cover;
     min-height: 100vh;

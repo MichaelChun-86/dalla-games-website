@@ -14,6 +14,19 @@ images/3-*
 images/Mobile_Hero_Key.png
 images/Epic_MegaGrants_Recipient_logo.png
 
+# WebP로 대체된 PNG (로컬 보존, 배포는 .webp만 사용)
+images/hero-bg.png
+images/hero-bg-mobile.png
+images/game-art.png
+images/logo-aeonfall.png
+images/logo-dalla.png
+images/wishlist-text.png
+images/btn-steam.png
+images/btn-steam-hover.png
+images/epic-badge.png
+images/team-chun.png
+images/team-kim.png
+
 # OS
 Thumbs.db
 .DS_Store
