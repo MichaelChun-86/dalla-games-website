@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- 모바일 반응형의 핵심: 뷰포트 설정 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 브라우저 탭 제목 -->
+  <title>DALLA GAMES</title>
+
+  <!-- 탭 아이콘(파비콘) -->
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+
+  <!-- 검색/공유용 설명 -->
+  <meta name="description" content="DALLA GAMES Inc. — THE AEON FALL, a hardcore roguelike defense game." />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================== 헤더 / 네비게이션 ===================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <!-- 좌측: 달라게임즈 로고 -->
+      <a href="#home" class="brand" aria-label="DALLA GAMES home">
+        <img src="images/logo-dalla.png" alt="DALLA GAMES" class="brand-logo" />
+      </a>
+
+      <!-- 모바일 햄버거 버튼 -->
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- 우측 메뉴 -->
+      <nav class="nav" id="navMenu">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#games" class="nav-link">Games</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== 히어로 ===================== -->
+    <section class="hero" id="home">
+      <!-- 배경 위 가독성을 위한 어두운 오버레이 -->
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <!-- 큰 타이틀: THE AEON FALL (이미지 로고) -->
+        <img src="images/logo-aeonfall.png" alt="THE AEON FALL" class="hero-title" />
+
+        <!-- 부제: Wishlist Now (네온 텍스트 이미지) -->
+        <img src="images/wishlist-text.png" alt="Wishlist Now" class="hero-subtitle" />
+
+        <!-- 스팀 위시리스트 버튼: 기본 → 호버 시 노란 이미지로 교체 -->
+        <a class="steam-btn"
+           href="https://store.steampowered.com/app/4582730/THE_AEON_FALL/"
+           target="_blank" rel="noopener"
+           aria-label="Wishlist on Steam"></a>
+      </div>
+
+      <!-- Epic MegaGrant 배지 + 제목 + 문구 (반투명 박스) -->
+      <div class="epic-megagrant">
+        <img src="images/epic-badge.png" alt="Epic MegaGrants Recipient" class="epic-badge" />
+        <div class="epic-info">
+          <h3 class="epic-title font-medium accent">Epic MegaGrant Recipient</h3>
+          <p class="epic-text">
+            Epic Games&rsquo; support is helping us accelerate development of THE AEON FALL.
+          </p>
+        </div>
+      </div>
+
+      <!-- 아래로 스크롤 유도 화살표 -->
+      <a href="#games" class="scroll-down" aria-label="Scroll down">
+        <img src="images/down-arrow.svg" alt="" />
+      </a>
+    </section>
+
+    <!-- ===================== OUR GAMES ===================== -->
+    <section class="games" id="games">
+      <div class="section-inner">
+        <h2 class="section-title font-medium">OUR <span class="accent">GAMES</span></h2>
+        <p class="section-subtitle">THE AEON FALL &ndash; Hardcore Roguelike Defense</p>
+
+        <div class="games-grid">
+          <!-- 왼쪽: 게임 키아트 -->
+          <div class="games-art">
+            <img src="images/game-art.png" alt="THE AEON FALL key art" />
+          </div>
+
+          <!-- 오른쪽: 4가지 특징 -->
+          <div class="games-features">
+            <div class="feature">
+              <h3 class="feature-title accent">Massive Waves</h3>
+              <p class="feature-desc">
+                Face relentless hordes at a scale that pushes your limits.
+                Every battle is a fight against overwhelming numbers.
+              </p>
+            </div>
+            <div class="feature">
+              <h3 class="feature-title accent">Noise-Driven Threat</h3>
+              <p class="feature-desc">
+                Every action you take generates noise &mdash; and noise brings death.
+                Expand carefully, or trigger unstoppable waves.
+              </p>
+            </div>
+            <div class="feature">
+              <h3 class="feature-title accent">Hybrid Control</h3>
+              <p class="feature-desc">
+                Directly control your character while building and defending your base in real time.
+                Balance action and strategy to survive.
+              </p>
+            </div>
+            <div class="feature">
+              <h3 class="feature-title accent">Dynamic Survival</h3>
+              <p class="feature-desc">
+                Each run unfolds differently with shifting terrain, resources, and enemy patterns.
+                Adapt or be overwhelmed.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT US ===================== -->
+    <section class="about" id="about">
+      <div class="section-inner">
+        <h2 class="section-title font-medium">ABOUT <span class="accent">US</span></h2>
+        <p class="section-subtitle">DALLA GAMES INC.</p>
+
+        <div class="team">
+          <figure class="member">
+            <img src="images/team-chun.png" alt="Joonyoung Chun" class="member-photo" />
+            <figcaption>
+              <span class="member-name"><span class="accent">CEO</span> JOONYOUNG CHUN</span>
+              <span class="member-role">Lead Artist / Concept Designer</span>
+            </figcaption>
+          </figure>
+
+          <figure class="member">
+            <img src="images/team-kim.png" alt="Yunkyu Kim" class="member-photo" />
+            <figcaption>
+              <span class="member-name"><span class="accent">CTO</span> YUNKYU KIM</span>
+              <span class="member-role">Lead Programmer / Lead Game Designer</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <p class="tagline">
+          <span>We build games where every decision matters</span> <span>and every mistake has consequences.</span>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== 푸터 ===================== -->
+  <footer class="site-footer" id="contact">
+    <div class="footer-social">
+      <!-- 이메일 -->
+      <a href="mailto:dalla.gamedev@gmail.com" class="social-link" aria-label="Email">
+        <img src="images/envelope.svg" alt="Email" />
+      </a>
+      <!-- 유튜브 -->
+      <a href="https://www.youtube.com/watch?v=ZuPX2S99tBM" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+        <img src="images/youtube.svg" alt="YouTube" />
+      </a>
+      <!-- 스팀 -->
+      <a href="https://store.steampowered.com/app/4582730/THE_AEON_FALL/" target="_blank" rel="noopener" class="social-link" aria-label="Steam">
+        <img src="images/steam.svg" alt="Steam" />
+      </a>
+    </div>
+
+    <!-- 카피라이트: © 글자만 노토산스(.copy-symbol)로 처리 -->
+    <p class="copyright">
+      THE AEON FALL&trade; <span class="copy-symbol">&copy;</span> 2026 Dalla Games Inc. All rights reserved. Developed by Dalla Games Inc.
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

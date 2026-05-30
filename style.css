@@ -1,0 +1,537 @@
+/* =========================================================
+   DALLA GAMES 홈페이지 스타일
+   - 순수 CSS, 반응형(모바일까지 안 깨지게)
+   ========================================================= */
+
+/* ---------- 1. 폰트 등록 (@font-face) ---------- */
+/* 기본 본문용: 이사만루 라이트 */
+@font-face {
+  font-family: "esamanru";
+  src: url("fonts/esamanru-Light.ttf") format("truetype");
+  font-weight: 300;     /* Light */
+  font-display: swap;
+}
+/* 강조용: 이사만루 미디움 (Epic 제목 / OUR GAMES / ABOUT US) */
+@font-face {
+  font-family: "esamanru";
+  src: url("fonts/esamanru-Medium.ttf") format("truetype");
+  font-weight: 500;     /* Medium */
+  font-display: swap;
+}
+/* © 문자 전용: 노토산스 (이사만루가 © 글리프 미지원) */
+@font-face {
+  font-family: "NotoSansKR";
+  src: url("fonts/NotoSansKR-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* ---------- 2. 디자인 토큰(변수) ---------- */
+:root {
+  --bg: #000000;            /* 기본 배경: 검정 */
+  --bg-soft: #07100d;       /* 살짝 밝은 섹션 배경 */
+  --mint: #08e178;          /* 강조 그린 (레퍼런스 FontColor_2) */
+  --mint-bright: #2bff97;   /* 더 밝은 그린 (호버/글로우) */
+  --text: #e2e2e2;          /* 본문 텍스트 (레퍼런스 FontColor_3) */
+  --text-dim: #9aa3a0;      /* 보조 텍스트(더 흐린 회색) */
+  --gold: #f5a623;          /* 로고 골드 */
+
+  --maxw: 1200px;           /* 콘텐츠 최대 폭 */
+  --header-h: 70px;         /* 헤더 높이 */
+}
+
+/* ---------- 3. 리셋 & 기본값 ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;            /* 부드러운 앵커 스크롤 */
+  scroll-padding-top: var(--header-h);/* 고정 헤더에 가리지 않게 */
+}
+
+body {
+  font-family: "esamanru", "Segoe UI", sans-serif;
+  font-weight: 300;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;                 /* 가로 스크롤 방지 */
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 공통 유틸 */
+.accent { color: var(--mint); }
+.font-medium { font-weight: 500; }    /* 이사만루 미디움 */
+
+.section-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 150px 24px;     /* 섹션 간 여백 넓게(답답함 해소) */
+}
+
+.section-title {
+  font-size: clamp(28px, 5vw, 48px);
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: clamp(14px, 2.2vw, 18px);
+  margin-top: 10px;
+  margin-bottom: 56px;
+  letter-spacing: 1px;
+}
+
+/* =========================================================
+   헤더 / 네비게이션
+   ========================================================= */
+.site-header {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: var(--header-h);
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.header-inner {
+  max-width: var(--maxw);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-logo {
+  height: 26px;
+  width: auto;
+}
+
+.nav {
+  display: flex;
+  gap: 36px;
+}
+
+.nav-link {
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--text);
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+/* 메뉴 호버 시 그린 + 밑줄 애니메이션 */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 0; height: 2px;
+  background: var(--mint);
+  transition: width 0.25s ease;
+}
+.nav-link:hover { color: var(--mint); }
+.nav-link:hover::after { width: 100%; }
+
+/* 햄버거 버튼 (모바일에서만 표시) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* =========================================================
+   히어로
+   ========================================================= */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  /* 배경: 우주복 캐릭터 키 비주얼을 화면에 꽉 차게 */
+  background-image: url("images/hero-bg.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  padding: var(--header-h) 24px 0;
+  overflow: hidden;
+}
+
+/* 오버레이 최소화: 원본 키비주얼을 깔끔하게 살림.
+   좌측 타이틀 영역만 아주 약하게(새 이미지 좌측이 이미 어두움) */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 42%);
+  pointer-events: none;
+}
+
+/* 히어로 콘텐츠: 화면 좌측에 배치, 그룹 내부는 가운데 정렬 유지 */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 0 6%;     /* 좌측 영역에 모음 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* 그룹 내부 가로 중앙 */
+  text-align: center;
+}
+
+.hero-title {
+  width: min(620px, 86%);
+  height: auto;
+}
+
+.hero-subtitle {
+  width: min(360px, 60%);
+  height: auto;
+  margin-top: 22px;
+}
+
+/* 스팀 버튼: 이미지를 배경으로 두고 호버 시 교체 */
+.steam-btn {
+  display: block;
+  margin: 28px auto 0;            /* 가로 중앙 */
+  width: 224px;
+  max-width: 60%;
+  aspect-ratio: 224 / 85;         /* 원본 비율 유지 */
+  background-image: url("images/btn-steam.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.15s ease;
+}
+.steam-btn:hover,
+.steam-btn:focus-visible {
+  /* 마우스 올리면 노란색 버튼 이미지로 교체 */
+  background-image: url("images/btn-steam-hover.png");
+  transform: translateY(-2px);
+}
+
+/* Epic MegaGrant: 배지 + 제목 + 문구 (반투명 블랙 박스, 히어로 우측 하단) */
+.epic-megagrant {
+  position: absolute;
+  z-index: 2;
+  right: 4%;
+  bottom: 10%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 480px;
+  padding: 16px 24px;
+  background: rgba(0, 0, 0, 0.55);   /* 반투명 블랙 박스 */
+  border: 1px solid rgba(8, 225, 120, 0.18);
+  border-radius: 10px;
+  backdrop-filter: blur(3px);
+}
+.epic-badge {
+  width: 116px;                  /* 배지 키움 */
+  height: auto;
+  flex-shrink: 0;
+}
+.epic-info { min-width: 0; }
+.epic-title {
+  font-size: clamp(18px, 1.6vw, 22px);
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.epic-text {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* 아래로 스크롤 화살표 */
+.scroll-down {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: 28px;
+  opacity: 0.7;
+  animation: bounce 2s infinite;
+}
+.scroll-down img { width: 100%; height: auto; }
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, 8px); }
+}
+
+/* =========================================================
+   OUR GAMES
+   ========================================================= */
+.games {
+  background: var(--bg);
+}
+.games-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.games-art img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid rgba(8, 225, 120, 0.15);
+}
+.games-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* 4개를 2x2로 */
+  gap: 32px 28px;
+}
+.feature { min-width: 0; }          /* 그리드 자식 넘침 방지 */
+.feature-title {
+  font-size: 19px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.feature-desc {
+  font-size: 14.5px;
+  color: var(--text);
+  opacity: 0.82;
+}
+
+/* =========================================================
+   ABOUT US
+   ========================================================= */
+.about {
+  background: var(--bg-soft);
+}
+.team {
+  display: flex;
+  justify-content: center;
+  gap: 72px;
+  flex-wrap: wrap;
+}
+.member {
+  text-align: center;       /* 폭 고정 제거 → 내용 길이에 맞춤 */
+}
+.member-photo {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  border: 2px solid rgba(8, 225, 120, 0.4);
+}
+.member figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.member-name {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;      /* 이름 한 줄 */
+}
+.member-role {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  white-space: nowrap;      /* 역할 한 줄 */
+}
+.tagline {
+  text-align: center;
+  max-width: 1000px;        /* 넓혀서 한 줄 유도 */
+  margin: 64px auto 0;
+  font-size: clamp(16px, 2.4vw, 20px);
+  color: var(--text);
+  line-height: 1.7;
+}
+/* 두 구절을 각각 nowrap → 공간이 부족하면 'and' 앞에서만 줄바꿈 */
+.tagline span {
+  white-space: nowrap;
+}
+
+/* =========================================================
+   푸터
+   ========================================================= */
+.site-footer {
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 48px 24px 40px;
+  text-align: center;
+}
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  margin-bottom: 24px;
+}
+.social-link {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.social-link img { width: 100%; height: 100%; }
+.social-link:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+.copyright {
+  font-size: 13px;
+  color: var(--text-dim);
+  letter-spacing: 0.3px;
+}
+/* © 글자만 노토산스로 (이사만루 미지원 글리프 대응) */
+.copy-symbol {
+  font-family: "NotoSansKR", sans-serif;
+}
+
+/* =========================================================
+   반응형 — 태블릿 (1024px 이하)
+   ========================================================= */
+@media (max-width: 1024px) {
+  .games-grid {
+    grid-template-columns: 1fr;     /* 이미지 위, 특징 아래 */
+    gap: 36px;
+  }
+  .epic-megagrant {
+    right: 3%;
+    bottom: 8%;
+    max-width: 420px;
+    gap: 14px;
+    padding: 14px 18px;
+  }
+  .epic-badge { width: 96px; }
+}
+
+/* =========================================================
+   반응형 — 모바일 (768px 이하)
+   ========================================================= */
+@media (max-width: 768px) {
+  .section-inner { padding: 100px 20px; }   /* 모바일도 섹션 간격 넉넉히 */
+
+  /* --- 헤더: 햄버거 메뉴로 --- */
+  .nav-toggle { display: flex; }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(75vw, 300px);
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    gap: 28px;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.96);
+    backdrop-filter: blur(10px);
+    transform: translateX(100%);     /* 평소엔 화면 밖 */
+    transition: transform 0.32s ease;
+    border-left: 1px solid rgba(8, 225, 120, 0.15);
+  }
+  .nav.open { transform: translateX(0); } /* 열림 */
+
+  .nav-link { font-size: 20px; }
+
+  /* 햄버거 → X 모양 애니메이션 */
+  .nav-toggle.active span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); }
+
+  /* --- 히어로: 모바일 전용 세로 키비주얼 (레퍼런스 Mobile_Hero) --- */
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    background-image: url("images/hero-bg-mobile.png");  /* 모바일 전용 키비주얼 */
+    background-position: top center;    /* 캐릭터(상단)부터 보이게 */
+    background-size: cover;
+    min-height: 100vh;
+    height: auto;
+    padding-top: calc(var(--header-h) + 20px);
+    padding-bottom: 40px;
+  }
+  /* 타이틀 그룹: 캐릭터 다리 아래(검정 영역)에 배치, 스팀버튼까지 첫 화면에 보이게 */
+  .hero-content {
+    max-width: 100%;
+    width: 100%;
+    margin: 48vh 0 0;
+  }
+  .hero-overlay {
+    /* 키비주얼 자체에 하단 검정 페이드가 있어 오버레이는 아주 약하게만 */
+    background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.30) 100%);
+  }
+  .hero-title { width: 90%; }
+  .hero-subtitle { width: 64%; }
+  .steam-btn { max-width: 210px; }
+
+  /* Epic 박스: 콘텐츠 흐름의 맨 아래(가로 박스 유지). 타이틀과의 간격은 hero-content margin으로 확보 */
+  .epic-megagrant {
+    position: static;
+    margin: 16vh auto 0;     /* 타이틀과 큰 간격 → 첫 화면 밖(스크롤해야 보임) */
+    max-width: 100%;
+    gap: 14px;
+    padding: 14px 16px;
+    text-align: left;
+    z-index: 2;
+  }
+  .epic-badge { width: 84px; }
+  .epic-title { font-size: 17px; }
+  .epic-text { font-size: 12.5px; }
+
+  .scroll-down { display: none; }     /* 모바일에선 숨김 */
+
+  /* --- OUR GAMES 특징: 1열 --- */
+  .games-features { grid-template-columns: 1fr; gap: 26px; }
+
+  /* --- ABOUT: 멤버 세로로 --- */
+  .team { gap: 44px; }
+  .member-role { font-size: 12.5px; }
+}
+
+/* 아주 작은 화면 (420px 이하) 미세 조정 */
+@media (max-width: 420px) {
+  .hero-title { width: 96%; }
+  .hero-subtitle { width: 72%; }
+  .brand-logo { height: 22px; }
+  /* Epic 박스: 가로 배치 유지(시안), 좁은 화면에선 살짝 축소 */
+  .epic-megagrant { gap: 12px; padding: 12px 14px; }
+  .epic-badge { width: 72px; }
+  .epic-title { font-size: 15.5px; }
+  .epic-text { font-size: 12px; }
+  /* 역할 텍스트가 아주 좁은 화면에서 넘치면 살짝 더 축소 */
+  .member-role { font-size: 11.5px; }
+}

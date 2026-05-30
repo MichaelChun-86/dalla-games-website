@@ -1,0 +1,19 @@
+# 대용량 작업 원본
+*.psd
+
+# 참고/캡처/중복 폴더 (배포 불필요)
+Reference/
+_shots/
+Font/
+
+# images: 한글·원본 이미지 제외 (코드는 영문 복사본만 사용)
+images/0-*
+images/1-*
+images/2-*
+images/3-*
+images/Mobile_Hero_Key.png
+images/Epic_MegaGrants_Recipient_logo.png
+
+# OS
+Thumbs.db
+.DS_Store
