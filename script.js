@@ -32,6 +32,17 @@
       });
     });
 
+    // Home 링크 / 로고 클릭: 맨 위로 부드럽게 이동하되 주소에 #home 을 남기지 않음
+    document.querySelectorAll('a.brand, .nav-link[href="#home"]').forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        setMenu(false);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        // URL을 "/"(해시 없는 상태)로 정리
+        history.replaceState(null, "", location.pathname + location.search);
+      });
+    });
+
     // ESC 키로 메뉴 닫기
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") setMenu(false);
