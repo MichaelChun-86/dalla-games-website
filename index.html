@@ -31,6 +31,9 @@
   <meta name="twitter:image" content="https://dallagames.com/images/og-image.jpg" />
 
   <link rel="stylesheet" href="style.css" />
+
+  <!-- 터미널형 부팅 인트로 오버레이 (기존 코드와 분리된 추가 파일) -->
+  <link rel="stylesheet" href="intro-overlay.css" />
 </head>
 <body>
 
@@ -91,9 +94,11 @@
         </div>
       </div>
 
-      <!-- 아래로 스크롤 유도 화살표 -->
+      <!-- 아래로 스크롤 유도 화살표 (네온 쉐브론 3개가 순차로 흐름) -->
       <a href="#games" class="scroll-down" aria-label="Scroll down">
-        <img src="images/down-arrow.svg" alt="" />
+        <span class="chevron"></span>
+        <span class="chevron"></span>
+        <span class="chevron"></span>
       </a>
     </section>
 
@@ -210,5 +215,9 @@
   </footer>
 
   <script src="script.js"></script>
+  <!-- 합성 사운드 효과 (타이핑/CRT/스팀 버튼) — 기존 코드와 분리된 추가 파일 -->
+  <script src="sfx.js"></script>
+  <!-- 터미널형 부팅 인트로 오버레이 (기존 코드와 분리된 추가 파일) -->
+  <script src="intro-overlay.js"></script>
 </body>
 </html>

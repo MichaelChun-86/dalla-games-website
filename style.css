@@ -83,6 +83,10 @@ a {
   transition: opacity 0.8s ease, transform 0.8s ease;
   will-change: opacity, transform;
 }
+/* 스크롤을 위로 올려 다시 등장할 땐 위에서 아래로 살짝 내려오며 나타남 */
+.reveal.reveal-from-top {
+  transform: translateY(-34px);
+}
 .reveal.is-visible {
   opacity: 1;
   transform: none;
@@ -90,6 +94,8 @@ a {
 /* 움직임 최소화를 선호하는 사용자는 애니메이션 제거 */
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-subtitle { animation: none; }
+  .scroll-down .chevron { animation: none; opacity: 0.8; }
 }
 
 .section-inner {
@@ -237,13 +243,27 @@ a {
 .hero-subtitle {
   width: min(360px, 60%);
   height: auto;
-  margin-top: 22px;
+  margin-top: 6px;          /* 타이틀에 더 가깝게 (타이틀 위치는 유지) */
+  /* 사이즈는 그대로 두고 밝기/글로우만 은은하게 깜빡여 클릭 유도 */
+  animation: wishlist-pulse 2.4s ease-in-out infinite;
+}
+
+/* Wishlist Now 은은한 펄스 (opacity + 네온 글로우, 크기 변화 없음) */
+@keyframes wishlist-pulse {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(43, 255, 151, 0.55));
+  }
+  50% {
+    opacity: 0.55;
+    filter: drop-shadow(0 0 2px rgba(43, 255, 151, 0.25));
+  }
 }
 
 /* 스팀 버튼: 이미지를 배경으로 두고 호버 시 교체 */
 .steam-btn {
   display: block;
-  margin: 28px auto 0;            /* 가로 중앙 */
+  margin: -10px auto 0;           /* 가로 중앙, Wishlist Now에 더 바짝 (음수로 당김) */
   width: 224px;
   max-width: 60%;
   aspect-ratio: 224 / 85;         /* 원본 비율 유지 */
@@ -294,21 +314,39 @@ a {
   color: var(--text);
 }
 
-/* 아래로 스크롤 화살표 */
+/* 아래로 스크롤 화살표: 네온 쉐브론 3개가 위→아래로 순차로 빛나며 흐름 */
 .scroll-down {
   position: absolute;
   z-index: 2;
   left: 50%;
   bottom: 24px;
   transform: translateX(-50%);
-  width: 28px;
-  opacity: 0.7;
-  animation: bounce 2s infinite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;            /* 쉐브론 간 세로 간격(겹치듯 촘촘하게) */
 }
-.scroll-down img { width: 100%; height: auto; }
-@keyframes bounce {
-  0%, 100% { transform: translate(-50%, 0); }
-  50%      { transform: translate(-50%, 8px); }
+
+/* 쉐브론 한 개: 두 변(우/하)만 그려 회전시켜 아래 향한 V 모양 */
+.scroll-down .chevron {
+  width: 16px;
+  height: 16px;
+  border-right: 3px solid var(--mint);
+  border-bottom: 3px solid var(--mint);
+  transform: rotate(45deg);
+  opacity: 0.25;
+  filter: drop-shadow(0 0 4px rgba(43, 255, 151, 0.6));
+  animation: chevron-flow 1.8s ease-in-out infinite;
+}
+/* 위에서 아래로 순차적으로 밝아지도록 시작 시점을 어긋나게 */
+.scroll-down .chevron:nth-child(1) { animation-delay: 0s; }
+.scroll-down .chevron:nth-child(2) { animation-delay: 0.18s; }
+.scroll-down .chevron:nth-child(3) { animation-delay: 0.36s; }
+
+/* 흐르는 빛: 흐림 → 밝게 빛났다 → 다시 흐림 */
+@keyframes chevron-flow {
+  0%, 100% { opacity: 0.2; }
+  40%      { opacity: 1; }
 }
 
 /* =========================================================
@@ -519,19 +557,20 @@ a {
     padding-top: calc(var(--header-h) + 20px);
     padding-bottom: 40px;
   }
-  /* 타이틀 그룹: 캐릭터 다리 아래(검정 영역)에 배치, 스팀버튼까지 첫 화면에 보이게 */
+  /* 타이틀 그룹: 캐릭터 다리 아래(검정 영역)에 배치, 스팀버튼까지 첫 화면에 보이게.
+     화면 높이가 작은 기기에서도 안 짤리도록 위로 올리고 요소 간격을 압축. */
   .hero-content {
     max-width: 100%;
     width: 100%;
-    margin: 48vh 0 0;
+    margin: 40vh 0 0;       /* 48vh → 40vh: 그룹 전체를 위로 */
   }
   .hero-overlay {
     /* 키비주얼 자체에 하단 검정 페이드가 있어 오버레이는 아주 약하게만 */
     background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.30) 100%);
   }
   .hero-title { width: 90%; }
-  .hero-subtitle { width: 64%; }
-  .steam-btn { max-width: 210px; }
+  .hero-subtitle { width: 64%; margin-top: 4px; }    /* 타이틀에 더 가깝게 */
+  .steam-btn { max-width: 168px; margin-top: -6px; } /* 위시리스트보다 살짝 작게, 바짝 붙게 */
 
   /* Epic 박스: 콘텐츠 흐름의 맨 아래(가로 박스 유지). 타이틀과의 간격은 hero-content margin으로 확보 */
   .epic-megagrant {

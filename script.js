@@ -65,8 +65,18 @@
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
+          // 화면에 들어오면 페이드인 (한 번만이 아니라 매번 재생)
           entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target); // 한 번만 실행
+        } else {
+          // 화면 밖으로 나가면 숨김 상태로 되돌려 다음에 다시 재생되게 함
+          entry.target.classList.remove("is-visible");
+          // 위쪽으로 빠져나갔으면(스크롤 내릴 때) → 다음엔 위에서 아래로 내려오며 등장
+          // 아래쪽으로 빠져나갔으면(스크롤 올릴 때) → 다음엔 아래에서 위로 올라오며 등장
+          if (entry.boundingClientRect.top < 0) {
+            entry.target.classList.add("reveal-from-top");
+          } else {
+            entry.target.classList.remove("reveal-from-top");
+          }
         }
       });
     }, { threshold: 0.15 });
