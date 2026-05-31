@@ -34,6 +34,8 @@
 
   <!-- 터미널형 부팅 인트로 오버레이 (기존 코드와 분리된 추가 파일) -->
   <link rel="stylesheet" href="intro-overlay.css" />
+  <!-- 인트로 스크립트는 head에서 동기 로드: 첫 페인트 전에 히어로를 숨겨 깜빡임(FOUC) 방지 -->
+  <script src="intro-overlay.js"></script>
 </head>
 <body>
 
@@ -217,7 +219,5 @@
   <script src="script.js"></script>
   <!-- 합성 사운드 효과 (타이핑/CRT/스팀 버튼) — 기존 코드와 분리된 추가 파일 -->
   <script src="sfx.js"></script>
-  <!-- 터미널형 부팅 인트로 오버레이 (기존 코드와 분리된 추가 파일) -->
-  <script src="intro-overlay.js"></script>
 </body>
 </html>

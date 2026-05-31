@@ -48,8 +48,9 @@
   var CRT_MS = 420;                  // [A] CRT 전원 꺼짐
   var SKIP_FADE_MS = 400;            // SKIP 시 즉시 종료 페이드
 
-  // 스크롤 잠금
-  document.documentElement.classList.add("intro-active");
+  // 스크롤 잠금 + 첫 페인트 전에 히어로를 숨김(FOUC 방지).
+  // head에서 동기 로드되므로 <body>/.hero가 그려지기 전에 이 클래스가 적용된다.
+  document.documentElement.classList.add("intro-active", "intro-playing");
 
   // DOM이 준비되면 실행
   if (document.readyState === "loading") {
@@ -59,8 +60,8 @@
   }
 
   function init() {
-    // intro-playing: 인트로 재생 중 히어로 주요 요소를 숨김 상태로 둠
-    document.body.classList.add("intro-active", "intro-playing");
+    // 스크롤 잠금(intro-playing은 이미 documentElement에 적용되어 있음)
+    document.body.classList.add("intro-active");
 
     var overlay = buildOverlay();
     document.body.appendChild(overlay);
@@ -90,8 +91,8 @@
     // 오버레이 제거 + 히어로 노출(순차 페이드인은 CSS가 처리)
     function revealHero() {
       if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-      document.documentElement.classList.remove("intro-active");
-      document.body.classList.remove("intro-active", "intro-playing");
+      document.documentElement.classList.remove("intro-active", "intro-playing");
+      document.body.classList.remove("intro-active");
       document.body.classList.add("intro-done");
     }
 

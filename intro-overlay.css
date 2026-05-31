@@ -336,8 +336,9 @@ body.intro-active {
    (기존 style.css는 보존하고, body 클래스 기준으로 최소 범위만 제어)
    ========================================================================= */
 
-/* 배경 키 비주얼: 인트로 종료 후 opacity로 페이드인(너무 느리지 않게) */
-body.intro-playing .hero {
+/* 배경 키 비주얼: 인트로 종료 후 opacity로 페이드인(너무 느리지 않게).
+   숨김은 html.intro-playing 기준 → 첫 페인트 전에 적용되어 FOUC를 막는다. */
+html.intro-playing .hero {
   opacity: 0;
 }
 body.intro-done .hero {
@@ -346,10 +347,10 @@ body.intro-done .hero {
 }
 
 /* 인트로 재생 중에는 히어로 주요 요소를 숨김 상태로 대기 */
-body.intro-playing .hero-title,
-body.intro-playing .hero-subtitle,
-body.intro-playing .steam-btn,
-body.intro-playing .epic-megagrant {
+html.intro-playing .hero-title,
+html.intro-playing .hero-subtitle,
+html.intro-playing .steam-btn,
+html.intro-playing .epic-megagrant {
   opacity: 0;
   transform: translateY(14px);
   animation: none;            /* Wishlist Now 펄스 등 기존 애니메이션 잠시 정지 */
