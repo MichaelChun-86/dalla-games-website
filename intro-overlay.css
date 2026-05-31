@@ -336,6 +336,15 @@ body.intro-active {
    (기존 style.css는 보존하고, body 클래스 기준으로 최소 범위만 제어)
    ========================================================================= */
 
+/* 배경 키 비주얼: 인트로 종료 후 opacity로 페이드인(너무 느리지 않게) */
+body.intro-playing .hero {
+  opacity: 0;
+}
+body.intro-done .hero {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
 /* 인트로 재생 중에는 히어로 주요 요소를 숨김 상태로 대기 */
 body.intro-playing .hero-title,
 body.intro-playing .hero-subtitle,
