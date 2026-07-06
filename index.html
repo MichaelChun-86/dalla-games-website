@@ -18,7 +18,9 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="THE AEON FALL — DALLA GAMES" />
   <meta property="og:description" content="Hardcore Roguelike Defense. Wishlist THE AEON FALL on Steam." />
-  <meta property="og:image" content="https://dallagames.com/images/og-image.jpg" />
+  <!-- ?v= 는 캐시 무효화용 버전. og 이미지를 교체할 때마다 이 숫자를 바꾸면
+       SNS(카카오톡/페이스북/디스코드 등)가 새 이미지를 다시 가져온다. -->
+  <meta property="og:image" content="https://dallagames.com/images/og-image.jpg?v=20260707" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="675" />
   <meta property="og:url" content="https://dallagames.com/" />
@@ -28,7 +30,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="THE AEON FALL — DALLA GAMES" />
   <meta name="twitter:description" content="Hardcore Roguelike Defense. Wishlist THE AEON FALL on Steam." />
-  <meta name="twitter:image" content="https://dallagames.com/images/og-image.jpg" />
+  <meta name="twitter:image" content="https://dallagames.com/images/og-image.jpg?v=20260707" />
 
   <link rel="stylesheet" href="style.css" />
 
@@ -72,8 +74,14 @@
       <div class="hero-overlay"></div>
 
       <div class="hero-content">
-        <!-- 큰 타이틀: THE AEON FALL (이미지 로고) -->
-        <img src="images/logo-aeonfall.webp" alt="THE AEON FALL" class="hero-title" />
+        <!-- 큰 타이틀: THE AEON FALL (이미지 로고)
+             래퍼 위에 스펙큘러 스윕(메탈릭 하이라이트)을 얹는다. -->
+        <span class="hero-title-wrap">
+          <img src="images/logo-aeonfall.webp" alt="THE AEON FALL" class="hero-title" />
+        </span>
+
+        <!-- 출시 시기: Coming 2027 (이사만루 라이트) -->
+        <p class="hero-coming">Coming 2027</p>
 
         <!-- 부제: Wishlist Now (네온 텍스트 이미지) -->
         <img src="images/wishlist-text.webp" alt="Wishlist Now" class="hero-subtitle" />
@@ -152,7 +160,7 @@
         <!-- 유튜브 트레일러 (반응형 16:9 임베드) -->
         <div class="games-video">
           <iframe
-            src="https://www.youtube-nocookie.com/embed/ZuPX2S99tBM?rel=0"
+            src="https://www.youtube-nocookie.com/embed/hbOC0TWPv0c?rel=0"
             title="THE AEON FALL — Trailer"
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -201,7 +209,7 @@
         <img src="images/envelope.svg" alt="Email" />
       </a>
       <!-- 유튜브 -->
-      <a href="https://www.youtube.com/watch?v=ZuPX2S99tBM" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+      <a href="https://www.youtube.com/watch?v=hbOC0TWPv0c" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
         <img src="images/youtube.svg" alt="YouTube" />
       </a>
       <!-- 스팀 -->

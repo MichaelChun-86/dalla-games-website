@@ -212,7 +212,6 @@
       '  <span class="intro-corner tr"></span>',
       '  <span class="intro-corner bl"></span>',
       '  <span class="intro-corner br"></span>',
-      '  <span class="intro-hud-label top-left">AEON SYSTEMS v7.3.2</span>',
       '  <span class="intro-hud-label top-right">TERMINAL // SECURE MODE</span>',
       '  <span class="intro-hud-label bottom-left">SYS STATUS: ONLINE</span>',
       '  <span class="intro-hud-label bottom-right intro-uptime">UPTIME: 00:00:00</span>',

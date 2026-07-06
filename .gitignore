@@ -27,6 +27,14 @@ images/epic-badge.png
 images/team-chun.png
 images/team-kim.png
 
+# 백업 폴더 / 미사용 원본·소스 (로컬 보존, 배포 불필요)
+images/Old/
+images/New/BI_*
+images/New/Video Title.png
+images/game-art1.png
+images/logo-innermask.png
+images/og-image.webp
+
 # OS
 Thumbs.db
 .DS_Store
