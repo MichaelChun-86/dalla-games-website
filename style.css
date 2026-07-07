@@ -598,7 +598,7 @@ label,
    ABOUT US
    ========================================================= */
 .about {
-  background: var(--bg-soft);
+  background: var(--bg);
 }
 .team {
   display: flex;
@@ -766,8 +766,9 @@ label,
   .hero-subtitle { width: 64%; margin-top: -22px; }
   .steam-btn { max-width: 168px; margin-top: -14px; } /* 위시리스트만 내려도 버튼은 제자리(보정) */
 
-  /* 트레일러 영상: 모바일에서도 스팀 버튼 바로 아래 */
-  .hero-video { width: min(340px, 86%); margin-top: 20px; }
+  /* 트레일러 영상: 모바일에선 아래 Epic 박스와 같은 폭으로 키움
+     (둘 다 히어로 좌우 패딩 안쪽을 꽉 채워 폭이 정확히 맞는다) */
+  .hero-video { width: 100%; margin-top: 24px; }
 
   /* Epic 박스: 트레일러 영상 아래로 흐름(가로 박스 유지). */
   .epic-megagrant {
