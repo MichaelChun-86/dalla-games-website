@@ -35,8 +35,6 @@ images/Old/
 images/New/BI_*
 images/New/Video Title.png
 images/game-art1.png
-images/logo-innermask.png
-images/og-image.webp
 
 # 글리치 이펙트용 마스크/컷아웃 원본 PNG (실제 사용은 파생된 .webp만, 로컬 보존)
 images/hero-bg_CH.png
