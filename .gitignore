@@ -35,6 +35,12 @@ images/game-art1.png
 images/logo-innermask.png
 images/og-image.webp
 
+# 글리치 이펙트용 마스크/컷아웃 원본 PNG (실제 사용은 파생된 .webp만, 로컬 보존)
+images/hero-bg_CH.png
+images/hero-bg_Mask.png
+images/hero-bg_Mask2.png
+images/hero-bg-mobile_Mask.png
+
 # OS
 Thumbs.db
 .DS_Store

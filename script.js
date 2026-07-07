@@ -50,8 +50,9 @@
   }
 
   /* ---------- 2. 스크롤 시 섹션 페이드인 ---------- */
-  // 페이드인 대상: OUR GAMES, ABOUT US, 푸터
-  var revealTargets = document.querySelectorAll(".games .section-inner, .about .section-inner, .site-footer");
+  // 페이드인 대상: OUR GAMES, ABOUT US, 푸터, 그리고 히어로의 Epic MegaGrant 박스
+  // (Epic 박스는 화면에 들어올 때마다 살짝 위로 올라오며 등장해 존재감을 준다)
+  var revealTargets = document.querySelectorAll(".games .section-inner, .about .section-inner, .site-footer, .epic-megagrant");
 
   // 움직임 최소화 설정(접근성)을 켠 사용자는 애니메이션 없이 바로 표시
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -83,4 +84,24 @@
 
     revealTargets.forEach(function (el) { observer.observe(el); });
   }
+})();
+
+/* =========================================================
+   히어로 트레일러 파사드 (스팀 버튼 아래 영상)
+   - 유튜브 iframe 내부(다른 도메인)에는 커스텀 커서를 적용할 수 없어서,
+     재생 전에는 썸네일(게임 키아트)+재생버튼이 영역을 덮는다.
+   - 클릭하면 그때 iframe 에 주소(data-src, autoplay 포함)를 넣어
+     로드하고 파사드를 숨긴다. (미리 로드하지 않으니 초기 로딩도 가벼움)
+   ========================================================= */
+(function () {
+  "use strict";
+
+  var facade = document.getElementById("videoFacade");
+  var frame = document.getElementById("trailerFrame");
+  if (!facade || !frame) return;
+
+  facade.addEventListener("click", function () {
+    frame.src = frame.getAttribute("data-src");  // autoplay=1 포함 → 바로 재생
+    facade.classList.add("hidden");
+  });
 })();

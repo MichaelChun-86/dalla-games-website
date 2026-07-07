@@ -38,6 +38,15 @@
   <link rel="stylesheet" href="intro-overlay.css" />
   <!-- 인트로 스크립트는 head에서 동기 로드: 첫 페인트 전에 히어로를 숨겨 깜빡임(FOUC) 방지 -->
   <script src="intro-overlay.js"></script>
+
+  <!-- 히어로 특수효과: 글리치 버스트 + 스캐너 스윕 리빌 (기존 코드와 분리된 추가 파일)
+       CSS는 intro-overlay.css 다음에(규칙 우선순위), JS는 intro-overlay.js 다음에
+       head 동기 로드(새로고침 시 스캔 커버로 FOUC 방지) -->
+  <link rel="stylesheet" href="hero-fx.css" />
+  <script src="hero-fx.js"></script>
+
+  <!-- 마우스 커서 잔상(트레일) 스타일 — 스크립트는 body 끝에서 로드 -->
+  <link rel="stylesheet" href="cursor-trail.css" />
 </head>
 <body>
 
@@ -73,6 +82,18 @@
       <!-- 배경 위 가독성을 위한 어두운 오버레이 -->
       <div class="hero-overlay"></div>
 
+      <!-- 글리치/RGB 스플릿 버스트 레이어: 평소엔 전부 투명,
+           hero-fx.js 가 랜덤 간격으로 잠깐씩만 발동(hero-fx.css 참고)
+           배경 글리치 소스는 캐릭터가 뚫린 hero-bg-glitchzone.webp,
+           그 위에 hero-bg-ch.webp(캐릭터 컷아웃)를 올려 캐릭터를 보호 -->
+      <div class="hero-glitch" aria-hidden="true">
+        <div class="hg-layer hg-rgb-r"></div>   <!-- 빨강 채널 고스트 -->
+        <div class="hg-layer hg-rgb-c"></div>   <!-- 시안 채널 고스트 -->
+        <div class="hg-layer hg-slice-1"></div> <!-- 가로 슬라이스 어긋남 1 -->
+        <div class="hg-layer hg-slice-2"></div> <!-- 가로 슬라이스 어긋남 2 -->
+        <div class="hg-layer hg-ch"></div>      <!-- 캐릭터 보호용 원본 컷아웃 -->
+      </div>
+
       <div class="hero-content">
         <!-- 큰 타이틀: THE AEON FALL (이미지 로고)
              래퍼 위에 스펙큘러 스윕(메탈릭 하이라이트)을 얹는다. -->
@@ -91,6 +112,23 @@
            href="https://store.steampowered.com/app/4582730/THE_AEON_FALL/"
            target="_blank" rel="noopener"
            aria-label="Wishlist on Steam"></a>
+
+        <!-- 트레일러 영상: 스팀 버튼 바로 아래 (기존 OUR GAMES 에 있던 것을 이동)
+             유튜브 iframe 내부(다른 도메인)에는 커스텀 커서를 적용할 수 없으므로,
+             재생 전에는 썸네일(게임 키아트)+재생버튼(파사드)을 덮어 커스텀 커서가
+             보이게 하고, 클릭하면 그때 유튜브를 로드해 자동재생한다(script.js 참고). -->
+        <div class="hero-video">
+          <button type="button" class="video-facade" id="videoFacade" aria-label="Play trailer">
+            <span class="vf-play"></span>
+            <span class="vf-label">WATCH TRAILER</span>
+          </button>
+          <iframe
+            id="trailerFrame"
+            data-src="https://www.youtube-nocookie.com/embed/hbOC0TWPv0c?rel=0&autoplay=1"
+            title="THE AEON FALL — Trailer"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
       </div>
 
       <!-- Epic MegaGrant 배지 + 제목 + 문구 (반투명 박스) -->
@@ -102,6 +140,13 @@
             Epic Games&rsquo; support is helping us accelerate development of THE AEON FALL.
           </p>
         </div>
+      </div>
+
+      <!-- 스캐너 스윕 리빌 오버레이: 로드 시 1회, 검정 커버가 스캔라인을 따라 걷힘
+           (hero-fx.js 가 클래스 토글로 발동) -->
+      <div class="hero-scan" aria-hidden="true">
+        <div class="hs-cover"></div>
+        <div class="hs-line"></div>
       </div>
 
       <!-- 아래로 스크롤 유도 화살표 (네온 쉐브론 3개가 순차로 흐름) -->
@@ -155,16 +200,6 @@
               </p>
             </div>
           </div>
-        </div>
-
-        <!-- 유튜브 트레일러 (반응형 16:9 임베드) -->
-        <div class="games-video">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/hbOC0TWPv0c?rel=0"
-            title="THE AEON FALL — Trailer"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
         </div>
       </div>
     </section>
@@ -227,5 +262,7 @@
   <script src="script.js"></script>
   <!-- 합성 사운드 효과 (타이핑/CRT/스팀 버튼) — 기존 코드와 분리된 추가 파일 -->
   <script src="sfx.js"></script>
+  <!-- 마우스 커서 잔상(트레일) — 기존 코드와 분리된 추가 파일 -->
+  <script src="cursor-trail.js"></script>
 </body>
 </html>

@@ -80,15 +80,17 @@ a {
 }
 
 /* ---------- 커스텀 마우스 커서 ---------- */
-/* 평상시: 회색 화살표 커서.
+/* 평상시: 녹색 화살표 커서.
    커서 이미지의 뾰족한 끝(팁)이 좌상단에 있으므로 hotspot 은 0 0.
    cursor 속성은 자식으로 상속되므로 html 에 걸어두면
    페이지 전체(그리고 터미널 인트로 오버레이)까지 자동 적용된다. */
 html {
-  cursor: url('images/New/Normal.png') 0 0, auto;
+  cursor: url('images/Normal_Hover.png') 0 0, auto;
 }
 
-/* 클릭 가능한 요소 위에서는 녹색 hover 커서로 바뀐다. */
+/* 클릭 가능한 요소 위: 흰색 커서가 기본.
+   cursor-trail.js 가 html 에 .cur-alt 클래스를 빠르게 토글해
+   흰색 ↔ 녹색 깜박임을 만든다(녹색 쪽 규칙은 cursor-trail.css 에). */
 a,
 button,
 .nav-toggle,
@@ -98,7 +100,7 @@ button,
 label,
 [role="button"],
 [onclick] {
-  cursor: url('images/New/Normal_Hover.png') 0 0, pointer;
+  cursor: url('images/Normal.png') 0 0, pointer;
 }
 
 /* 공통 유틸 */
@@ -213,7 +215,7 @@ label,
   height: 22px;
   background: none;
   border: none;
-  cursor: url('images/New/Normal_Hover.png') 0 0, pointer;
+  cursor: url('images/Normal.png') 0 0, pointer;
   z-index: 1100;
 }
 .nav-toggle span {
@@ -472,11 +474,21 @@ label,
   gap: 48px;
   align-items: center;
 }
+/* 이미지 틀(테두리/모서리)은 래퍼가 갖고 overflow:hidden 으로 고정,
+   내부 이미지만 hover 시 확대되어 틀 밖으로 삐져나오지 않는다. */
+.games-art {
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid rgba(8, 225, 120, 0.15);
+}
 .games-art img {
   width: 100%;
   height: auto;
-  border-radius: 6px;
-  border: 1px solid rgba(8, 225, 120, 0.15);
+  display: block;
+  transition: transform 0.4s ease;
+}
+.games-art:hover img {
+  transform: scale(1.06);
 }
 .games-features {
   display: grid;
@@ -495,24 +507,92 @@ label,
   opacity: 0.82;
 }
 
-/* 유튜브 트레일러 임베드 (반응형 16:9, 다크 사이파이 톤) */
-.games-video {
-  width: 100%;
-  max-width: 900px;
-  margin: 72px auto 0;
-  aspect-ratio: 16 / 9;           /* 화면 너비에 맞춰 비율 유지 */
+/* 히어로 트레일러 임베드 (스팀 버튼 아래, 반응형 16:9, 다크 사이파이 톤) */
+.hero-video {
+  position: relative;             /* 파사드(재생 전 썸네일)를 위에 얹기 위한 기준 */
+  z-index: 1;                     /* Coming 2027 아래 레이어(위시리스트/스팀과 동일) */
+  width: min(540px, 100%);        /* 기존 360px 대비 150% 확대 */
+  margin: 26px auto 0;            /* 스팀 버튼과의 간격은 그대로 유지 */
+  aspect-ratio: 16 / 9;
   border: 1px solid rgba(8, 225, 120, 0.3);
   border-radius: 8px;
   overflow: hidden;
   background: #000;
-  box-shadow: 0 0 32px rgba(8, 225, 120, 0.12);  /* 그린 글로우 */
+  box-shadow: 0 0 26px rgba(8, 225, 120, 0.14);  /* 그린 글로우 */
 }
-.games-video iframe {
+.hero-video iframe {
   width: 100%;
   height: 100%;
   display: block;
   border: 0;
 }
+
+/* 재생 전 파사드: 포스터 + 재생 버튼.
+   유튜브 iframe 내부에는 커스텀 커서가 안 먹히므로, 재생 전에는 이 버튼이
+   영역을 덮어 커서(흰↔녹 깜박임)가 정상적으로 보이게 한다.
+   클릭하면 script.js 가 iframe 을 로드하고 파사드를 숨긴다. */
+.video-facade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  /* 썸네일: OUR GAMES 의 게임 키아트와 동일 이미지 */
+  background: url("images/game-art.webp") center / cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+/* 포스터 위 어두운 막: 호버하면 살짝 걷혀 반응감을 준다 */
+.video-facade::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  transition: background 0.25s ease;
+}
+.video-facade:hover::before,
+.video-facade:focus-visible::before {
+  background: rgba(0, 0, 0, 0.16);
+}
+/* 재생 버튼: 민트 링 + 삼각형 */
+.vf-play {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border: 2px solid var(--mint);
+  border-radius: 50%;
+  box-shadow: 0 0 18px rgba(8, 225, 120, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.vf-play::after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent var(--mint);
+}
+.video-facade:hover .vf-play,
+.video-facade:focus-visible .vf-play {
+  transform: scale(1.08);
+  box-shadow: 0 0 26px rgba(43, 255, 151, 0.65);
+}
+.vf-label {
+  position: relative;
+  color: var(--text);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+/* 재생 시작 후: 파사드 제거 */
+.video-facade.hidden { display: none; }
 
 /* =========================================================
    ABOUT US
@@ -673,7 +753,7 @@ label,
   .hero-content {
     max-width: 100%;
     width: 100%;
-    margin: 36vh 0 0;       /* Coming 2027 한 줄이 추가되어 살짝 더 위로 */
+    margin: 32vh 0 0;       /* 아래에 트레일러 영상이 추가되어 살짝 위로 */
   }
   .hero-overlay {
     /* 키비주얼 자체에 하단 검정 페이드가 있어 오버레이는 아주 약하게만 */
@@ -681,13 +761,18 @@ label,
   }
   .hero-title-wrap { width: 90%; }
   .hero-coming { font-size: 20px; letter-spacing: 2px; margin-top: 14px; }
-  .hero-subtitle { width: 64%; margin-top: -15px; }  /* 위로 올려 Coming 2027 에 겹치게 */
+  /* 위시리스트 + 스팀 버튼 그룹을 Coming 2027 쪽으로 더 끌어올려 간격을 좁힘
+     (subtitle 을 더 올리면 그 아래 스팀 버튼까지 함께 올라온다) */
+  .hero-subtitle { width: 64%; margin-top: -22px; }
   .steam-btn { max-width: 168px; margin-top: -14px; } /* 위시리스트만 내려도 버튼은 제자리(보정) */
 
-  /* Epic 박스: 콘텐츠 흐름의 맨 아래(가로 박스 유지). 타이틀과의 간격은 hero-content margin으로 확보 */
+  /* 트레일러 영상: 모바일에서도 스팀 버튼 바로 아래 */
+  .hero-video { width: min(340px, 86%); margin-top: 20px; }
+
+  /* Epic 박스: 트레일러 영상 아래로 흐름(가로 박스 유지). */
   .epic-megagrant {
     position: static;
-    margin: 16vh auto 0;     /* 타이틀과 큰 간격 → 첫 화면 밖(스크롤해야 보임) */
+    margin: 40px auto 0;     /* 영상 아래 적당한 간격 → 스크롤하면 등장 */
     max-width: 100%;
     gap: 14px;
     padding: 14px 16px;
@@ -702,7 +787,6 @@ label,
 
   /* --- OUR GAMES 특징: 1열 --- */
   .games-features { grid-template-columns: 1fr; gap: 26px; }
-  .games-video { margin-top: 48px; }
 
   /* --- ABOUT: 멤버 세로로 --- */
   .team { gap: 44px; }

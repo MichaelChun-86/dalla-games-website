@@ -245,9 +245,10 @@ body.intro-active {
   background: transparent;
   border: 1px solid rgba(57, 255, 158, 0.6);
   box-shadow: 0 0 8px rgba(57, 255, 158, 0.35);
-  /* 커스텀 녹색 hover 커서 (intro-overlay.css 가 style.css 보다 나중에
+  /* 커스텀 hover 커서: 흰색 기본 + cursor-trail.js 의 .cur-alt 토글로
+     흰↔녹 깜박임 (intro-overlay.css 가 style.css 보다 나중에
      로드되므로 여기서 직접 지정해줘야 한다.) */
-  cursor: url('images/New/Normal_Hover.png') 0 0, pointer;
+  cursor: url('images/Normal.png') 0 0, pointer;
   transition: background 0.2s ease, color 0.2s ease;
 }
 .intro-skip:hover,
@@ -355,18 +356,19 @@ html.intro-playing .hero-title-wrap,
 html.intro-playing .hero-coming,
 html.intro-playing .hero-subtitle,
 html.intro-playing .steam-btn,
-html.intro-playing .epic-megagrant {
+html.intro-playing .hero-video {
   opacity: 0;
   transform: translateY(14px);
   animation: none;            /* Wishlist Now 펄스 등 기존 애니메이션 잠시 정지 */
 }
+/* Epic 박스는 인트로/스캔 시퀀스에서 제외 — 스크롤 인 리빌(script.js .reveal)이 담당 */
 
 /* 인트로 종료(.intro-done) 시 약 0.12초 간격으로 순차 등장 */
 body.intro-done .hero-title-wrap,
 body.intro-done .hero-coming,
 body.intro-done .hero-subtitle,
 body.intro-done .steam-btn,
-body.intro-done .epic-megagrant {
+body.intro-done .hero-video {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -375,7 +377,7 @@ body.intro-done .hero-title-wrap { transition-delay: 0s; }
 body.intro-done .hero-coming    { transition-delay: 0.12s; }
 body.intro-done .hero-subtitle  { transition-delay: 0.24s; }
 body.intro-done .steam-btn      { transition-delay: 0.36s; }
-body.intro-done .epic-megagrant { transition-delay: 0.48s; }
+body.intro-done .hero-video     { transition-delay: 0.48s; }
 
 /* =========================================================================
    접근성: 모션 최소화 선호 시 — 인트로 자체를 JS가 건너뛰지만,
