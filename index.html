@@ -12,24 +12,24 @@
   <link rel="icon" type="image/png" href="images/favicon.png" />
 
   <!-- 검색/공유용 설명 -->
-  <meta name="description" content="DALLA GAMES Inc. — THE AEON FALL, a hardcore roguelike defense game." />
+  <meta name="description" content="Dalla Games Inc. — The AeonFall, a hardcore roguelike defense game." />
 
   <!-- 링크 공유 미리보기 (Open Graph) -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="THE AEON FALL — DALLA GAMES" />
-  <meta property="og:description" content="Hardcore Roguelike Defense. Wishlist THE AEON FALL on Steam." />
+  <meta property="og:title" content="The AeonFall — Dalla Games" />
+  <meta property="og:description" content="Hardcore Roguelike Defense. Wishlist The AeonFall on Steam." />
   <!-- ?v= 는 캐시 무효화용 버전. og 이미지를 교체할 때마다 이 숫자를 바꾸면
        SNS(카카오톡/페이스북/디스코드 등)가 새 이미지를 다시 가져온다. -->
   <meta property="og:image" content="https://dallagames.com/images/og-image.jpg?v=20260707" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="675" />
   <meta property="og:url" content="https://dallagames.com/" />
-  <meta property="og:site_name" content="DALLA GAMES" />
+  <meta property="og:site_name" content="Dalla Games" />
 
   <!-- 트위터(X) 카드 -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="THE AEON FALL — DALLA GAMES" />
-  <meta name="twitter:description" content="Hardcore Roguelike Defense. Wishlist THE AEON FALL on Steam." />
+  <meta name="twitter:title" content="The AeonFall — Dalla Games" />
+  <meta name="twitter:description" content="Hardcore Roguelike Defense. Wishlist The AeonFall on Steam." />
   <meta name="twitter:image" content="https://dallagames.com/images/og-image.jpg?v=20260707" />
 
   <link rel="stylesheet" href="style.css" />
@@ -47,6 +47,9 @@
 
   <!-- 마우스 커서 잔상(트레일) 스타일 — 스크립트는 body 끝에서 로드 -->
   <link rel="stylesheet" href="cursor-trail.css" />
+
+  <!-- 다국어(로컬라이제이션) 국기 버튼 스타일 — 스크립트는 body 끝에서 로드 -->
+  <link rel="stylesheet" href="i18n.css" />
 </head>
 <body>
 
@@ -56,8 +59,8 @@
       <!-- 좌측: 달라게임즈 로고 -->
       <!-- 기본 로고 위에 초록 호버 로고를 겹쳐, 마우스 오버 시 초록으로 바뀐다
            (클릭하면 홈으로 간다는 걸 인지시키기 위한 호버 피드백) -->
-      <a href="#home" class="brand" aria-label="DALLA GAMES home">
-        <img src="images/logo-dalla.webp" alt="DALLA GAMES" class="brand-logo brand-logo-default" />
+      <a href="#home" class="brand" aria-label="Dalla Games home">
+        <img src="images/logo-dalla.webp" alt="Dalla Games" class="brand-logo brand-logo-default" />
         <img src="images/logo-dalla-hover.webp" alt="" aria-hidden="true" class="brand-logo brand-logo-hover" />
       </a>
 
@@ -74,6 +77,14 @@
         <a href="#games" class="nav-link">Games</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#contact" class="nav-link">Contact</a>
+
+        <!-- 언어 전환 국기 (클릭 시 지정 영역만 로컬라이징, i18n.js) -->
+        <div class="lang-switch" role="group" aria-label="Language / 언어">
+          <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어"><img src="images/flag-kr.svg" alt="한국어" /></button>
+          <button type="button" class="lang-btn" data-lang="en" aria-label="English"><img src="images/flag-en.svg" alt="English" /></button>
+          <button type="button" class="lang-btn" data-lang="zh" aria-label="中文"><img src="images/flag-cn.svg" alt="中文" /></button>
+          <button type="button" class="lang-btn" data-lang="ja" aria-label="日本語"><img src="images/flag-jp.svg" alt="日本語" /></button>
+        </div>
       </nav>
     </div>
   </header>
@@ -105,7 +116,7 @@
         </span>
 
         <!-- 출시 시기: Coming 2027 (이사만루 라이트) -->
-        <p class="hero-coming">Coming 2027</p>
+        <p class="hero-coming" data-i18n="hero.coming">Coming 2027</p>
 
         <!-- 부제: Wishlist Now (네온 텍스트 이미지) -->
         <img src="images/wishlist-text.webp" alt="Wishlist Now" class="hero-subtitle" />
@@ -128,7 +139,7 @@
           <iframe
             id="trailerFrame"
             data-src="https://www.youtube-nocookie.com/embed/hbOC0TWPv0c?rel=0&autoplay=1"
-            title="THE AEON FALL — Trailer"
+            title="The AeonFall — Trailer"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </div>
@@ -138,9 +149,9 @@
       <div class="epic-megagrant">
         <img src="images/epic-badge.webp" alt="Epic MegaGrants Recipient" class="epic-badge" />
         <div class="epic-info">
-          <h3 class="epic-title font-medium accent">Epic MegaGrant Recipient</h3>
-          <p class="epic-text">
-            Epic Games&rsquo; support is helping us accelerate development of THE AEON FALL.
+          <h3 class="epic-title font-medium accent" data-i18n="epic.title">Epic MegaGrant Recipient</h3>
+          <p class="epic-text" data-i18n="epic.text">
+            Epic Games&rsquo; support is helping us accelerate development of The AeonFall.
           </p>
         </div>
       </div>
@@ -163,41 +174,41 @@
     <!-- ===================== OUR GAMES ===================== -->
     <section class="games" id="games">
       <div class="section-inner">
-        <h2 class="section-title font-medium">OUR <span class="accent">GAMES</span></h2>
-        <p class="section-subtitle">THE AEON FALL &ndash; Hardcore Roguelike Defense</p>
+        <h2 class="section-title font-medium" data-i18n-html="games.title">OUR <span class="accent">GAMES</span></h2>
+        <p class="section-subtitle" data-i18n="games.subtitle">The AeonFall &ndash; Hardcore Roguelike Defense</p>
 
         <div class="games-grid">
           <!-- 왼쪽: 게임 키아트 -->
           <div class="games-art">
-            <img src="images/game-art.webp" alt="THE AEON FALL key art" />
+            <img src="images/game-art.webp" alt="The AeonFall key art" />
           </div>
 
           <!-- 오른쪽: 4가지 특징 -->
           <div class="games-features">
             <div class="feature">
-              <h3 class="feature-title accent">Massive Waves</h3>
-              <p class="feature-desc">
+              <h3 class="feature-title accent" data-i18n="f1.title">Massive Waves</h3>
+              <p class="feature-desc" data-i18n="f1.desc">
                 Face relentless hordes at a scale that pushes your limits.
                 Every battle is a fight against overwhelming numbers.
               </p>
             </div>
             <div class="feature">
-              <h3 class="feature-title accent">Noise-Driven Threat</h3>
-              <p class="feature-desc">
+              <h3 class="feature-title accent" data-i18n="f2.title">Noise-Driven Threat</h3>
+              <p class="feature-desc" data-i18n="f2.desc">
                 Every action you take generates noise &mdash; and noise brings death.
                 Expand carefully, or trigger unstoppable waves.
               </p>
             </div>
             <div class="feature">
-              <h3 class="feature-title accent">Hybrid Control</h3>
-              <p class="feature-desc">
+              <h3 class="feature-title accent" data-i18n="f3.title">Hybrid Control</h3>
+              <p class="feature-desc" data-i18n="f3.desc">
                 Directly control your character while building and defending your base in real time.
                 Balance action and strategy to survive.
               </p>
             </div>
             <div class="feature">
-              <h3 class="feature-title accent">Dynamic Survival</h3>
-              <p class="feature-desc">
+              <h3 class="feature-title accent" data-i18n="f4.title">Dynamic Survival</h3>
+              <p class="feature-desc" data-i18n="f4.desc">
                 Each run unfolds differently with shifting terrain, resources, and enemy patterns.
                 Adapt or be overwhelmed.
               </p>
@@ -210,29 +221,29 @@
     <!-- ===================== ABOUT US ===================== -->
     <section class="about" id="about">
       <div class="section-inner">
-        <h2 class="section-title font-medium">ABOUT <span class="accent">US</span></h2>
-        <p class="section-subtitle">DALLA GAMES INC.</p>
+        <h2 class="section-title font-medium" data-i18n-html="about.title">ABOUT <span class="accent">US</span></h2>
+        <p class="section-subtitle" data-i18n="about.subtitle">Dalla Games Inc.</p>
 
         <div class="team">
           <figure class="member">
             <img src="images/team-chun.webp" alt="Joonyoung Chun" class="member-photo" />
             <figcaption>
-              <span class="member-name"><span class="accent">CEO</span> JOONYOUNG CHUN</span>
-              <span class="member-role">Lead Artist / Concept Designer</span>
+              <span class="member-name" data-i18n-html="m1.name"><span class="accent">CEO</span> JoonYoung Chun</span>
+              <span class="member-role" data-i18n="m1.role">Lead Artist / Concept Designer</span>
             </figcaption>
           </figure>
 
           <figure class="member">
             <img src="images/team-kim.webp" alt="Yunkyu Kim" class="member-photo" />
             <figcaption>
-              <span class="member-name"><span class="accent">CTO</span> YUNKYU KIM</span>
-              <span class="member-role">Lead Programmer / Lead Game Designer</span>
+              <span class="member-name" data-i18n-html="m2.name"><span class="accent">CTO</span> YunKyu Kim</span>
+              <span class="member-role" data-i18n="m2.role">Lead Programmer / Lead Game Designer</span>
             </figcaption>
           </figure>
         </div>
 
-        <p class="tagline">
-          <span>We build games where every decision matters</span> <span>and every mistake has consequences.</span>
+        <p class="tagline" data-i18n="tagline">
+          We build games where every decision matters and every mistake has consequences.
         </p>
       </div>
     </section>
@@ -258,7 +269,7 @@
 
     <!-- 카피라이트: © 글자만 노토산스(.copy-symbol)로 처리 -->
     <p class="copyright">
-      THE AEON FALL&trade; <span class="copy-symbol">&copy;</span> 2026 Dalla Games Inc. All rights reserved. Developed by Dalla Games Inc.
+      The AeonFall&trade; <span class="copy-symbol">&copy;</span> 2026 Dalla Games Inc. All rights reserved. Developed by Dalla Games Inc.
     </p>
   </footer>
 
@@ -267,5 +278,7 @@
   <script src="sfx.js"></script>
   <!-- 마우스 커서 잔상(트레일) — 기존 코드와 분리된 추가 파일 -->
   <script src="cursor-trail.js"></script>
+  <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
+  <script src="i18n.js"></script>
 </body>
 </html>

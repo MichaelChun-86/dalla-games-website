@@ -376,7 +376,7 @@ label,
   z-index: 3;
   font-weight: 300;                 /* 이사만루 라이트 */
   color: #ffffff;
-  font-size: clamp(20px, 2.4vw, 30px);
+  font-size: clamp(18px, 2.1vw, 26px);
   letter-spacing: 3px;
   margin-top: 22px;                 /* 타이틀 아래로 살짝 간격 */
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
@@ -828,7 +828,7 @@ label,
     background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.30) 100%);
   }
   .hero-title-wrap { width: 90%; }
-  .hero-coming { font-size: 20px; letter-spacing: 2px; margin-top: 14px; }
+  .hero-coming { font-size: 18px; letter-spacing: 2px; margin-top: 14px; }
   /* 위시리스트 + 스팀 버튼 그룹을 Coming 2027 쪽으로 더 끌어올려 간격을 좁힘
      (subtitle 을 더 올리면 그 아래 스팀 버튼까지 함께 올라온다) */
   .hero-subtitle { width: 64%; margin-top: -22px; }

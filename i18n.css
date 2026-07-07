@@ -1,0 +1,115 @@
+/* =========================================================================
+   언어 전환 국기 버튼 (메뉴 우측)
+   ========================================================================= */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 18px;
+  border-left: 1px solid rgba(255, 255, 255, 0.14);   /* 메뉴와 구분선 */
+}
+
+.lang-btn {
+  display: inline-flex;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  line-height: 0;
+  opacity: 0.5;                 /* 비선택 국기는 흐리게 */
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  cursor: url('images/Normal.png') 0 0, pointer;
+}
+.lang-btn img {
+  width: 26px;
+  height: auto;
+  display: block;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+.lang-btn:hover,
+.lang-btn:focus-visible {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  outline: none;
+}
+/* 현재 선택된 언어 국기: 또렷 + 민트 링 */
+.lang-btn.active {
+  opacity: 1;
+}
+.lang-btn.active img {
+  box-shadow: 0 0 0 2px var(--mint), 0 0 8px rgba(8, 225, 120, 0.55);
+}
+
+/* ---- 모바일: 슬라이드인 메뉴 안에서 국기들을 아래에 가로로 ---- */
+@media (max-width: 768px) {
+  .lang-switch {
+    padding-left: 0;
+    border-left: 0;
+    margin-top: 14px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    justify-content: center;
+    gap: 14px;
+  }
+  .lang-btn img { width: 34px; }
+}
+
+/* =========================================================================
+   中文 / 日本語 제목 한자(CJK) 폰트 보정
+   - 본문 기본 폰트 "이사만루"는 한글 전용이라 CJK 글리프가 없어 얇은 시스템
+     폰트로 폴백된다. 그 결과 제목의 한자가 얇고 어색해 보이고, 일본어는
+     한자(私)와 かな가 서로 다른 폰트로 갈려 굵기가 들쭉날쭉해진다.
+   - i18n.js 가 <html lang> 을 바꾸므로, 언어별로 두툼한 시스템 CJK 고딕을
+     지정해 제목 한자의 굵기·디자인을 일관되게 맞춘다. (웹폰트 미추가 → 가벼움)
+
+   ▶ 제목에 들어가는 한자는 모두 이 규칙으로 통일한다.
+     새 제목이 생기면 아래 셀렉터 목록에 그 요소를 추가할 것.
+     - CJK 전용(또는 숫자만) 제목  → CJK-우선 스택(전체를 두툼하게)
+       예: .hero-coming(2027…), .section-title(OUR GAMES/ABOUT US 번역)
+     - 라틴 워드마크 + 한자 혼합 제목 → 이사만루-우선 스택(라틴은 이사만루 유지,
+       뒤따르는 한자만 두툼한 CJK 폰트로) 예: .epic-title(Epic MegaGrant 受賞…)
+
+   폰트 변수처럼 재사용하기 위한 스택(주석용 메모):
+     zh: "Microsoft YaHei","微软雅黑","PingFang SC","Hiragino Sans GB",
+         "Source Han Sans SC","Noto Sans SC", sans-serif
+     ja: "Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Hiragino Sans",
+         "Meiryo","Source Han Sans JP","Noto Sans JP", sans-serif
+   ========================================================================= */
+
+/* 중국어(간체) — 섹션 제목(OUR GAMES/ABOUT US): 통째로 두툼한 고딕 */
+html[lang="zh"] .section-title {
+  font-family: "Microsoft YaHei", "微软雅黑", "PingFang SC",
+               "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+}
+/* 중국어/일본어 — Coming(예: 预计 2027 年发售 / 2027年 発売予定): 굵은 고딕은 너무
+   두꺼워서 이사만루-우선 + 부드러운 고딕(핑팡/YaHei 레귤러)으로 통일.
+   font-weight 는 지정하지 않아 .hero-coming 기본(300 라이트)을 그대로 써서 2027
+   숫자가 영어처럼 이사만루 라이트로 나오고, 한자는 얇고 깔끔한 고딕으로 렌더된다.
+   일본어 Coming 문구는 가나 없이 한자+숫자뿐이라 중국어와 동일한 폰트 스택을
+   그대로 써도 문제없어, 두 언어 모두 같은 폰트로 통일했다(사용자 요청). */
+html[lang="zh"] .hero-coming,
+html[lang="ja"] .hero-coming {
+  font-family: "esamanru", "PingFang SC", "Microsoft YaHei", "微软雅黑",
+               "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans SC", sans-serif;
+}
+/* 중국어 — 라틴+한자 혼합 제목: 라틴은 이사만루, 한자만 두툼한 고딕 */
+html[lang="zh"] .epic-title {
+  font-family: "esamanru", "Microsoft YaHei", "微软雅黑", "PingFang SC",
+               "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+}
+
+/* 일본어 — 섹션 제목(OUR GAMES/ABOUT US): 한자(私)와 かな를 같은 폰트/굵기로 통일 */
+html[lang="ja"] .section-title {
+  font-family: "Yu Gothic", "YuGothic", "Hiragino Kaku Gothic ProN",
+               "Hiragino Sans", "Meiryo", "Source Han Sans JP", "Noto Sans JP", sans-serif;
+  font-weight: 700;
+}
+/* 일본어 — 라틴+한자 혼합 제목: 라틴은 이사만루, 한자(受賞)만 두툼한 고딕 */
+html[lang="ja"] .epic-title {
+  font-family: "esamanru", "Yu Gothic", "YuGothic", "Hiragino Kaku Gothic ProN",
+               "Hiragino Sans", "Meiryo", "Source Han Sans JP", "Noto Sans JP", sans-serif;
+  font-weight: 700;
+}
