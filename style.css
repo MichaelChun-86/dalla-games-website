@@ -175,9 +175,28 @@ label,
   justify-content: space-between;
 }
 
+/* 로고 두 장(기본/호버)을 정확히 겹치기 위한 기준 */
+.brand {
+  position: relative;
+  display: inline-block;
+  line-height: 0;          /* 이미지 아래 여백 제거 */
+}
 .brand-logo {
   height: 26px;
   width: auto;
+  display: block;
+}
+/* 초록 호버 로고: 기본 로고 위에 겹쳐 두고 평소엔 숨김 → 호버 시 페이드인 */
+.brand-logo-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.brand:hover .brand-logo-hover,
+.brand:focus-visible .brand-logo-hover {
+  opacity: 1;
 }
 
 .nav {
@@ -251,6 +270,22 @@ label,
   inset: 0;
   background: linear-gradient(90deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 42%);
   pointer-events: none;
+}
+/* 히어로 이미지 위 얇은 다크 네온 그린 세로 라인 (정적, 다른 화면의 가로 라인과 동일 톤).
+   콘텐츠(z-index:2)보다 아래라 텍스트/버튼은 라인 위에 또렷하게 보인다. */
+.hero-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* 1px 다크 네온 그린 라인이 8px 간격으로 반복 (진하지 않게) */
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(8, 225, 120, 0.06) 0,
+    rgba(8, 225, 120, 0.06) 1px,
+    transparent 1px,
+    transparent 8px
+  );
 }
 
 /* 히어로 콘텐츠: 화면 좌측에 배치, 그룹 내부는 가운데 정렬 유지 */
@@ -467,6 +502,8 @@ label,
    ========================================================= */
 .games {
   background: var(--bg);
+  position: relative;    /* 배경 라인 레이어(::before) 기준 */
+  overflow: hidden;      /* 라인이 섹션 밖으로 새지 않게 */
 }
 .games-grid {
   display: grid;
@@ -599,7 +636,38 @@ label,
    ========================================================= */
 .about {
   background: var(--bg);
+  position: relative;    /* 배경 라인 레이어(::before) 기준 */
+  overflow: hidden;
 }
+
+/* =========================================================
+   섹션 배경: 얇은 다크 네온 그린 가로 라인 (정적, OUR GAMES / ABOUT US 공통)
+   - 애니메이션/깜박임/글리치 없이 은은한 가로 라인 텍스처만.
+   - 콘텐츠(.section-inner, z-index:1)보다 아래(z-index:0) 배경 레이어.
+   ========================================================= */
+.games > .section-inner,
+.about > .section-inner {
+  position: relative;
+  z-index: 1;            /* 라인 위에 콘텐츠 */
+}
+
+.games::before,
+.about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* 1px 다크 네온 그린 라인이 6px 간격으로 반복 (진하지 않게) */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(8, 225, 120, 0.06) 0,
+    rgba(8, 225, 120, 0.06) 1px,
+    transparent 1px,
+    transparent 6px
+  );
+}
+
 .team {
   display: flex;
   justify-content: center;

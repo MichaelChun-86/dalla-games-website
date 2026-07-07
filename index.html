@@ -54,8 +54,11 @@
   <header class="site-header" id="siteHeader">
     <div class="header-inner">
       <!-- 좌측: 달라게임즈 로고 -->
+      <!-- 기본 로고 위에 초록 호버 로고를 겹쳐, 마우스 오버 시 초록으로 바뀐다
+           (클릭하면 홈으로 간다는 걸 인지시키기 위한 호버 피드백) -->
       <a href="#home" class="brand" aria-label="DALLA GAMES home">
-        <img src="images/logo-dalla.webp" alt="DALLA GAMES" class="brand-logo" />
+        <img src="images/logo-dalla.webp" alt="DALLA GAMES" class="brand-logo brand-logo-default" />
+        <img src="images/logo-dalla-hover.webp" alt="" aria-hidden="true" class="brand-logo brand-logo-hover" />
       </a>
 
       <!-- 모바일 햄버거 버튼 -->

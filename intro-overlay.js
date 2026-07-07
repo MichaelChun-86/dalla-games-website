@@ -207,6 +207,8 @@
     overlay.setAttribute("aria-hidden", "true");
 
     overlay.innerHTML = [
+      // 배경 글리치: 얇은 스캔 밴드 + 가끔 어긋나는 글리치 라인 (CSS 처리, 텍스트 뒤 배경 레이어)
+      '<div class="intro-glitch" aria-hidden="true"></div>',
       '<div class="intro-frame">',
       '  <span class="intro-corner tl"></span>',
       '  <span class="intro-corner tr"></span>',
@@ -216,7 +218,12 @@
       '  <span class="intro-hud-label bottom-left">SYS STATUS: ONLINE</span>',
       '  <span class="intro-hud-label bottom-right intro-uptime">UPTIME: 00:00:00</span>',
       '</div>',
-      '<img class="intro-title" src="images/logo-aeonfall.webp" alt="THE AEON FALL" />',
+      // 터미널 로고: 소등(off) 이미지를 바닥에 깔고, 발광(glow) 이미지를 위에 얹어
+      // glow 레이어 opacity 를 불규칙하게 깜박여 네온 점멸 효과를 낸다(CSS 처리).
+      '<div class="intro-title">',
+      '  <img class="intro-title-off"  src="images/terminal-logo-off.webp"  alt="" aria-hidden="true" />',
+      '  <img class="intro-title-glow" src="images/terminal-logo-glow.webp" alt="THE AEON FALL" />',
+      '</div>',
       '<div class="intro-console"></div>',
       '<button type="button" class="intro-skip" aria-label="Skip intro">SKIP</button>'
     ].join("");

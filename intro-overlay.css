@@ -56,29 +56,22 @@ body.intro-active {
   pointer-events: none;
 }
 
-/* ----- CRT 스캔라인(가로 줄무늬) + 미세 깜빡임 ----- */
-.intro-overlay::after {
-  content: "";
+/* ----- 배경 가로 라인: 얇은 다크 네온 그린 (정적, 깜박임·글리치 없음) -----
+   섹션(OUR GAMES / ABOUT US)과 동일한 라인 텍스처를 터미널에도 깐다.
+   프레임(z2)·텍스트(z3)보다 아래(z1)라 배경 레이어로만 작동. */
+.intro-glitch {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0px,
-    rgba(0, 0, 0, 0) 2px,
-    rgba(0, 0, 0, 0.28) 3px,
-    rgba(0, 0, 0, 0.28) 4px
-  );
+  z-index: 1;
   pointer-events: none;
-  animation: intro-flicker 3.5s steps(60) infinite;
-}
-
-@keyframes intro-flicker {
-  0%, 100% { opacity: 0.55; }
-  3%       { opacity: 0.45; }
-  6%       { opacity: 0.6; }
-  9%       { opacity: 0.5; }
-  50%      { opacity: 0.58; }
-  52%      { opacity: 0.42; }
+  /* 1px 다크 네온 그린 라인이 6px 간격으로 반복 (진하지 않게) */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(8, 225, 120, 0.06) 0,
+    rgba(8, 225, 120, 0.06) 1px,
+    transparent 1px,
+    transparent 6px
+  );
 }
 
 /* =========================================================================
@@ -134,29 +127,79 @@ body.intro-active {
   text-shadow: 0 0 6px rgba(57, 255, 158, 0.7);
   white-space: nowrap;
 }
-/* 모서리 ㄱ자 라인과 겹치지 않도록 프레임 안쪽으로 살짝 들여 배치 */
-.intro-hud-label.top-left     { top: 14px;    left: 16px; }
-.intro-hud-label.top-right    { top: 14px;    right: 16px; }
-.intro-hud-label.bottom-left  { bottom: 14px; left: 16px; }
-.intro-hud-label.bottom-right { bottom: 14px; right: 16px; }
+/* 모서리 ㄱ자 라인과 겹치지 않도록 프레임 안쪽으로 더 들여 배치 */
+.intro-hud-label.top-left     { top: 28px;    left: 30px; }
+.intro-hud-label.top-right    { top: 28px;    right: 30px; }
+.intro-hud-label.bottom-left  { bottom: 28px; left: 30px; }
+.intro-hud-label.bottom-right { bottom: 28px; right: 30px; }
 
 /* =========================================================================
    좌상단 타이틀 로고 (타이핑보다 먼저 페이드인 → 화면이 살아있음을 알림)
    ========================================================================= */
 .intro-title {
   position: absolute;
-  top: clamp(28px, 4.5vh, 56px);   /* AEON SYSTEMS 라벨 제거 → 타이틀을 위로 */
-  left: clamp(26px, 4vw, 56px);
-  width: clamp(190px, 22vw, 330px);
-  height: auto;
+  /* 외곽 프레임(inset clamp(14px,3vw,34px))보다 안쪽으로 더 들여 여백을 준다 */
+  top: clamp(48px, 6.4vh, 82px);
+  left: clamp(48px, 5.4vw, 82px);
+  /* 기준 위치에서 위로 40px, 왼쪽으로 40px 미세 이동 */
+  margin-top: -40px;
+  margin-left: -40px;
+  width: clamp(133px, 15.4vw, 231px);   /* 기존 대비 70% 크기 */
   z-index: 3;
   opacity: 0;
-  /* 글로우 없이 원본 그대로 선명하게, opacity만 더 천천히 */
+  /* 로고 그룹 전체가 천천히 페이드인 (점멸은 안쪽 glow 레이어가 담당) */
   animation: intro-title-in 1.8s ease forwards;
 }
 @keyframes intro-title-in {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+/* 두 레이어를 정확히 겹쳐 쌓는다(동일 278x112 캔버스라 픽셀이 일치). */
+.intro-title-off,
+.intro-title-glow {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* 소등 이미지: 바닥 레이어(항상 표시) */
+.intro-title-off {
+  position: relative;
+}
+/* 발광 이미지: 위에 얹고 불규칙하게 점멸.
+   opacity 0 이 되면 아래 소등 이미지가 드러나 "번갈아 깜박" 효과가 난다. */
+.intro-title-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* 켜졌을 때 실제로 빛을 뿜는 느낌(네온 글로우) */
+  filter: drop-shadow(0 0 6px rgba(57, 255, 158, 0.55))
+          drop-shadow(0 0 14px rgba(57, 255, 158, 0.3));
+  animation: intro-title-flicker 5.3s steps(1, end) infinite;
+}
+
+/* 불규칙 네온 점멸: 켜짐(1)/꺼짐(0) 사이를 들쭉날쭉한 간격으로 오간다.
+   steps(1,end) 라 값이 부드럽게 섞이지 않고 딱딱 끊겨 진짜 점멸처럼 보인다. */
+@keyframes intro-title-flicker {
+  0%,   6%   { opacity: 1; }   /* 켜짐 */
+  7%,   9%   { opacity: 0; }   /* 짧게 꺼짐 */
+  10%,  21%  { opacity: 1; }   /* 켜짐(길게) */
+  22%        { opacity: 0; }   /* 한 번 깜빡 */
+  23%,  26%  { opacity: 1; }
+  27%,  29%  { opacity: 0; }   /* 꺼짐 */
+  30%,  33%  { opacity: 1; }
+  34%        { opacity: 0; }   /* 아주 짧은 깜빡 */
+  35%,  49%  { opacity: 1; }   /* 켜짐(길게) */
+  50%,  53%  { opacity: 0; }   /* 꺼짐(살짝 길게) */
+  54%,  55%  { opacity: 1; }   /* 잠깐 켜짐 */
+  56%        { opacity: 0; }   /* 다시 깜빡 */
+  57%,  70%  { opacity: 1; }   /* 켜짐(길게) */
+  71%,  72%  { opacity: 0; }
+  73%,  81%  { opacity: 1; }
+  82%,  85%  { opacity: 0; }   /* 꺼짐 */
+  86%        { opacity: 1; }
+  87%        { opacity: 0; }   /* 이중 깜빡 */
+  88%,  100% { opacity: 1; }   /* 켜짐 마무리 */
 }
 
 /* =========================================================================
@@ -216,30 +259,17 @@ body.intro-active {
 }
 
 /* =========================================================================
-   미세 글리치 / 크로매틱 흔들림 (저비용)
-   ========================================================================= */
-.intro-console {
-  animation: intro-glitch 5s infinite;
-}
-@keyframes intro-glitch {
-  0%, 96%, 100% { transform: translate(0, 0); filter: none; }
-  97%  { transform: translate(-1px, 0); filter: drop-shadow(1px 0 rgba(255,0,80,0.5)) drop-shadow(-1px 0 rgba(0,200,255,0.5)); }
-  98%  { transform: translate(1px, 0);  filter: drop-shadow(-1px 0 rgba(255,0,80,0.5)) drop-shadow(1px 0 rgba(0,200,255,0.5)); }
-  99%  { transform: translate(0, 0);    filter: none; }
-}
-
-/* =========================================================================
    SKIP 버튼 (우하단)
    ========================================================================= */
 .intro-skip {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: clamp(40px, 7vw, 70px);
+  bottom: calc(clamp(40px, 7vw, 70px) + 90px);   /* 기존보다 90px 위로 */
   z-index: 5;
-  padding: 8px 18px;
+  padding: 12px 27px;                             /* 150% 확대 */
   font-family: inherit;
-  font-size: clamp(10px, 1.4vw, 13px);
+  font-size: clamp(15px, 2.1vw, 19.5px);          /* 150% 확대 */
   letter-spacing: 0.2em;
   color: var(--intro-neon-green);
   background: transparent;
@@ -385,12 +415,14 @@ body.intro-done .hero-video     { transition-delay: 0.48s; }
    ========================================================================= */
 @media (prefers-reduced-motion: reduce) {
   .intro-overlay,
-  .intro-overlay::after,
   .intro-console,
   .intro-cursor {
     animation: none !important;
     transition: none !important;
   }
-  /* 타이틀은 애니메이션 없이 바로 보이게(opacity 0으로 숨지 않도록) */
+  /* 타이틀은 애니메이션 없이 바로 보이게(opacity 0으로 숨지 않도록).
+     점멸도 끄고 발광 이미지를 켜진 상태로 고정. */
   .intro-title { animation: none !important; opacity: 1; }
+  .intro-title-glow { animation: none !important; opacity: 1; }
+  /* 배경 가로 라인은 정적(모션 없음)이라 그대로 표시 */
 }
