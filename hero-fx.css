@@ -138,11 +138,11 @@
 
 /* 모바일(≤768px): 히어로가 세로 키비주얼(hero-bg-mobile.webp)로 바뀌므로
    글리치 레이어도 모바일 전용 리소스로 교체하고,
-   .hero 의 모바일 배경 정렬(top center)과 똑같이 맞춰 픽셀을 일치시킨다. */
+   .hero 의 모바일 배경 정렬(center calc(var(--header-h)))과 똑같이 맞춰 픽셀을 일치시킨다. */
 @media (max-width: 768px) {
   .hg-layer {
     background-image: url("images/hero-bg-mobile-glitchzone.webp");
-    background-position: top center;
+    background-position: center calc(var(--header-h));
   }
   .hg-rgb-r,
   .hg-rgb-c {
