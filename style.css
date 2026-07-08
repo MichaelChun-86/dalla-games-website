@@ -127,6 +127,7 @@ label,
   .reveal { opacity: 1; transform: none; transition: none; }
   .hero-subtitle { animation: none; }
   .scroll-down .chevron { animation: none; opacity: 0.8; }
+  .nav-toggle span { animation: none; }
 }
 
 .section-inner {
@@ -244,6 +245,27 @@ label,
   background: var(--text);
   border-radius: 2px;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  /* 모바일에서 버튼 인지가 잘 안 돼 흰색↔네온그린으로 깜박여 시선을 유도 */
+  animation: menu-blink 1.8s ease-in-out infinite;
+}
+.nav-toggle span:nth-child(2) { animation-delay: 0.15s; }
+.nav-toggle span:nth-child(3) { animation-delay: 0.3s; }
+
+/* 메뉴를 열면(햄버거 → X) 깜박임을 멈추고 흰색으로 고정해 산만함을 없앤다 */
+.nav-toggle.active span {
+  animation: none;
+  background: var(--text);
+}
+
+@keyframes menu-blink {
+  0%, 100% {
+    background: var(--text);
+    box-shadow: none;
+  }
+  50% {
+    background: var(--mint-bright);
+    box-shadow: 0 0 6px rgba(43, 255, 151, 0.75);
+  }
 }
 
 /* =========================================================
