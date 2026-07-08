@@ -843,7 +843,8 @@ label,
   .hero-content {
     max-width: 100%;
     width: 100%;
-    margin: 32vh 0 0;       /* 아래에 트레일러 영상이 추가되어 살짝 위로 */
+    /* 타이틀 등이 배경 캐릭터를 너무 가려 30px 더 내림(그 아래 Epic 박스 등도 자연히 같이 내려감) */
+    margin: calc(32vh + 30px) 0 0;
   }
   .hero-overlay {
     /* 키비주얼 자체에 하단 검정 페이드가 있어 오버레이는 아주 약하게만 */
