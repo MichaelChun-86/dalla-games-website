@@ -1,0 +1,61 @@
+/* =========================================================================
+   BGM 컨트롤 버튼 — 우측 상단(헤더 바로 아래) 고정, 클릭으로 켜기/끄기
+   ========================================================================= */
+
+.bgm-toggle {
+  position: fixed;
+  top: calc(var(--header-h) + 14px);
+  right: 20px;
+  z-index: 500;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(8, 225, 120, 0.4);
+  background: rgba(4, 8, 10, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  /* cursor 는 일부러 지정하지 않는다 — <button> 이므로 style.css / cursor-trail.css
+     의 전역 규칙(호버 시 흰↔녹 깜박임 커서)이 그대로 적용된다. */
+}
+
+.bgm-toggle:hover,
+.bgm-toggle:focus-visible {
+  border-color: var(--mint, #08e178);
+  box-shadow: 0 0 12px rgba(8, 225, 120, 0.45);
+  transform: scale(1.06);
+}
+
+.bgm-toggle svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: var(--mint, #08e178);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 두 아이콘(재생중 / 음소거·정지) 중 상태에 맞는 것만 표시 */
+.bgm-toggle .bgm-icon-off { display: none; }
+.bgm-toggle.is-muted .bgm-icon-on { display: none; }
+.bgm-toggle.is-muted .bgm-icon-off { display: block; }
+.bgm-toggle.is-muted svg { stroke: rgba(255, 255, 255, 0.55); }
+.bgm-toggle.is-muted:hover svg { stroke: var(--mint, #08e178); }
+
+@media (max-width: 767px) {
+  .bgm-toggle {
+    top: calc(var(--header-h) + 10px);
+    right: 14px;
+    width: 42px;
+    height: 42px;
+  }
+  .bgm-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
+}

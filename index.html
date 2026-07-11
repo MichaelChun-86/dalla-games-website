@@ -50,6 +50,9 @@
 
   <!-- 다국어(로컬라이제이션) 국기 버튼 스타일 — 스크립트는 body 끝에서 로드 -->
   <link rel="stylesheet" href="i18n.css" />
+
+  <!-- BGM 플레이어(우측 하단 토글 버튼) 스타일 — 스크립트는 body 끝에서 로드 -->
+  <link rel="stylesheet" href="bgm.css" />
 </head>
 <body>
 
@@ -88,6 +91,15 @@
       </nav>
     </div>
   </header>
+
+  <!-- 모바일 전용 언어 전환 국기: 햄버거 메뉴 대신 히어로 좌상단(로고 아래)에 항상 노출
+       (버튼 자체는 i18n.js 가 .lang-btn 전체를 대상으로 동작하므로 별도 스크립트 불필요) -->
+  <div class="lang-switch lang-switch-corner" role="group" aria-label="Language / 언어">
+    <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어"><img src="images/flag-kr.svg" alt="한국어" /></button>
+    <button type="button" class="lang-btn" data-lang="en" aria-label="English"><img src="images/flag-en.svg" alt="English" /></button>
+    <button type="button" class="lang-btn" data-lang="zh" aria-label="中文"><img src="images/flag-cn.svg" alt="中文" /></button>
+    <button type="button" class="lang-btn" data-lang="ja" aria-label="日本語"><img src="images/flag-jp.svg" alt="日本語" /></button>
+  </div>
 
   <main>
 
@@ -280,5 +292,7 @@
   <script src="cursor-trail.js"></script>
   <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
   <script src="i18n.js"></script>
+  <!-- BGM 플레이어 — 인트로 종료(히어로 노출) 시 자동재생 시도 -->
+  <script src="bgm.js"></script>
 </body>
 </html>
