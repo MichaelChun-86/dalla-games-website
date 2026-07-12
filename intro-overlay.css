@@ -21,7 +21,8 @@ body.intro-active {
 .intro-overlay {
   position: fixed;
   inset: 0;                       /* top/right/bottom/left: 0 */
-  z-index: 2147483647;            /* 최상단 */
+  z-index: 2147483646;            /* 사이트 콘텐츠 위. 단 커서 잔상(cursor-trail,
+                                     2147483647)보다는 한 단계 아래라 터미널에서도 잔상이 보인다 */
   background: var(--intro-bg);
   color: var(--intro-green, var(--intro-neon-green));
   /* 기존 사이트와 동일한 이사만루 폰트 사용 (style.css에서 전역 등록됨) */

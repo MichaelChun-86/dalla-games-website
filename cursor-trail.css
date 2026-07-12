@@ -9,7 +9,7 @@
 
 /* ---------- 조절 변수 ---------- */
 :root {
-  --ct-life: 600ms;      /* 잔상이 사라지기까지 걸리는 시간(너무 길면 지저분해짐) */
+  --ct-life: 400ms;      /* 잔상이 사라지기까지 걸리는 시간(너무 길면 지저분해짐) */
   --ct-opacity: 0.55;    /* 잔상 시작 불투명도(실제 커서보다 흐리게) */
 }
 
@@ -18,7 +18,8 @@
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 9990;         /* 헤더(1000)보다 위, 인트로 오버레이보다는 아래 */
+  z-index: 2147483647;   /* 항상 최상단 — 인트로 터미널 오버레이 위에서도 잔상이 보이게
+                            (오버레이는 2147483646 으로 한 단계 아래에 둔다) */
   overflow: hidden;
 }
 
@@ -34,14 +35,15 @@
   opacity: 0;            /* 평소엔 안 보임 — .on 이 붙는 순간만 나타남 */
 }
 
-/* 발동: 잠깐 머물렀다가(꼬리가 뒤늦게 따라오는 느낌) 점점 투명해진다 */
+/* 발동: 만들어지는 순간이 가장 진하고, 시간이 지날수록(=본체에서 멀어질수록)
+   빠르게 연해진다. linear 로 두어 꼬리 위치에 따라 불투명도가 고르게 벌어지게 한다. */
 .ct-ghost.on {
-  animation: ct-fade var(--ct-life) ease-out forwards;
+  animation: ct-fade var(--ct-life) linear forwards;
 }
 @keyframes ct-fade {
-  0%   { opacity: var(--ct-opacity); }
-  35%  { opacity: calc(var(--ct-opacity) * 0.85); }  /* 앞부분은 천천히 */
-  100% { opacity: 0; }                               /* 뒤로 갈수록 빠르게 소멸 */
+  0%   { opacity: var(--ct-opacity); }                /* 본체 바로 뒤: 가장 진함 */
+  40%  { opacity: calc(var(--ct-opacity) * 0.35); }   /* 초반부터 빠르게 연해짐 */
+  100% { opacity: 0; }                                /* 꼬리 끝: 완전 소멸 */
 }
 
 /* ---------- 호버 커서 깜박임(Cursor_Hover2 프레임) ----------
