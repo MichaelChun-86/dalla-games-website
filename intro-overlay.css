@@ -275,10 +275,10 @@ body.intro-active {
   background: transparent;
   border: 1px solid rgba(57, 255, 158, 0.6);
   box-shadow: 0 0 8px rgba(57, 255, 158, 0.35);
-  /* 커스텀 hover 커서: 흰색 기본 + cursor-trail.js 의 .cur-alt 토글로
-     흰↔녹 깜박임 (intro-overlay.css 가 style.css 보다 나중에
-     로드되므로 여기서 직접 지정해줘야 한다.) */
-  cursor: url('images/Normal.png') 0 0, pointer;
+  /* 커스텀 hover 커서: Cursor_Hover1 기본 + cursor-trail.js 의 .cur-alt 토글로
+     Cursor_Hover1 ↔ Cursor_Hover2 깜박임 (intro-overlay.css 가 style.css 보다
+     나중에 로드되므로 여기서 직접 지정해줘야 한다.) */
+  cursor: url('images/Cursor_Hover1.png') 0 0, pointer;
   transition: background 0.2s ease, color 0.2s ease;
 }
 .intro-skip:hover,

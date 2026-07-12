@@ -18,7 +18,7 @@
   line-height: 0;
   opacity: 0.5;                 /* 비선택 국기는 흐리게 */
   transition: opacity 0.2s ease, transform 0.2s ease;
-  cursor: url('images/Normal.png') 0 0, pointer;
+  cursor: url('images/Cursor_Hover1.png') 0 0, pointer;
 }
 .lang-btn img {
   width: 26px;

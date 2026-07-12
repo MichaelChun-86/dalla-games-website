@@ -85,12 +85,12 @@ a {
    cursor 속성은 자식으로 상속되므로 html 에 걸어두면
    페이지 전체(그리고 터미널 인트로 오버레이)까지 자동 적용된다. */
 html {
-  cursor: url('images/Normal_Hover.png') 0 0, auto;
+  cursor: url('images/Cursor_Normal.png') 0 0, auto;
 }
 
-/* 클릭 가능한 요소 위: 흰색 커서가 기본.
+/* 클릭 가능한 요소 위: 호버 커서 1번 프레임이 기본.
    cursor-trail.js 가 html 에 .cur-alt 클래스를 빠르게 토글해
-   흰색 ↔ 녹색 깜박임을 만든다(녹색 쪽 규칙은 cursor-trail.css 에). */
+   Cursor_Hover1 ↔ Cursor_Hover2 깜박임을 만든다(2번 프레임 규칙은 cursor-trail.css 에). */
 a,
 button,
 .nav-toggle,
@@ -100,7 +100,7 @@ button,
 label,
 [role="button"],
 [onclick] {
-  cursor: url('images/Normal.png') 0 0, pointer;
+  cursor: url('images/Cursor_Hover1.png') 0 0, pointer;
 }
 
 /* 공통 유틸 */
@@ -235,7 +235,7 @@ label,
   height: 22px;
   background: none;
   border: none;
-  cursor: url('images/Normal.png') 0 0, pointer;
+  cursor: url('images/Cursor_Hover1.png') 0 0, pointer;
   z-index: 1100;
 }
 .nav-toggle span {
@@ -588,7 +588,7 @@ label,
 
 /* 재생 전 파사드: 포스터 + 재생 버튼.
    유튜브 iframe 내부에는 커스텀 커서가 안 먹히므로, 재생 전에는 이 버튼이
-   영역을 덮어 커서(흰↔녹 깜박임)가 정상적으로 보이게 한다.
+   영역을 덮어 커서(Hover1↔Hover2 깜박임)가 정상적으로 보이게 한다.
    클릭하면 script.js 가 iframe 을 로드하고 파사드를 숨긴다. */
 .video-facade {
   position: absolute;

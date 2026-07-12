@@ -20,7 +20,7 @@
   padding: 0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   /* cursor 는 일부러 지정하지 않는다 — <button> 이므로 style.css / cursor-trail.css
-     의 전역 규칙(호버 시 흰↔녹 깜박임 커서)이 그대로 적용된다. */
+     의 전역 규칙(호버 시 Hover1↔Hover2 깜박임 커서)이 그대로 적용된다. */
 }
 
 .bgm-toggle:hover,
