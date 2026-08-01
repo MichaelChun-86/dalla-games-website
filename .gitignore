@@ -42,8 +42,8 @@ images/hero-bg_Mask.png
 images/hero-bg_Mask2.png
 images/hero-bg-mobile_Mask.png
 
-# BGM 후보 테스트 폴더 (로컬 보존, 배포 불필요 — BGM/ 바로 아래로 꺼낸 곡만 적용)
-BGM/Ready/
+# BGM: 배경음악 기능 제거로 배포에서 제외 (음원은 로컬에만 보존)
+BGM/
 
 # OS
 Thumbs.db

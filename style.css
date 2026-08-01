@@ -722,10 +722,111 @@ label,
   color: var(--text-dim);
   white-space: nowrap;      /* 역할 한 줄 */
 }
+/* ---------- 멤버 개인 링크 버튼 (CEO 전용) ----------
+   기본은 회색, 호버하면 네온 그린 + 살짝 떠오르는 효과,
+   클릭(푸시)하면 흰색으로 한 번 깜박인다.
+   아이콘은 mask 로 찍어내므로 PNG/SVG 상관없이 색을 CSS 가 제어한다. */
+.member-links {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+.member-link {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  transition: border-color 0.2s ease, background 0.2s ease,
+              box-shadow 0.2s ease, transform 0.2s ease;
+}
+/* 아이콘 본체: mask 로 모양을 찍고 background-color 로 색을 칠한다 */
+.member-link-icon {
+  width: 19px;
+  height: 19px;
+  background-color: var(--text-dim);      /* 기본: 회색 */
+  transition: background-color 0.2s ease;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+}
+/* 개인 웹 로고는 PNG 캔버스에 여백이 있어(가로 75% / 세로 87%만 그림)
+   링크드인·페이스북과 같은 크기로 두면 눈에 띄게 작아 보인다 → 더 크게 잡는다. */
+.icon-web {
+  width: 25px;
+  height: 25px;
+  -webkit-mask-image: url("images/michaelchun-logo.png");
+          mask-image: url("images/michaelchun-logo.png");
+}
+.icon-linkedin {
+  -webkit-mask-image: url("images/linkedin.svg");
+          mask-image: url("images/linkedin.svg");
+}
+.icon-facebook {
+  -webkit-mask-image: url("images/facebook.svg");
+          mask-image: url("images/facebook.svg");
+}
+
+/* 호버: 네온 그린으로 바뀌면서 살짝 떠오르고 은은하게 빛난다.
+   (hover: hover) 로 감싸 터치 기기에서 탭 후 호버가 눌러붙는 것을 막는다. */
+@media (hover: hover) {
+  .member-link:hover {
+    border-color: rgba(43, 255, 151, 0.65);
+    background: rgba(8, 225, 120, 0.12);
+    box-shadow: 0 0 14px rgba(8, 225, 120, 0.35);
+    transform: translateY(-2px);
+  }
+  .member-link:hover .member-link-icon {
+    background-color: var(--mint-bright);
+  }
+}
+/* 키보드 포커스: 터치 기기 포함 항상 동일하게 강조 */
+.member-link:focus-visible {
+  border-color: rgba(43, 255, 151, 0.65);
+  background: rgba(8, 225, 120, 0.12);
+  box-shadow: 0 0 14px rgba(8, 225, 120, 0.35);
+  outline: none;
+}
+.member-link:focus-visible .member-link-icon {
+  background-color: var(--mint-bright);
+}
+
+/* 푸시(클릭): 흰색으로 한 번 번쩍인 뒤 네온 그린으로 돌아온다 */
+.member-link:active {
+  transform: translateY(0);
+  animation: link-push 0.3s ease-out;
+}
+.member-link:active .member-link-icon {
+  animation: link-push-icon 0.3s ease-out;
+}
+@keyframes link-push {
+  0% {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+  100% {
+    border-color: rgba(43, 255, 151, 0.65);
+    background: rgba(8, 225, 120, 0.12);
+    box-shadow: 0 0 14px rgba(8, 225, 120, 0.35);
+  }
+}
+@keyframes link-push-icon {
+  0%   { background-color: #ffffff; }
+  100% { background-color: var(--mint-bright); }
+}
+
 .tagline {
   text-align: center;
   max-width: 1000px;        /* 넓혀서 한 줄 유도 */
-  margin: 64px auto 0;
+  margin: 92px auto 0;      /* CEO 링크 버튼이 들어간 만큼 아래로 더 내림 */
   font-size: clamp(16px, 2.4vw, 20px);
   color: var(--text);
   line-height: 1.7;
@@ -884,6 +985,13 @@ label,
   /* --- ABOUT: 멤버 세로로 --- */
   .team { gap: 44px; }
   .member-role { font-size: 12.5px; }
+  /* 링크 버튼: 터치하기 편하게 살짝 키운다 */
+  .member-link { width: 42px; height: 42px; }
+  .member-link-icon { width: 20px; height: 20px; }
+  /* 개인 웹 로고는 여백 보정분만큼 계속 더 크게 유지 */
+  .icon-web { width: 27px; height: 27px; }
+  /* 태그라인: 데스크톱보다는 여백을 줄이되 버튼만큼은 더 내려준다 */
+  .tagline { margin-top: 72px; }
 }
 
 /* 아주 작은 화면 (420px 이하) 미세 조정 */
