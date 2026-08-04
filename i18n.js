@@ -106,11 +106,14 @@
       ko: "리드 프로그래머 / 시스템 기획", en: "Lead Programmer / Lead Game Designer",
       zh: "首席程序 / 首席游戏设计师", ja: "リードプログラマー / リードゲームデザイナー"
     },
+    /* 태그라인은 data-i18n-html 대상.
+       <br class="br-m"> 는 모바일에서만 살아나는 줄바꿈으로, 각 언어에서
+       의미가 끊기지 않는 지점(쉼표·접속 지점)에 넣었다. PC에선 한 줄로 이어진다. */
     "tagline": {
-      ko: "모든 선택이 의미를 갖고, 모든 실수가 대가를 치르는 게임을 만듭니다.",
-      en: "We build games where every decision matters and every mistake has consequences.",
-      zh: "我们打造每个决定都举足轻重、每个失误都付出代价的游戏。",
-      ja: "すべての選択に意味があり、すべてのミスに代償が伴うゲームを作ります。"
+      ko: '모든 선택이 의미를 갖고,<br class="br-m"> 모든 실수가 대가를 치르는 게임을 만듭니다.',
+      en: 'We build games where every decision matters<br class="br-m"> and every mistake has consequences.',
+      zh: '我们打造每个决定都举足轻重、<br class="br-m">每个失误都付出代价的游戏。',
+      ja: 'すべての選択に意味があり、<br class="br-m">すべてのミスに代償が伴うゲームを作ります。'
     }
   };
 

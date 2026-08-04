@@ -43,8 +43,9 @@
 ## 브라우저 탭 (파비콘 / 타이틀)
 - 크롬 등 브라우저 탭에 표시되는 아이콘으로 `images/0-탭 CI.png`(달라게임즈 다이아몬드 심볼)를 파비콘으로 지정한다.
   - `<link rel="icon" ...>` 로 연결한다.
-- 탭에 표시되는 페이지 제목(`<title>`)은 **Dalla Games Official Website** 로 한다.
-  (링크 공유 미리보기의 `og:title` / `twitter:title` 도 같은 문구를 쓴다.)
+- 탭에 표시되는 페이지 제목(`<title>`)은 **Dalla Games** 로 한다.
+  (링크 공유 미리보기의 `og:title` / `twitter:title` 은 이와 별개로
+   **Dalla Games Official Website** 를 쓴다.)
 
 ## 페이지 구조 (한 페이지 스크롤 방식)
 

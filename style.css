@@ -193,7 +193,7 @@ label,
   line-height: 0;          /* 이미지 아래 여백 제거 */
 }
 .brand-logo {
-  height: 26px;
+  height: 38px;            /* PC에서 키움 (모바일은 아래 반응형에서 기존 크기 유지) */
   width: auto;
   display: block;
 }
@@ -528,6 +528,13 @@ label,
    카피라이트와 폭을 맞추기 위한 크기 — 소개 문구의 가장 긴 줄이
    카피라이트 한 줄과 같은 폭이 되는 비율이 약 0.557 이라
    카피라이트 15px 에 맞춰 8.5px 로 잡았다. */
+/* 모바일 전용 줄바꿈: PC에선 무시되어 문장이 한 줄로 이어진다.
+   (히어로 소개 문구와 ABOUT 태그라인이 함께 쓴다) */
+.br-m { display: none; }
+
+/* 소개 문구의 각 문장을 한 줄로 */
+.hb-line { display: block; }
+
 .hero-blurb {
   font-size: 8.5px;
   line-height: 1.9;
@@ -995,6 +1002,8 @@ label,
 
   /* --- 헤더: 햄버거 메뉴로 --- */
   .nav-toggle { display: flex; }
+  /* 로고는 모바일에서 기존 크기 유지(PC만 키웠다) */
+  .brand-logo { height: 26px; }
 
   .nav {
     position: fixed;
@@ -1039,8 +1048,9 @@ label,
   .hero-content {
     max-width: 100%;
     width: 100%;
-    /* 타이틀 등이 배경 캐릭터를 너무 가려 30px 더 내림(그 아래 Epic 박스 등도 자연히 같이 내려감) */
-    margin: calc(32vh + 30px) 0 0;
+    /* 배경 캐릭터의 하체 즈음에서 로고가 시작되도록 아래로 내린다.
+       (배경 이미지는 그대로 두고 콘텐츠 그룹 전체만 내려간다) */
+    margin: calc(32vh + 165px) 0 0;
   }
   .hero-overlay {
     /* 키비주얼 자체에 하단 검정 페이드가 있어 오버레이는 아주 약하게만 */
@@ -1084,13 +1094,38 @@ label,
     max-width: 100%;
     margin: 34px auto 0;
   }
-  .hero-blurb { font-size: 10px; line-height: 1.8; }
-  /* 폭이 좁아 카피라이트를 한 줄에 넣으려면 소개 문구보다 작아져야 하므로
-     (375px 기준 약 9.8px), 한 줄 고집 대신 두 줄로 접히게 두고 크기 위계를 지킨다. */
-  .hero-copyright { font-size: 12.5px; letter-spacing: 0.3px; margin-top: 14px; }
+  /* 모바일 전용 줄바꿈 살리기 (PC에선 display:none) */
+  .br-m { display: inline; }
+  /* 소개 문구는 앞 두 문장만 쓰고, 각 문장을 두 줄로 접어 총 4줄로 보이게 한다 */
+  .hb-desktop-only { display: none; }
 
-  /* --- OUR GAMES 특징: 1열 --- */
+  /* 카피라이트가 한 줄에 들어가도록 줄인 크기.
+     폭이 더 좁은 기기(320px)에서도 한 줄을 유지하도록 상한을 두고
+     화면 폭에 비례해 더 줄어들게 한다(푸터 카피라이트와 같은 방식).
+     소개 문구는 항상 그보다 작게 유지해 크기 위계를 지킨다. */
+  .hero-blurb {
+    font-size: min(8px, calc(2.51vw - 1.21px));
+    line-height: 1.85;
+  }
+  .hero-copyright {
+    font-size: min(9.5px, calc(2.99vw - 1.44px));
+    letter-spacing: 0.2px;
+    margin-top: 12px;
+  }
+
+  /* 페이지 맨 아래 푸터 카피라이트: 한 줄에 들어가도록 축소.
+     13px 에서는 두 줄로 접혔다. 폭이 더 좁은 기기(360·320px)에서도 한 줄을
+     유지하도록, 9.5px 를 상한으로 두고 화면 폭에 비례해 더 줄어들게 한다.
+     (문구 한 줄 폭 ≈ 32.8 × 글자크기, 여백 24px×2 를 뺀 값에 맞춘 식) */
+  .site-footer .copyright {
+    font-size: min(9.5px, calc(2.92vw - 1.4px));
+    letter-spacing: 0.2px;
+  }
+
+  /* --- OUR GAMES 특징: 1열 + 글자 축소(모바일에서 너무 커 보임) --- */
   .games-features { grid-template-columns: 1fr; gap: 26px; }
+  .feature-title { font-size: 15px; margin-bottom: 6px; }
+  .feature-desc { font-size: 12.5px; }
 
   /* --- ABOUT: 멤버 세로로 --- */
   .team { gap: 44px; }
@@ -1100,8 +1135,10 @@ label,
   .member-link-icon { width: 20px; height: 20px; }
   /* 개인 웹 로고는 여백 보정분만큼 계속 더 크게 유지 */
   .icon-web { width: 27px; height: 27px; }
-  /* 태그라인: 데스크톱보다는 여백을 줄이되 버튼만큼은 더 내려준다 */
-  .tagline { margin-top: 72px; }
+  /* 태그라인: 데스크톱보다는 여백을 줄이되 버튼만큼은 더 내려준다.
+     글자를 14.5px 로 낮춰 .br-m 로 끊은 두 조각이 4개 언어 모두 한 줄씩
+     들어가게 한다(16px 에서는 영어 첫 조각이 넘쳐 3줄이 됐다). */
+  .tagline { margin-top: 72px; font-size: 14.5px; }
 }
 
 /* 아주 작은 화면 (420px 이하) 미세 조정 */

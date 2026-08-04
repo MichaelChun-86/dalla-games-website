@@ -41,25 +41,20 @@
   box-shadow: 0 0 0 2px var(--mint), 0 0 8px rgba(8, 225, 120, 0.55);
 }
 
-/* ---- 모바일 전용 국기 그룹(.lang-switch-corner): 히어로 좌상단, 로고 바로 아래 고정 ---- */
+/* ---- 모바일 전용 국기 그룹(.lang-switch-corner): 헤더 바 안, 햄버거 버튼 앞 ---- */
 .lang-switch-corner {
   display: none;   /* 데스크톱에선 숨김(메뉴 안 .lang-switch 사용) */
-  position: fixed;
-  top: calc(var(--header-h) + 10px);
-  left: 14px;
-  z-index: 500;    /* 헤더(1000)보다 아래, 히어로 콘텐츠보다는 위 */
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(4, 8, 10, 0.55);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  gap: 8px;
+  /* 헤더 안에 들어가므로 메뉴용 구분선/여백은 쓰지 않는다 */
+  padding-left: 0;
+  border-left: 0;
+  margin-left: auto;   /* 로고와 떨어져 햄버거 버튼 쪽에 붙는다 */
+  margin-right: 30px;  /* 햄버거 버튼과의 간격 (넓혀서 오조작 방지) */
 }
 .lang-switch-corner .lang-btn img { width: 22px; }
 
 @media (max-width: 768px) {
-  /* 메뉴(햄버거) 안 국기는 숨기고, 히어로 좌상단 국기만 사용 */
+  /* 메뉴(햄버거) 안 국기는 숨기고, 헤더 바의 국기만 사용 */
   .nav .lang-switch {
     display: none;
   }

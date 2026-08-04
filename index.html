@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- 브라우저 탭 제목 -->
-  <title>Dalla Games Official Website</title>
+  <title>Dalla Games</title>
 
   <!-- 탭 아이콘(파비콘) -->
   <link rel="icon" type="image/png" href="images/favicon.png" />
@@ -65,6 +65,16 @@
         <img src="images/logo-dalla-hover.webp" alt="" aria-hidden="true" class="brand-logo brand-logo-hover" />
       </a>
 
+      <!-- 모바일 전용 언어 전환 국기: 헤더 바 안, 햄버거 버튼 바로 앞에 배치
+           (데스크톱에선 숨기고 메뉴 안의 .lang-switch 를 쓴다.
+            버튼 동작은 i18n.js 가 .lang-btn 전체를 대상으로 하므로 추가 스크립트 불필요) -->
+      <div class="lang-switch lang-switch-corner" role="group" aria-label="Language / 언어">
+        <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어"><img src="images/flag-kr.svg" alt="한국어" /></button>
+        <button type="button" class="lang-btn" data-lang="en" aria-label="English"><img src="images/flag-en.svg" alt="English" /></button>
+        <button type="button" class="lang-btn" data-lang="zh" aria-label="中文"><img src="images/flag-cn.svg" alt="中文" /></button>
+        <button type="button" class="lang-btn" data-lang="ja" aria-label="日本語"><img src="images/flag-jp.svg" alt="日本語" /></button>
+      </div>
+
       <!-- 모바일 햄버거 버튼 -->
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
         <span></span>
@@ -89,15 +99,6 @@
       </nav>
     </div>
   </header>
-
-  <!-- 모바일 전용 언어 전환 국기: 햄버거 메뉴 대신 히어로 좌상단(로고 아래)에 항상 노출
-       (버튼 자체는 i18n.js 가 .lang-btn 전체를 대상으로 동작하므로 별도 스크립트 불필요) -->
-  <div class="lang-switch lang-switch-corner" role="group" aria-label="Language / 언어">
-    <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어"><img src="images/flag-kr.svg" alt="한국어" /></button>
-    <button type="button" class="lang-btn" data-lang="en" aria-label="English"><img src="images/flag-en.svg" alt="English" /></button>
-    <button type="button" class="lang-btn" data-lang="zh" aria-label="中文"><img src="images/flag-cn.svg" alt="中文" /></button>
-    <button type="button" class="lang-btn" data-lang="ja" aria-label="日本語"><img src="images/flag-jp.svg" alt="日本語" /></button>
-  </div>
 
   <main>
 
@@ -185,11 +186,13 @@
       <!-- 히어로 하단: 스튜디오 소개 문구 + 카피라이트
            소개 문구는 카피라이트보다 작은 글자, 두 블록의 폭은 서로 맞춘다. -->
       <div class="hero-footer">
+        <!-- 각 문장을 한 줄(span)로 두어 모바일에서 뒤 두 줄만 숨길 수 있게 한다.
+             .br-m 은 모바일에서만 살아나는 줄바꿈 (PC에선 한 줄로 이어짐). -->
         <p class="hero-blurb">
-          Dalla Games is a two-person studio built around a single, uncompromising vision.<br />
-          AeonFall is a hardcore roguelike defense where growth and safety are never the same choice.<br />
-          Every action leaves noise behind, and noise draws the infected horde.<br />
-          Built in Unreal Engine 5. Recipient of the Epic MegaGrant.
+          <span class="hb-line">Dalla Games is a two-person studio<br class="br-m" /> built around a single, uncompromising vision.</span>
+          <span class="hb-line">AeonFall is a hardcore roguelike defense<br class="br-m" /> where growth and safety are never the same choice.</span>
+          <span class="hb-line hb-desktop-only">Every action leaves noise behind, and noise draws the infected horde.</span>
+          <span class="hb-line hb-desktop-only">Built in Unreal Engine 5. Recipient of the Epic MegaGrant.</span>
         </p>
         <p class="hero-copyright">
           AeonFall&trade; <span class="copy-symbol">&copy;</span> 2026 DALLA GAMES INC. ALL RIGHTS RESERVED.
@@ -289,8 +292,10 @@
           </figure>
         </div>
 
-        <p class="tagline" data-i18n="tagline">
-          We build games where every decision matters and every mistake has consequences.
+        <!-- .br-m 줄바꿈은 모바일에서만 적용된다(PC에선 한 줄 유지).
+             언어별 번역에도 같은 위치에 .br-m 이 들어 있다(i18n.js). -->
+        <p class="tagline" data-i18n-html="tagline">
+          We build games where every decision matters<br class="br-m" /> and every mistake has consequences.
         </p>
       </div>
     </section>
