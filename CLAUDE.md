@@ -38,7 +38,7 @@
   2. OUR GAMES 제목
   3. ABOUT US 제목
 - **노토산스(NotoSansKR-Bold)**: 푸터 카피라이트의 `©` 문자만. (이사만루체는 `©` 글리프를 지원하지 않으므로 그 글자 하나만 폰트를 바꿔서 처리한다.)
-- 타이틀(THE AEON FALL)은 폰트가 아니라 `1-BI.png` 로고 이미지를 그대로 사용한다.
+- 타이틀(AeonFall)은 폰트가 아니라 `1-BI.png` 로고 이미지를 그대로 사용한다.
 
 ## 브라우저 탭 (파비콘 / 타이틀)
 - 크롬 등 브라우저 탭에 표시되는 아이콘으로 `images/0-탭 CI.png`(달라게임즈 다이아몬드 심볼)를 파비콘으로 지정한다.
@@ -58,18 +58,18 @@
   - 우측에 따로 배치하는 것이 아니라, 화면 가운데에 꽉 차게 배경으로 깐다.
   - 화면 크기가 달라져도 비율이 자연스럽게 유지되도록 한다(예: `background-size: cover`, `background-position: center`).
 - 배경 위에 올라가는 요소:
-  - 큰 타이틀: THE AEON FALL
+  - 큰 타이틀: AeonFall
   - 부제: Wishlist Now
   - 버튼: "Wishlist Now" Steam 버튼
     - 기본 상태와 마우스 호버 상태 이미지가 **각각 따로** 있다.
     - 마우스를 올리면(hover) **노란색 버튼 이미지로 바뀐다.**
     - 마우스를 떼면 다시 기본 이미지로 돌아온다.
   - Epic MegaGrant 배지 + 문구:
-    "Epic Games' support is helping us accelerate development of THE AEON FALL."
+    "Epic Games' support is helping us accelerate development of AeonFall."
 
 ### 3. OUR GAMES
 - 제목: OUR GAMES
-- 소제목: THE AEON FALL – Hardcore Roguelike Defense
+- 소제목: AeonFall – Hardcore Roguelike Defense
 - 왼쪽: 게임 키아트 이미지
 - 오른쪽: 4가지 특징 (제목은 그린, 본문은 흰색)
   - **Massive Waves**
@@ -100,7 +100,7 @@
   - 유튜브 → https://www.youtube.com/watch?v=ZuPX2S99tBM
   - 스팀 → https://store.steampowered.com/app/4582730/THE_AEON_FALL/
 - 저작권 문구:
-  "THE AEON FALL™ © 2026 Dalla Games Inc. All rights reserved. Developed by Dalla Games Inc."
+  "AeonFall™ © 2026 DALLA GAMES INC. ALL RIGHTS RESERVED."
 
 ## 이미지 / 리소스
 - **`reference/` 폴더**: 기존 사이트의 스크린샷이 들어 있다. 디자인·레이아웃을 똑같이 맞추기 위한 **시각적 참고용**이다. 이 스크린샷 자체를 사이트에 넣지는 않는다.

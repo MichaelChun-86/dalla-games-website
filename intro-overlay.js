@@ -35,7 +35,7 @@
     { text: "NOISE LEVEL: RISING...." },
     { text: "HOSTILE SWARM INBOUND...." },
     { text: "[ SIGNAL DETECTED ]....", highlight: true },
-    { text: "WELCOME TO THE AEON FALL....", cursor: true }
+    { text: "WELCOME TO AEONFALL....", cursor: true }
   ];
 
   // 타이밍(ms)
@@ -47,6 +47,11 @@
   var GLITCH_MS = 160;               // [B] 글리치 1회
   var CRT_MS = 420;                  // [A] CRT 전원 꺼짐
   var SKIP_FADE_MS = 400;            // SKIP 시 즉시 종료 페이드
+
+  // 배경 커버(어두운 판)의 도착 불투명도.
+  // 시작값 0.9 는 intro-overlay.css 의 .intro-bg-cover 에 있다.
+  // 0 이 아니라 0.2 로 남겨 캐릭터가 완전히 드러나지는 않게 한다.
+  var COVER_OPACITY_END = 0.2;
 
   // 스크롤 잠금 + 첫 페인트 전에 히어로를 숨김(FOUC 방지).
   // head에서 동기 로드되므로 <body>/.hero가 그려지기 전에 이 클래스가 적용된다.
@@ -66,7 +71,7 @@
     var overlay = buildOverlay();
     document.body.appendChild(overlay);
 
-    var consoleEl = overlay.querySelector(".intro-console");
+    var consoleEl = overlay.querySelector(".intro-console-inner");
     var skipBtn = overlay.querySelector(".intro-skip");
     var uptimeEl = overlay.querySelector(".intro-uptime");
 
@@ -189,6 +194,22 @@
       }
     });
 
+    // ----- 배경 커버 페이드아웃: 타이핑과 같은 구간에 걸쳐 캐릭터가 서서히 드러난다 -----
+    // 타이핑 시작(TITLE_REVEAL_MS)에 맞춰 시작해, 마지막 줄이 끝나는 시점(elapsed)에
+    // COVER_OPACITY_END 에 도달한다. 시작값 0.9 는 intro-overlay.css 에 있다.
+    // 0.9 → 0.2 라 변화 폭이 작아 예전(1 → 0)보다 천천히 드러난다.
+    // 다른 리소스(로고·로그·SKIP)의 타이밍은 건드리지 않는다.
+    var coverEl = overlay.querySelector(".intro-bg-cover");
+    if (coverEl) {
+      var fadeDuration = Math.max(600, elapsed - TITLE_REVEAL_MS);
+      timers.push(
+        window.setTimeout(function () {
+          coverEl.style.transition = "opacity " + fadeDuration + "ms linear";
+          coverEl.style.opacity = String(COVER_OPACITY_END);
+        }, TITLE_REVEAL_MS)
+      );
+    }
+
     // 마지막 줄 타이핑 완료 + 여운 후 전환 시퀀스 시작
     timers.push(window.setTimeout(startTransition, elapsed + HOLD_BEFORE_TRANSITION));
   }
@@ -207,6 +228,10 @@
     overlay.setAttribute("aria-hidden", "true");
 
     overlay.innerHTML = [
+      // 배경 이미지 2장: 아래에 캐릭터 씬(scene), 그 위에 어두운 커버(cover).
+      // 타이핑이 진행되는 동안 커버의 opacity 가 1 → 0 으로 내려가며 캐릭터가 드러난다.
+      '<div class="intro-bg intro-bg-scene" aria-hidden="true"></div>',
+      '<div class="intro-bg intro-bg-cover" aria-hidden="true"></div>',
       // 배경 글리치: 얇은 스캔 밴드 + 가끔 어긋나는 글리치 라인 (CSS 처리, 텍스트 뒤 배경 레이어)
       '<div class="intro-glitch" aria-hidden="true"></div>',
       '<div class="intro-frame">',
@@ -214,18 +239,31 @@
       '  <span class="intro-corner tr"></span>',
       '  <span class="intro-corner bl"></span>',
       '  <span class="intro-corner br"></span>',
-      '  <span class="intro-hud-label top-right">TERMINAL // SECURE MODE</span>',
+      '  <span class="intro-hud-label top-left">TERMINAL // BOOT MODE</span>',
+      '  <span class="intro-hud-label top-right">NODE: AEON-01</span>',
       '  <span class="intro-hud-label bottom-left">SYS STATUS: ONLINE</span>',
       '  <span class="intro-hud-label bottom-right intro-uptime">UPTIME: 00:00:00</span>',
       '</div>',
-      // 터미널 로고: 소등(off) 이미지를 바닥에 깔고, 발광(glow) 이미지를 위에 얹어
-      // glow 레이어 opacity 를 불규칙하게 깜박여 네온 점멸 효과를 낸다(CSS 처리).
+      // 터미널 로고: 히어로와 같은 AeonFall 로고 + 같은 스펙큘러 스윕(반사).
+      // 스윕은 style.css 의 .hero-title-wrap::after 규칙을 .intro-title 이 함께 쓴다.
       '<div class="intro-title">',
-      '  <img class="intro-title-off"  src="images/terminal-logo-off.webp"  alt="" aria-hidden="true" />',
-      '  <img class="intro-title-glow" src="images/terminal-logo-glow.webp" alt="THE AEON FALL" />',
+      '  <img class="intro-title-img" src="images/logo-aeonfall.webp" alt="AEONFALL" />',
       '</div>',
-      '<div class="intro-console"></div>',
-      '<button type="button" class="intro-skip" aria-label="Skip intro">SKIP</button>'
+      // 부팅 로그: 안쪽 래퍼를 가운데 두고, 줄들은 그 안에서 왼쪽 정렬
+      '<div class="intro-console"><div class="intro-console-inner"></div></div>',
+      '<button type="button" class="intro-skip" aria-label="Skip intro">SKIP</button>',
+      // 하단 문구: 히어로와 동일한 소개 4줄 + 카피라이트
+      '<div class="intro-footer">',
+      '  <p class="intro-blurb">',
+      '    Dalla Games is a two-person studio built around a single, uncompromising vision.<br />',
+      '    AeonFall is a hardcore roguelike defense where growth and safety are never the same choice.<br />',
+      '    Every action leaves noise behind, and noise draws the infected horde.<br />',
+      '    Built in Unreal Engine 5. Recipient of the Epic MegaGrant.',
+      '  </p>',
+      '  <p class="intro-copyright">',
+      '    AeonFall&trade; <span class="copy-symbol">&copy;</span> 2026 DALLA GAMES INC. ALL RIGHTS RESERVED.',
+      '  </p>',
+      '</div>'
     ].join("");
 
     return overlay;

@@ -8,7 +8,7 @@
        · OUR GAMES / ABOUT US 하위 내용(부제·특징·팀원·태그라인) — 4개 언어 번역.
      (헤더 메뉴·푸터·트레일러 라벨 등 그 외 텍스트는 항상 그대로 둔다.)
    - 선택 언어는 localStorage 에 저장되어 다음 방문에도 유지된다.
-   - 게임 프로젝트명은 모든 언어에서 항상 "The AeonFall"(로고 이미지 자체는 제외).
+   - 게임 프로젝트명은 모든 언어에서 항상 "AeonFall"(로고 이미지 자체는 제외).
    - data-i18n     : textContent 교체
      data-i18n-html: innerHTML 교체(accent 강조 span 포함)
    - 특정 언어에 번역이 없는 키(예: 한국어의 games.title/about.title)는 페이지에
@@ -31,10 +31,10 @@
       zh: "Epic MegaGrant 获选者", ja: "Epic MegaGrant 採択"
     },
     "epic.text": {
-      ko: "에픽게임즈의 지원과 함께, The AeonFall의 개발 가속화에 한층 더 박차를 가하고 있습니다.",
-      en: "Epic Games’ support is helping us accelerate development of The AeonFall.",
-      zh: "在 Epic Games 的支持下，我们正加速开发 The AeonFall。",
-      ja: "Epic Games のサポートにより、The AeonFall の開発を加速しています。"
+      ko: "에픽게임즈의 지원과 함께, AeonFall의 개발 가속화에 한층 더 박차를 가하고 있습니다.",
+      en: "Epic Games’ support is helping us accelerate development of AeonFall.",
+      zh: "在 Epic Games 的支持下，我们正加速开发 AeonFall。",
+      ja: "Epic Games のサポートにより、AeonFall の開発を加速しています。"
     },
 
     /* ---- OUR GAMES ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
@@ -44,10 +44,10 @@
       ja: '私たちの<span class="accent">ゲーム</span>'
     },
     "games.subtitle": {
-      ko: "The AeonFall – 하드코어 로그라이크 디펜스",
-      en: "The AeonFall – Hardcore Roguelike Defense",
-      zh: "The AeonFall – 硬核 Roguelike 塔防",
-      ja: "The AeonFall – ハードコア・ローグライク・ディフェンス"
+      ko: "AeonFall – 하드코어 로그라이크 디펜스",
+      en: "AeonFall – Hardcore Roguelike Defense",
+      zh: "AeonFall – 硬核 Roguelike 塔防",
+      ja: "AeonFall – ハードコア・ローグライク・ディフェンス"
     },
     "f1.title": { ko: "압도적인 물량", en: "Massive Waves", zh: "海量敌潮", ja: "圧倒的な物量" },
     "f1.desc": {

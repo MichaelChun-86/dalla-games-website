@@ -12,12 +12,12 @@
   <link rel="icon" type="image/png" href="images/favicon.png" />
 
   <!-- 검색/공유용 설명 -->
-  <meta name="description" content="Dalla Games Inc. — The AeonFall, a hardcore roguelike defense game." />
+  <meta name="description" content="Dalla Games Inc. — AeonFall, a hardcore roguelike defense game." />
 
   <!-- 링크 공유 미리보기 (Open Graph) -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="The AeonFall — Dalla Games" />
-  <meta property="og:description" content="Hardcore Roguelike Defense. Wishlist The AeonFall on Steam." />
+  <meta property="og:title" content="AeonFall — Dalla Games" />
+  <meta property="og:description" content="Hardcore Roguelike Defense. Wishlist AeonFall on Steam." />
   <!-- ?v= 는 캐시 무효화용 버전. og 이미지를 교체할 때마다 이 숫자를 바꾸면
        SNS(카카오톡/페이스북/디스코드 등)가 새 이미지를 다시 가져온다. -->
   <meta property="og:image" content="https://dallagames.com/images/og-image.jpg?v=20260707" />
@@ -28,8 +28,8 @@
 
   <!-- 트위터(X) 카드 -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The AeonFall — Dalla Games" />
-  <meta name="twitter:description" content="Hardcore Roguelike Defense. Wishlist The AeonFall on Steam." />
+  <meta name="twitter:title" content="AeonFall — Dalla Games" />
+  <meta name="twitter:description" content="Hardcore Roguelike Defense. Wishlist AeonFall on Steam." />
   <meta name="twitter:image" content="https://dallagames.com/images/og-image.jpg?v=20260707" />
 
   <link rel="stylesheet" href="style.css" />
@@ -118,10 +118,11 @@
       </div>
 
       <div class="hero-content">
-        <!-- 큰 타이틀: THE AEON FALL (이미지 로고)
-             래퍼 위에 스펙큘러 스윕(메탈릭 하이라이트)을 얹는다. -->
+        <!-- 큰 타이틀: AEONFALL (이미지 로고)
+             래퍼 위에 스펙큘러 스윕(메탈릭 하이라이트)을 얹는다.
+             스윕 마스크(--sweep-mask)는 이 로고의 알파에서 생성한 뎁스맵이다. -->
         <span class="hero-title-wrap">
-          <img src="images/logo-aeonfall.webp" alt="THE AEON FALL" class="hero-title" />
+          <img src="images/logo-aeonfall.webp" alt="AEONFALL" class="hero-title" />
         </span>
 
         <!-- 출시 시기: Coming 2027 (이사만루 라이트) -->
@@ -148,7 +149,7 @@
           <iframe
             id="trailerFrame"
             data-src="https://www.youtube-nocookie.com/embed/hbOC0TWPv0c?rel=0&autoplay=1"
-            title="The AeonFall — Trailer"
+            title="AeonFall — Trailer"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </div>
@@ -160,7 +161,7 @@
         <div class="epic-info">
           <h3 class="epic-title font-medium accent" data-i18n="epic.title">Epic MegaGrant Recipient</h3>
           <p class="epic-text" data-i18n="epic.text">
-            Epic Games&rsquo; support is helping us accelerate development of The AeonFall.
+            Epic Games&rsquo; support is helping us accelerate development of AeonFall.
           </p>
         </div>
       </div>
@@ -172,24 +173,39 @@
         <div class="hs-line"></div>
       </div>
 
-      <!-- 아래로 스크롤 유도 화살표 (네온 쉐브론 3개가 순차로 흐름) -->
+      <!-- 아래로 스크롤 유도 화살표 (네온 쉐브론 3개가 순차로 흐름)
+           아래 .hero-footer 문구를 가리지 않도록 그보다 위쪽에 배치한다. -->
       <a href="#games" class="scroll-down" aria-label="Scroll down">
         <span class="chevron"></span>
         <span class="chevron"></span>
         <span class="chevron"></span>
       </a>
+
+      <!-- 히어로 하단: 스튜디오 소개 문구 + 카피라이트
+           소개 문구는 카피라이트보다 작은 글자, 두 블록의 폭은 서로 맞춘다. -->
+      <div class="hero-footer">
+        <p class="hero-blurb">
+          Dalla Games is a two-person studio built around a single, uncompromising vision.<br />
+          AeonFall is a hardcore roguelike defense where growth and safety are never the same choice.<br />
+          Every action leaves noise behind, and noise draws the infected horde.<br />
+          Built in Unreal Engine 5. Recipient of the Epic MegaGrant.
+        </p>
+        <p class="hero-copyright">
+          AeonFall&trade; <span class="copy-symbol">&copy;</span> 2026 DALLA GAMES INC. ALL RIGHTS RESERVED.
+        </p>
+      </div>
     </section>
 
     <!-- ===================== OUR GAMES ===================== -->
     <section class="games" id="games">
       <div class="section-inner">
         <h2 class="section-title font-medium" data-i18n-html="games.title">OUR <span class="accent">GAMES</span></h2>
-        <p class="section-subtitle" data-i18n="games.subtitle">The AeonFall &ndash; Hardcore Roguelike Defense</p>
+        <p class="section-subtitle" data-i18n="games.subtitle">AeonFall &ndash; Hardcore Roguelike Defense</p>
 
         <div class="games-grid">
           <!-- 왼쪽: 게임 키아트 -->
           <div class="games-art">
-            <img src="images/game-art.webp" alt="The AeonFall key art" />
+            <img src="images/game-art.webp" alt="AeonFall key art" />
           </div>
 
           <!-- 오른쪽: 4가지 특징 -->
@@ -299,7 +315,7 @@
 
     <!-- 카피라이트: © 글자만 노토산스(.copy-symbol)로 처리 -->
     <p class="copyright">
-      The AeonFall&trade; <span class="copy-symbol">&copy;</span> 2026 Dalla Games Inc. All rights reserved. Developed by Dalla Games Inc.
+      AeonFall&trade; <span class="copy-symbol">&copy;</span> 2026 DALLA GAMES INC. ALL RIGHTS RESERVED.
     </p>
   </footer>
 
