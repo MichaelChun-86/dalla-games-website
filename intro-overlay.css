@@ -312,6 +312,30 @@ body.intro-active {
   color: rgba(255, 255, 255, 0.9);
 }
 
+/* 모바일: 하단 문구를 히어로 모바일과 완전히 같은 크기로 맞춘다.
+   (style.css 의 .hero-blurb / .hero-copyright 모바일 규칙과 같은 식.
+    intro-overlay.css 가 style.css 보다 늦게 로드되므로 여기서 다시 지정한다.)
+   → 소개 문구 4줄 + 카피라이트 1줄. */
+@media (max-width: 768px) {
+  .intro-blurb {
+    font-size: min(8px, calc(2.51vw - 1.21px));
+    line-height: 1.85;
+  }
+  .intro-copyright {
+    font-size: min(9.5px, calc(2.99vw - 1.44px));
+    letter-spacing: 0.2px;
+    margin-top: 12px;
+  }
+  .intro-footer {
+    bottom: 40px;
+    max-width: 92vw;
+  }
+  /* SKIP: 하단 문구 위로 올리고 간격을 둔다(문구 블록 높이 ≈ 86px) */
+  .intro-skip {
+    bottom: 154px;
+  }
+}
+
 /* =========================================================================
    모바일 반응형 — 좁은 세로 화면에서도 비율이 깨지지 않게 조정
    ========================================================================= */
@@ -337,19 +361,16 @@ body.intro-active {
   .intro-hud-label.top-right,
   .intro-hud-label.bottom-right { right: 12px; }
 
-  /* 중앙 부팅 로그: 좌우 여백 축소, 글자 크기 화면비에 맞춤 */
+  /* 중앙 부팅 로그: 좌우 여백 축소, 글자 크기 화면비에 맞춤.
+     아래쪽 패딩으로 세로 중앙을 위로 밀어 타이틀 로고 가까이 붙인다. */
   .intro-console {
-    padding: 0 24px;
+    padding: 0 24px 30vh;
   }
   .intro-line {
     font-size: clamp(13px, 4.6vw, 18px);
     line-height: 1.85;
   }
-
-  /* SKIP 버튼 하단 중앙 유지, 살짝 위로 */
-  .intro-skip {
-    bottom: 34px;
-  }
+  /* SKIP 위치는 위쪽 768px 블록에서 문구 높이에 맞춰 정한다(여기선 덮어쓰지 않는다) */
 }
 
 /* 아주 좁은 화면(소형 폰)에서 상단 좌/우 라벨 겹침 방지 */

@@ -254,11 +254,14 @@
       '<button type="button" class="intro-skip" aria-label="Skip intro">SKIP</button>',
       // 하단 문구: 히어로와 동일한 소개 4줄 + 카피라이트
       '<div class="intro-footer">',
+      // 히어로 하단 문구와 완전히 동일한 구조/클래스.
+      // .br-m 은 모바일에서만 살아나는 줄바꿈, .hb-desktop-only 는 모바일에서 숨겨져
+      // 모바일에서는 앞 두 문장이 4줄로 보인다(히어로와 같은 결과).
       '  <p class="intro-blurb">',
-      '    Dalla Games is a two-person studio built around a single, uncompromising vision.<br />',
-      '    AeonFall is a hardcore roguelike defense where growth and safety are never the same choice.<br />',
-      '    Every action leaves noise behind, and noise draws the infected horde.<br />',
-      '    Built in Unreal Engine 5. Recipient of the Epic MegaGrant.',
+      '    <span class="hb-line">Dalla Games is a two-person studio<br class="br-m" /> built around a single, uncompromising vision.</span>',
+      '    <span class="hb-line">AeonFall is a hardcore roguelike defense<br class="br-m" /> where growth and safety are never the same choice.</span>',
+      '    <span class="hb-line hb-desktop-only">Every action leaves noise behind, and noise draws the infected horde.</span>',
+      '    <span class="hb-line hb-desktop-only">Built in Unreal Engine 5. Recipient of the Epic MegaGrant.</span>',
       '  </p>',
       '  <p class="intro-copyright">',
       '    AeonFall&trade; <span class="copy-symbol">&copy;</span> 2026 DALLA GAMES INC. ALL RIGHTS RESERVED.',
