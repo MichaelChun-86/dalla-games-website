@@ -45,6 +45,11 @@ images/hero-bg-mobile_Mask.png
 # BGM: 배경음악 기능 제거로 배포에서 제외 (음원은 로컬에만 보존)
 BGM/
 
+# AI 에이전트 설정/스킬 (개발 도구용 — 사이트 배포와 무관)
+.agents/
+.claude/
+skills-lock.json
+
 # OS
 Thumbs.db
 .DS_Store
