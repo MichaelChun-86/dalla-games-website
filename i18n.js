@@ -23,6 +23,19 @@
 
   var T = {
     /* ---- 히어로 (4개 언어 모두 번역) ---- */
+    /* 로고 위 장르 한 줄 / 로고 아래 훅 한 줄. 영문은 전부 대문자로 쓴다. */
+    "hero.genre": {
+      ko: "하드코어 로그라이크 디펜스",
+      en: "HARDCORE ROGUELIKE DEFENSE",
+      zh: "硬核 ROGUELIKE 塔防",
+      ja: "ハードコア・ローグライク・ディフェンス"
+    },
+    "hero.hook": {
+      ko: "성장과 안전은 결코 같은 선택이 될 수 없다",
+      en: "GROWTH AND SAFETY ARE NEVER THE SAME CHOICE",
+      zh: "成长与安全，绝不可能是同一个选择",
+      ja: "成長と安全は、決して同じ選択にはなり得ない"
+    },
     "hero.coming": {
       ko: "2027 출시 예정", en: "Coming 2027", zh: "预计 2027 年发售", ja: "2027年 発売予定"
     },
@@ -84,51 +97,45 @@
       zh: '一<span class="accent">局</span>的流程', ja: '<span class="accent">1</span>プレイの流れ'
     },
     "loop.subtitle": {
-      ko: "한 판은 다섯 박자로 굴러가고, 다시 처음으로 돌아갑니다",
-      en: "One run, five beats – then it starts over",
-      zh: "一局分为五个节拍 —— 然后重新开始",
-      ja: "1プレイは5つの拍で進み、そしてまた最初へ"
+      ko: "성장할수록 커지는 소음, 압도적 웨이브 속에서 살아남아야 한다.",
+      en: "The more you grow, the louder you get — and you have to survive the waves that follow.",
+      zh: "成长越多，噪声越大 —— 你必须在压倒性的敌潮中活下来。",
+      ja: "成長するほど騒音は大きくなる。圧倒的なウェーブを生き延びなければならない。"
     },
-    "loop.s1.name": { ko: "짓는다", en: "Build", zh: "建造", ja: "築く" },
+    "loop.s1.name": { ko: "기지 건설", en: "Build the base", zh: "建设基地", ja: "拠点建設" },
     "loop.s1.desc": {
-      ko: "기지를 세우고 발 디딜 땅을 확보합니다.",
-      en: "Set up your base and hold a pocket of ground.",
-      zh: "建立基地，守住一小块立足之地。",
-      ja: "拠点を築き、足場となる一角を確保します。"
+      ko: "HQ를 중심으로 전력을 공급하고 방어 인프라를 구축합니다.",
+      en: "Run power out from your HQ and raise the defensive infrastructure around it.",
+      zh: "以 HQ 为中心供应电力，并构筑防御设施。",
+      ja: "HQ を中心に電力を供給し、防衛インフラを構築します。"
     },
-    "loop.s2.name": { ko: "넓힌다", en: "Expand", zh: "扩张", ja: "広げる" },
+    "loop.s2.name": { ko: "세력 확장", en: "Expand your reach", zh: "扩张势力", ja: "勢力拡大" },
     "loop.s2.desc": {
-      ko: "자원을 얻으려 더 멀리 나갑니다. 나갈수록 고요를 잃습니다.",
-      en: "Reach further for resources. Every reach costs quiet.",
-      zh: "为资源走得更远。每走一步，都要付出安静。",
-      ja: "資源を求めて遠くへ。踏み出すほど静けさを失います。"
+      ko: "고티어 자원과 연구 포인트를 확보하기 위해 전장을 탐사합니다.",
+      en: "Push into the field to secure high-tier resources and research points.",
+      zh: "为确保高阶资源与研究点数，探索战场。",
+      ja: "高ティア資源と研究ポイントを確保するため、戦場を探索します。"
     },
-    "loop.s3.name": { ko: "소음이 오른다", en: "Noise rises", zh: "噪声上升", ja: "騒音が高まる" },
+    "loop.s3.name": { ko: "소음 축적", en: "Noise builds", zh: "噪声累积", ja: "騒音蓄積" },
     "loop.s3.desc": {
-      ko: "무리가 당신을 듣습니다. 멈출 시점은 당신이 정합니다.",
-      en: "The horde hears you. You choose when to stop.",
-      zh: "敌群听见了你。何时收手由你决定。",
-      ja: "群れがあなたを聞きつけます。止め時を決めるのはあなたです。"
+      ko: "발전과 전투 수위가 높아질수록 지속 소음 단계가 상승합니다.",
+      en: "The further your power and combat escalate, the higher your sustained noise level climbs.",
+      zh: "发展与战斗强度越高，持续噪声等级就越上升。",
+      ja: "発展と戦闘の水準が上がるほど、持続騒音レベルが上昇します。"
     },
-    "loop.s4.name": { ko: "웨이브", en: "The wave", zh: "敌潮", ja: "ウェーブ" },
+    "loop.s4.name": { ko: "웨이브 방어", en: "Hold the wave", zh: "波次防御", ja: "ウェーブ防衛" },
     "loop.s4.desc": {
-      ko: "정면으로 맞바꿀 수 없는 수가 몰려옵니다.",
-      en: "They arrive in numbers you cannot trade evenly with.",
-      zh: "它们以你无法正面对等交换的数量涌来。",
-      ja: "正面から釣り合わない数で押し寄せます。"
+      ko: "기지 사방에서 몰려드는 군집 감염체와 보스를 격퇴합니다.",
+      en: "Swarming infected and bosses close in on every side of the base.",
+      zh: "击退从基地四面涌来的集群感染体与首领。",
+      ja: "拠点の四方から押し寄せる群集感染体とボスを撃退します。"
     },
-    "loop.s5.name": { ko: "적응한다", en: "Adapt", zh: "适应", ja: "適応する" },
+    "loop.s5.name": { ko: "전술 적응", en: "Adapt your tactics", zh: "战术适应", ja: "戦術適応" },
     "loop.s5.desc": {
-      ko: "지형도 패턴도 매번 다릅니다. 다시 짓고 다시 시작합니다.",
-      en: "New terrain, new patterns. Rebuild and go again.",
-      zh: "地形与模式每次都不同。重建，再来一次。",
-      ja: "地形もパターンも毎回変わります。建て直して、もう一度。"
-    },
-    "loop.note": {
-      ko: "성장과 안전은 결코 같은 선택이 아닙니다.",
-      en: "Growth and safety are never the same choice.",
-      zh: "成长与安全，从来不是同一个选择。",
-      ja: "成長と安全は、決して同じ選択ではありません。"
+      ko: "무작위 지형과 직업 조합을 바탕으로 최선의 생존 경로를 재설계합니다.",
+      en: "Redraw your best route to survival around random terrain and your class composition.",
+      zh: "依据随机地形与职业组合，重新规划最佳生存路径。",
+      ja: "ランダムな地形と職業構成をもとに、最適な生存ルートを再設計します。"
     },
 
     /* ---- FAQ ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */

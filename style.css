@@ -395,6 +395,54 @@ label,
   }
 }
 
+/* ---------- 히어로 카피 두 줄 ----------
+   로고를 위아래에서 받쳐 하나의 조판 덩어리로 묶는다.
+   위(장르)는 작고 넓게, 아래(훅)는 그보다 크고 또렷하게 —
+   눈이 [장르] → [로고] → [훅] 순서로 흐른다. */
+
+/* 장르: 로고 위 아이브로우. 양옆 헤어라인이 로고 폭을 잡아준다. */
+.hero-eyebrow {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 8px;
+  font-size: clamp(10px, 1.05vw, 13px);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--mint);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(8, 225, 120, 0.45));
+}
+.hero-eyebrow::after {
+  background: linear-gradient(90deg, rgba(8, 225, 120, 0.45), transparent);
+}
+
+/* 훅: 장르 바로 아래, 로고 위. 이 게임의 핵심 긴장을 한 줄로 못 박는다.
+   장르보다는 크되 로고를 침범하지 않게 작게 잡는다. */
+.hero-hook {
+  position: relative;
+  z-index: 3;
+  /* 로고 이미지 위쪽에 투명 여백이 34% 들어 있어, 마진을 0으로 둬도
+     글자와 82px 이나 벌어진다. 음수 마진으로 그만큼 끌어올려 균형을 맞춘다. */
+  margin: 0 0 -30px;
+  font-size: clamp(11px, 1.08vw, 14px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.85);
+}
+
 /* 출시 시기: Coming 2027 (이사만루 라이트, 흰색) — 타이틀과 위시리스트 사이.
    레이어: 위시리스트/스팀보다 위(z-index 높음)에 두어 겹쳐도 항상 앞에 보이게 */
 .hero-coming {
@@ -407,6 +455,9 @@ label,
   margin-top: 22px;                 /* 타이틀 아래로 살짝 간격 */
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
+/* 훅 문구가 로고 위로 올라가면서 로고 아래가 비었으므로,
+   그만큼 출시 시기부터 아래 그룹 전체를 타이틀 쪽으로 끌어올린다. */
+.hero-title-wrap + .hero-coming { margin-top: 12px; }
 
 .hero-subtitle {
   position: relative;

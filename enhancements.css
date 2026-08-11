@@ -94,15 +94,6 @@
   opacity: 0.8;
 }
 
-/* 마무리 한 줄: 이 순환이 무엇을 뜻하는지 */
-.loop-note {
-  margin-top: 56px;
-  text-align: center;
-  font-size: clamp(15px, 2.2vw, 19px);
-  color: var(--text);
-  letter-spacing: 0.3px;
-}
-
 /* =========================================================================
    FAQ — 조용하게. 강조는 THE LOOP 과 HUD 에서만 쓴다.
    ========================================================================= */
@@ -279,7 +270,6 @@ html.noise-high .noise-vignette { opacity: 1; }
   .loop-gauge { margin: 10px 0 12px; }
   .loop-name { font-size: 15px; }
   .loop-desc { font-size: 12.5px; }
-  .loop-note { margin-top: 40px; font-size: 14.5px; }
 
   .faq-q { font-size: 14.5px; }
   .faq-a { font-size: 12.5px; }
