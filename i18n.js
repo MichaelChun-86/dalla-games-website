@@ -78,6 +78,152 @@
       ja: "地形・資源・敵のパターンが毎回変化し、プレイは常に新たに展開します。適応せよ、さもなくば圧倒されます。"
     },
 
+    /* ---- THE LOOP ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
+    "loop.title": {
+      en: 'THE <span class="accent">LOOP</span>',
+      zh: '一<span class="accent">局</span>的流程', ja: '<span class="accent">1</span>プレイの流れ'
+    },
+    "loop.subtitle": {
+      ko: "한 판은 다섯 박자로 굴러가고, 다시 처음으로 돌아갑니다",
+      en: "One run, five beats – then it starts over",
+      zh: "一局分为五个节拍 —— 然后重新开始",
+      ja: "1プレイは5つの拍で進み、そしてまた最初へ"
+    },
+    "loop.s1.name": { ko: "짓는다", en: "Build", zh: "建造", ja: "築く" },
+    "loop.s1.desc": {
+      ko: "기지를 세우고 발 디딜 땅을 확보합니다.",
+      en: "Set up your base and hold a pocket of ground.",
+      zh: "建立基地，守住一小块立足之地。",
+      ja: "拠点を築き、足場となる一角を確保します。"
+    },
+    "loop.s2.name": { ko: "넓힌다", en: "Expand", zh: "扩张", ja: "広げる" },
+    "loop.s2.desc": {
+      ko: "자원을 얻으려 더 멀리 나갑니다. 나갈수록 고요를 잃습니다.",
+      en: "Reach further for resources. Every reach costs quiet.",
+      zh: "为资源走得更远。每走一步，都要付出安静。",
+      ja: "資源を求めて遠くへ。踏み出すほど静けさを失います。"
+    },
+    "loop.s3.name": { ko: "소음이 오른다", en: "Noise rises", zh: "噪声上升", ja: "騒音が高まる" },
+    "loop.s3.desc": {
+      ko: "무리가 당신을 듣습니다. 멈출 시점은 당신이 정합니다.",
+      en: "The horde hears you. You choose when to stop.",
+      zh: "敌群听见了你。何时收手由你决定。",
+      ja: "群れがあなたを聞きつけます。止め時を決めるのはあなたです。"
+    },
+    "loop.s4.name": { ko: "웨이브", en: "The wave", zh: "敌潮", ja: "ウェーブ" },
+    "loop.s4.desc": {
+      ko: "정면으로 맞바꿀 수 없는 수가 몰려옵니다.",
+      en: "They arrive in numbers you cannot trade evenly with.",
+      zh: "它们以你无法正面对等交换的数量涌来。",
+      ja: "正面から釣り合わない数で押し寄せます。"
+    },
+    "loop.s5.name": { ko: "적응한다", en: "Adapt", zh: "适应", ja: "適応する" },
+    "loop.s5.desc": {
+      ko: "지형도 패턴도 매번 다릅니다. 다시 짓고 다시 시작합니다.",
+      en: "New terrain, new patterns. Rebuild and go again.",
+      zh: "地形与模式每次都不同。重建，再来一次。",
+      ja: "地形もパターンも毎回変わります。建て直して、もう一度。"
+    },
+    "loop.note": {
+      ko: "성장과 안전은 결코 같은 선택이 아닙니다.",
+      en: "Growth and safety are never the same choice.",
+      zh: "成长与安全，从来不是同一个选择。",
+      ja: "成長と安全は、決して同じ選択ではありません。"
+    },
+
+    /* ---- FAQ ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
+    "faq.title": { en: "FAQ", zh: "常见<span class=\"accent\">问题</span>", ja: "よくある<span class=\"accent\">質問</span>" },
+    "faq.subtitle": {
+      ko: "지금 확실히 말씀드릴 수 있는 것들",
+      en: "What we can tell you right now",
+      zh: "目前可以确定告诉你的",
+      ja: "現時点でお伝えできること"
+    },
+    "faq.q1": {
+      ko: "AeonFall은 어떤 게임인가요?",
+      en: "What kind of game is AeonFall?",
+      zh: "AeonFall 是什么样的游戏？",
+      ja: "AeonFall はどんなゲームですか？"
+    },
+    "faq.a1": {
+      ko: "하드코어 로그라이크 디펜스입니다. 캐릭터를 직접 조종하면서 실시간으로 기지를 짓고 지킵니다.",
+      en: "A hardcore roguelike defense game. You control your character directly while you build and defend a base in real time.",
+      zh: "一款硬核 Roguelike 塔防。你直接操控角色，同时实时建造并防守基地。",
+      ja: "ハードコア・ローグライク・ディフェンスです。キャラクターを直接操作しながら、リアルタイムで拠点を築き守ります。"
+    },
+    "faq.q2": {
+      ko: "소음이 뭔가요?",
+      en: "What is noise?",
+      zh: "噪声是什么？",
+      ja: "騒音とは何ですか？"
+    },
+    "faq.a2": {
+      ko: "당신의 모든 행동은 소음을 만들고, 소음은 감염된 무리를 부릅니다. 확장하면 자원을 얻지만 다음 웨이브가 앞당겨집니다. 그 맞바꿈이 이 게임입니다.",
+      en: "Everything you do makes noise, and noise draws the infected horde. Expanding gets you resources and brings the next wave closer. That trade is the game.",
+      zh: "你的一切行动都会产生噪声，而噪声会引来受感染的敌群。扩张能带来资源，也会让下一波更早到来。这个取舍就是游戏本身。",
+      ja: "あらゆる行動が騒音を生み、騒音は感染した群れを呼びます。拡張すれば資源は得られますが、次のウェーブが近づきます。その取引こそがこのゲームです。"
+    },
+    "faq.q3": {
+      ko: "언제 나오나요?",
+      en: "When does it come out?",
+      zh: "什么时候发售？",
+      ja: "いつ発売されますか？"
+    },
+    "faq.a3": {
+      ko: "2027년입니다. 스팀에서 위시리스트에 담아두시면 출시 당일 알림을 받으실 수 있습니다.",
+      en: "2027. Wishlist on Steam and you will hear from us the day it goes live.",
+      zh: "2027 年。在 Steam 加入愿望单，发售当天就会收到通知。",
+      ja: "2027年です。Steam でウィッシュリストに追加しておくと、発売当日にお知らせが届きます。"
+    },
+    "faq.q4": {
+      ko: "어디서 할 수 있나요?",
+      en: "Where can I play it?",
+      zh: "在哪里可以玩到？",
+      ja: "どこでプレイできますか？"
+    },
+    "faq.a4": {
+      ko: "스팀입니다. 상점 페이지는 이미 열려 있어 지금 위시리스트에 담으실 수 있습니다.",
+      en: "On Steam. The store page is open now for wishlisting.",
+      zh: "在 Steam。商店页面已经开放，现在就可以加入愿望单。",
+      ja: "Steam です。ストアページは公開済みで、今すぐウィッシュリストに追加できます。"
+    },
+    "faq.q5": {
+      ko: "누가 만드나요?",
+      en: "Who is making it?",
+      zh: "由谁开发？",
+      ja: "誰が作っていますか？"
+    },
+    "faq.a5": {
+      ko: "서울의 2인 스튜디오 달라게임즈입니다. AeonFall은 언리얼 엔진 5로 만들고 있고, 에픽 메가그랜트에 선정되었습니다.",
+      en: "Dalla Games, a two-person studio in Seoul. AeonFall is built in Unreal Engine 5 and received an Epic MegaGrant.",
+      zh: "首尔的两人工作室 Dalla Games。AeonFall 使用虚幻引擎 5 开发，并获得了 Epic MegaGrant。",
+      ja: "ソウルの2人スタジオ Dalla Games です。AeonFall は Unreal Engine 5 で開発し、Epic MegaGrant に採択されました。"
+    },
+    "faq.q6": {
+      ko: "실제로 돌아가는 모습을 볼 수 있나요?",
+      en: "Can I see it running?",
+      zh: "能看到实际运行的样子吗？",
+      ja: "実際に動いている様子は見られますか？"
+    },
+    "faq.a6": {
+      ko: "이 페이지 위쪽에 트레일러가 있습니다. 더 긴 영상은 개발이 진행되는 대로 유튜브 채널에 올립니다.",
+      en: "The trailer is at the top of this page. Longer footage goes up on our YouTube channel as we go.",
+      zh: "本页顶部有预告片。更长的实机影像会随开发进度发布在我们的 YouTube 频道。",
+      ja: "このページの上部にトレーラーがあります。より長い映像は開発の進行に合わせて YouTube チャンネルで公開します。"
+    },
+    "faq.contact": {
+      ko: '취재·사업 문의: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
+      en: 'Press or business enquiries: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
+      zh: '媒体与商务咨询：<a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
+      ja: '取材・ビジネスのお問い合わせ: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>'
+    },
+
+    /* ---- 하단 HUD ---- 상태 문구(CALM/RISING/HUNTED)는 영문 고정 ---- */
+    "hud.cta": {
+      ko: "스팀 위시리스트", en: "Wishlist on Steam",
+      zh: "加入 Steam 愿望单", ja: "Steam でウィッシュリスト"
+    },
+
     /* ---- ABOUT US ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
     "about.title": {
       en: 'ABOUT <span class="accent">US</span>',

@@ -51,6 +51,9 @@
 
   <!-- 다국어(로컬라이제이션) 국기 버튼 스타일 — 스크립트는 body 끝에서 로드 -->
   <link rel="stylesheet" href="i18n.css" />
+
+  <!-- 추가 섹션(THE LOOP / FAQ) + 하단 소음 HUD 스타일 -->
+  <link rel="stylesheet" href="enhancements.css" />
 </head>
 <body>
 
@@ -247,6 +250,55 @@
       </div>
     </section>
 
+    <!-- ===================== 한 판의 흐름 (THE LOOP) =====================
+         한 번의 플레이가 어떤 순서로 굴러가는지 보여주는 섹션.
+         실제로 반복되는 순환이라 번호(01~05)가 정보로서 의미가 있다.
+         각 단계의 막대는 그 시점의 소음 수준 — 확장할수록 차오르고,
+         웨이브가 지나가면 다시 낮아지는 게임의 긴장 곡선을 그대로 그린다. -->
+    <section class="loop" id="loop">
+      <div class="section-inner">
+        <h2 class="section-title font-medium" data-i18n-html="loop.title">THE <span class="accent">LOOP</span></h2>
+        <p class="section-subtitle" data-i18n="loop.subtitle">One run, five beats &ndash; then it starts over</p>
+
+        <ol class="loop-steps">
+          <li class="loop-step" data-noise="1">
+            <span class="loop-num">01</span>
+            <span class="loop-gauge" aria-hidden="true"><span class="loop-gauge-fill"></span></span>
+            <h3 class="loop-name accent" data-i18n="loop.s1.name">Build</h3>
+            <p class="loop-desc" data-i18n="loop.s1.desc">Set up your base and hold a pocket of ground.</p>
+          </li>
+          <li class="loop-step" data-noise="2">
+            <span class="loop-num">02</span>
+            <span class="loop-gauge" aria-hidden="true"><span class="loop-gauge-fill"></span></span>
+            <h3 class="loop-name accent" data-i18n="loop.s2.name">Expand</h3>
+            <p class="loop-desc" data-i18n="loop.s2.desc">Reach further for resources. Every reach costs quiet.</p>
+          </li>
+          <li class="loop-step" data-noise="3">
+            <span class="loop-num">03</span>
+            <span class="loop-gauge" aria-hidden="true"><span class="loop-gauge-fill"></span></span>
+            <h3 class="loop-name accent" data-i18n="loop.s3.name">Noise rises</h3>
+            <p class="loop-desc" data-i18n="loop.s3.desc">The horde hears you. You choose when to stop.</p>
+          </li>
+          <li class="loop-step loop-step-peak" data-noise="4">
+            <span class="loop-num">04</span>
+            <span class="loop-gauge" aria-hidden="true"><span class="loop-gauge-fill"></span></span>
+            <h3 class="loop-name accent" data-i18n="loop.s4.name">The wave</h3>
+            <p class="loop-desc" data-i18n="loop.s4.desc">They arrive in numbers you cannot trade evenly with.</p>
+          </li>
+          <li class="loop-step" data-noise="1">
+            <span class="loop-num">05</span>
+            <span class="loop-gauge" aria-hidden="true"><span class="loop-gauge-fill"></span></span>
+            <h3 class="loop-name accent" data-i18n="loop.s5.name">Adapt</h3>
+            <p class="loop-desc" data-i18n="loop.s5.desc">New terrain, new patterns. Rebuild and go again.</p>
+          </li>
+        </ol>
+
+        <p class="loop-note" data-i18n="loop.note">
+          Growth and safety are never the same choice.
+        </p>
+      </div>
+    </section>
+
     <!-- ===================== ABOUT US ===================== -->
     <section class="about" id="about">
       <div class="section-inner">
@@ -300,7 +352,68 @@
       </div>
     </section>
 
+    <!-- ===================== FAQ =====================
+         지금 확실히 답할 수 있는 것만 넣는다. 가격·플랫폼 범위·지원 언어·
+         협동 여부처럼 아직 확정되지 않은 항목은 추측해서 쓰지 않는다. -->
+    <section class="faq" id="faq">
+      <div class="section-inner">
+        <h2 class="section-title font-medium" data-i18n-html="faq.title">FAQ</h2>
+        <p class="section-subtitle" data-i18n="faq.subtitle">What we can tell you right now</p>
+
+        <dl class="faq-list">
+          <div class="faq-item">
+            <dt class="faq-q" data-i18n="faq.q1">What kind of game is AeonFall?</dt>
+            <dd class="faq-a" data-i18n="faq.a1">A hardcore roguelike defense game. You control your character directly while you build and defend a base in real time.</dd>
+          </div>
+          <div class="faq-item">
+            <dt class="faq-q" data-i18n="faq.q2">What is noise?</dt>
+            <dd class="faq-a" data-i18n="faq.a2">Everything you do makes noise, and noise draws the infected horde. Expanding gets you resources and brings the next wave closer. That trade is the game.</dd>
+          </div>
+          <div class="faq-item">
+            <dt class="faq-q" data-i18n="faq.q3">When does it come out?</dt>
+            <dd class="faq-a" data-i18n="faq.a3">2027. Wishlist on Steam and you will hear from us the day it goes live.</dd>
+          </div>
+          <div class="faq-item">
+            <dt class="faq-q" data-i18n="faq.q4">Where can I play it?</dt>
+            <dd class="faq-a" data-i18n="faq.a4">On Steam. The store page is open now for wishlisting.</dd>
+          </div>
+          <div class="faq-item">
+            <dt class="faq-q" data-i18n="faq.q5">Who is making it?</dt>
+            <dd class="faq-a" data-i18n="faq.a5">Dalla Games, a two-person studio in Seoul. AeonFall is built in Unreal Engine 5 and received an Epic MegaGrant.</dd>
+          </div>
+          <div class="faq-item">
+            <dt class="faq-q" data-i18n="faq.q6">Can I see it running?</dt>
+            <dd class="faq-a" data-i18n="faq.a6">The trailer is at the top of this page. Longer footage goes up on our YouTube channel as we go.</dd>
+          </div>
+        </dl>
+
+        <p class="faq-contact" data-i18n-html="faq.contact">
+          Press or business enquiries:
+          <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>
+        </p>
+      </div>
+    </section>
+
   </main>
+
+  <!-- ===================== 하단 HUD 바 =====================
+       게임 HUD 문법을 그대로 쓴 고정 바. 왼쪽은 현재 소음 수치,
+       오른쪽은 위시리스트 버튼. 히어로를 지나면 올라온다.
+       소음 값은 noise-hud.js 가 방문자의 행동(스크롤·호버·클릭)으로 올리고,
+       가만히 있으면 다시 내려간다. -->
+  <div class="hud-bar" id="hudBar" aria-hidden="true">
+    <div class="hud-noise">
+      <span class="hud-label">NOISE</span>
+      <span class="hud-meter"><span class="hud-meter-fill" id="hudMeterFill"></span></span>
+      <!-- 상태 문구(CALM / RISING / HUNTED)는 noise-hud.js 가 바꾼다.
+           터미널 HUD 라벨과 마찬가지로 모든 언어에서 영문 그대로 둔다. -->
+      <span class="hud-state" id="hudState">CALM</span>
+    </div>
+    <a class="hud-cta"
+       href="https://store.steampowered.com/app/4582730/THE_AEON_FALL/"
+       target="_blank" rel="noopener"
+       data-i18n="hud.cta">Wishlist on Steam</a>
+  </div>
 
   <!-- ===================== 푸터 ===================== -->
   <footer class="site-footer" id="contact">
@@ -332,5 +445,7 @@
   <script src="cursor-trail.js"></script>
   <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
   <script src="i18n.js"></script>
+  <!-- 소음 HUD + THE LOOP 소음 막대 — 기존 코드와 분리된 추가 파일 -->
+  <script src="noise-hud.js"></script>
 </body>
 </html>
