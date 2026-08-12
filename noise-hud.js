@@ -73,13 +73,22 @@
 
     noise = Math.min(1, noise + moved * RISE_PER_SCROLL);
 
-    // 히어로가 화면에서 완전히 빠져나간 뒤에만 HUD 를 올린다.
-    // (히어로 맨 아래 소개 문구·카피라이트를 가리지 않기 위해서다)
-    var hero = document.querySelector(".hero");
-    var passed = hero
-      ? hero.getBoundingClientRect().bottom <= 40
+    // 히어로에서 OUR GAME 으로 넘어가는 시점에 HUD 를 올린다.
+    //  ① OUR GAME 섹션이 화면 아래 1/4 안으로 들어왔고,
+    //  ② 히어로 맨 아래 소개 문구·카피라이트가 HUD 높이 밖으로 빠져나갔을 때.
+    // ②가 있어야 히어로 마지막 문구를 바가 덮지 않는다.
+    var games = document.querySelector(".games");
+    var heroFooter = document.querySelector(".hero-footer");
+    var vh = window.innerHeight;
+
+    var gamesInView = games
+      ? games.getBoundingClientRect().top <= vh * 0.75
       : y > 600;
-    bar.classList.toggle("is-shown", passed);
+    var heroCopyClear = heroFooter
+      ? heroFooter.getBoundingClientRect().bottom <= vh - bar.offsetHeight - 12
+      : true;
+
+    bar.classList.toggle("is-shown", gamesInView && heroCopyClear);
   }
 
   function onPress() {

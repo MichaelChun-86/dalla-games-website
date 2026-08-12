@@ -52,7 +52,7 @@
 
     /* ---- OUR GAMES ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
     "games.title": {
-      en: 'OUR <span class="accent">GAMES</span>',
+      en: 'OUR <span class="accent">GAME</span>',
       zh: '我们的<span class="accent">游戏</span>',
       ja: '私たちの<span class="accent">ゲーム</span>'
     },
@@ -102,35 +102,35 @@
       zh: "成长越多，噪声越大 —— 你必须在压倒性的敌潮中活下来。",
       ja: "成長するほど騒音は大きくなる。圧倒的なウェーブを生き延びなければならない。"
     },
-    "loop.s1.name": { ko: "기지 건설", en: "Build the base", zh: "建设基地", ja: "拠点建設" },
+    "loop.s1.name": { ko: "전력 확보", en: "Secure power", zh: "确保电力", ja: "電力確保" },
     "loop.s1.desc": {
       ko: "HQ를 중심으로 전력을 공급하고 방어 인프라를 구축합니다.",
       en: "Run power out from your HQ and raise the defensive infrastructure around it.",
       zh: "以 HQ 为中心供应电力，并构筑防御设施。",
       ja: "HQ を中心に電力を供給し、防衛インフラを構築します。"
     },
-    "loop.s2.name": { ko: "세력 확장", en: "Expand your reach", zh: "扩张势力", ja: "勢力拡大" },
+    "loop.s2.name": { ko: "영역 확장", en: "Expand territory", zh: "扩张领地", ja: "領域拡張" },
     "loop.s2.desc": {
-      ko: "고티어 자원과 연구 포인트를 확보하기 위해 전장을 탐사합니다.",
-      en: "Push into the field to secure high-tier resources and research points.",
-      zh: "为确保高阶资源与研究点数，探索战场。",
-      ja: "高ティア資源と研究ポイントを確保するため、戦場を探索します。"
+      ko: "높은 티어 자원과 포인트를 확보하기 위해 전장을 탐사합니다.",
+      en: "Push into the field to secure high-tier resources and points.",
+      zh: "为确保高阶资源与点数，探索战场。",
+      ja: "高ティア資源とポイントを確保するため、戦場を探索します。"
     },
-    "loop.s3.name": { ko: "소음 축적", en: "Noise builds", zh: "噪声累积", ja: "騒音蓄積" },
+    "loop.s3.name": { ko: "성장의 대가", en: "The cost of growth", zh: "成长的代价", ja: "成長の代償" },
     "loop.s3.desc": {
       ko: "발전과 전투 수위가 높아질수록 지속 소음 단계가 상승합니다.",
       en: "The further your power and combat escalate, the higher your sustained noise level climbs.",
       zh: "发展与战斗强度越高，持续噪声等级就越上升。",
       ja: "発展と戦闘の水準が上がるほど、持続騒音レベルが上昇します。"
     },
-    "loop.s4.name": { ko: "웨이브 방어", en: "Hold the wave", zh: "波次防御", ja: "ウェーブ防衛" },
+    "loop.s4.name": { ko: "압도적 공세", en: "Overwhelming assault", zh: "压倒性攻势", ja: "圧倒的攻勢" },
     "loop.s4.desc": {
       ko: "기지 사방에서 몰려드는 군집 감염체와 보스를 격퇴합니다.",
       en: "Swarming infected and bosses close in on every side of the base.",
       zh: "击退从基地四面涌来的集群感染体与首领。",
       ja: "拠点の四方から押し寄せる群集感染体とボスを撃退します。"
     },
-    "loop.s5.name": { ko: "전술 적응", en: "Adapt your tactics", zh: "战术适应", ja: "戦術適応" },
+    "loop.s5.name": { ko: "전술 재설계", en: "Redraw your tactics", zh: "重构战术", ja: "戦術再設計" },
     "loop.s5.desc": {
       ko: "무작위 지형과 직업 조합을 바탕으로 최선의 생존 경로를 재설계합니다.",
       en: "Redraw your best route to survival around random terrain and your class composition.",

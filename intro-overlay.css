@@ -427,6 +427,8 @@ body.intro-done .hero {
 /* 인트로 재생 중에는 히어로 주요 요소를 숨김 상태로 대기.
    ※ 타이틀은 로고 이미지와 스윕 하이라이트(::after)가 함께 움직여야 하므로
       .hero-title(img) 이 아니라 래퍼(.hero-title-wrap) 를 대상으로 한다. */
+html.intro-playing .hero-eyebrow,
+html.intro-playing .hero-hook,
 html.intro-playing .hero-title-wrap,
 html.intro-playing .hero-coming,
 html.intro-playing .hero-subtitle,
@@ -448,6 +450,16 @@ body.intro-done .hero-video {
   transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
+/* 로고 위 두 줄은 1초에 걸쳐 조금 더 천천히 떠오른다 */
+body.intro-done .hero-eyebrow,
+body.intro-done .hero-hook {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1s ease, transform 1s ease;
+}
+body.intro-done .hero-eyebrow { transition-delay: 0s; }
+body.intro-done .hero-hook    { transition-delay: 0.15s; }
+
 body.intro-done .hero-title-wrap { transition-delay: 0s; }
 body.intro-done .hero-coming    { transition-delay: 0.12s; }
 body.intro-done .hero-subtitle  { transition-delay: 0.24s; }

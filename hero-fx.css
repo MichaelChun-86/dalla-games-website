@@ -226,6 +226,8 @@ body.fx-scanning .hero {
   transition: none;         /* 인트로의 1초 페이드 대신 커버/스캔이 등장을 담당 */
 }
 
+html.fx-scan-wait .hero-eyebrow,    body.fx-scanning .hero-eyebrow,
+html.fx-scan-wait .hero-hook,       body.fx-scanning .hero-hook,
 html.fx-scan-wait .hero-title-wrap, body.fx-scanning .hero-title-wrap,
 html.fx-scan-wait .hero-coming,     body.fx-scanning .hero-coming,
 html.fx-scan-wait .hero-subtitle,   body.fx-scanning .hero-subtitle,
@@ -254,6 +256,17 @@ body.fx-scan-done .hero-video {
   transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
+/* 로고 위 두 줄(장르·훅)은 조금 더 천천히(1초) 떠오른다.
+   다른 요소의 순서·속도는 건드리지 않고 이 둘만 부드럽게 들어온다. */
+body.fx-scan-done .hero-eyebrow,
+body.fx-scan-done .hero-hook {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1s ease, transform 1s ease;
+}
+body.fx-scan-done .hero-eyebrow { transition-delay: 0s; }
+body.fx-scan-done .hero-hook    { transition-delay: 0.15s; }
+
 body.fx-scan-done .hero-title-wrap { transition-delay: 0s; }
 body.fx-scan-done .hero-coming     { transition-delay: calc(var(--hs-stagger) * 1); }
 body.fx-scan-done .hero-subtitle   { transition-delay: calc(var(--hs-stagger) * 2); }
