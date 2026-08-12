@@ -153,10 +153,10 @@
       ja: "AeonFall はどんなゲームですか？"
     },
     "faq.a1": {
-      ko: "하드코어 로그라이크 디펜스입니다. 캐릭터를 직접 조종하면서 실시간으로 기지를 짓고 지킵니다.",
-      en: "A hardcore roguelike defense game. You control your character directly while you build and defend a base in real time.",
-      zh: "一款硬核 Roguelike 塔防。你直接操控角色，同时实时建造并防守基地。",
-      ja: "ハードコア・ローグライク・ディフェンスです。キャラクターを直接操作しながら、リアルタイムで拠点を築き守ります。"
+      ko: "하드코어 로그라이크 디펜스입니다. 캐릭터를 직접 조작해 자원을 캐고, 기지를 세우고, 수십만의 감염체로부터 마지막 웨이브까지 살아남아야 합니다.",
+      en: "A hardcore roguelike defense game. You control your character directly — mine resources, build your base, and survive hundreds of thousands of infected until the final wave.",
+      zh: "一款硬核 Roguelike 塔防。你直接操控角色采集资源、建造基地，并从数十万感染体的围攻中撑到最后一波。",
+      ja: "ハードコア・ローグライク・ディフェンスです。キャラクターを直接操作して資源を採掘し、拠点を築き、数十万の感染体から最後のウェーブまで生き延びます。"
     },
     "faq.q2": {
       ko: "소음이 뭔가요?",
@@ -165,58 +165,106 @@
       ja: "騒音とは何ですか？"
     },
     "faq.a2": {
-      ko: "당신의 모든 행동은 소음을 만들고, 소음은 감염된 무리를 부릅니다. 확장하면 자원을 얻지만 다음 웨이브가 앞당겨집니다. 그 맞바꿈이 이 게임입니다.",
-      en: "Everything you do makes noise, and noise draws the infected horde. Expanding gets you resources and brings the next wave closer. That trade is the game.",
-      zh: "你的一切行动都会产生噪声，而噪声会引来受感染的敌群。扩张能带来资源，也会让下一波更早到来。这个取舍就是游戏本身。",
-      ja: "あらゆる行動が騒音を生み、騒音は感染した群れを呼びます。拡張すれば資源は得られますが、次のウェーブが近づきます。その取引こそがこのゲームです。"
+      ko: "당신의 모든 행동은 소음을 만들고, 소음은 감염체를 부릅니다. 채굴도, 건설도, 전투도 마찬가지입니다. 강해질수록 시끄러워지고, 시끄러울수록 더 많은 것이 다가옵니다. 그 맞바꿈이 이 게임입니다.",
+      en: "Everything you do makes noise, and noise calls the infected. Mining, building, fighting — all of it. The stronger you get, the louder you get; the louder you get, the more comes for you. That trade is the game.",
+      zh: "你的一切行动都会产生噪声，而噪声会引来感染体。采矿、建造、战斗都一样。你越强就越吵，越吵就有越多东西朝你逼近。这个取舍就是游戏本身。",
+      ja: "あなたのあらゆる行動が騒音を生み、騒音は感染体を呼びます。採掘も建設も戦闘も同じです。強くなるほど騒がしくなり、騒がしいほど多くのものが迫ってきます。その取引こそがこのゲームです。"
     },
     "faq.q3": {
+      ko: "다른 디펜스 게임과 뭐가 다른가요?",
+      en: "How is this different from other defense games?",
+      zh: "与其他塔防游戏有什么不同？",
+      ja: "他のディフェンスゲームと何が違いますか？"
+    },
+    "faq.a3": {
+      ko: "지휘관이 아니라 생존자입니다. 위에서 유닛을 내려다보는 대신, 당신이 직접 필드에 서서 총을 쏘고 자원을 캡니다. 그리고 다음 위협의 크기를 정하는 건 타이머가 아니라 당신이 낸 소음입니다.",
+      en: "You are a survivor, not a commander. Instead of looking down on units from above, you stand in the field yourself, firing your weapon and mining resources. And what sets the size of the next threat is not a timer — it is the noise you made.",
+      zh: "你是幸存者，不是指挥官。你不是俯视操控单位，而是亲自站在战场上开枪、采矿。而决定下一波威胁规模的不是计时器，是你制造的噪声。",
+      ja: "指揮官ではなく、生存者です。上からユニットを見下ろすのではなく、あなた自身が戦場に立ち、銃を撃ち、資源を掘ります。そして次の脅威の規模を決めるのはタイマーではなく、あなたが出した騒音です。"
+    },
+    "faq.q4": {
+      ko: "적은 얼마나 나오나요?",
+      en: "How many enemies are there?",
+      zh: "敌人有多少？",
+      ja: "敵はどれくらい出ますか？"
+    },
+    "faq.a4": {
+      ko: "맵은 시작부터 감염체로 덮여 있고, 수십만 개체가 실시간으로 움직입니다. 웨이브는 주기적으로 밀려오며, 마지막 웨이브는 전 방향에서 보스와 함께 옵니다.",
+      en: "The map is covered in infected from the start, with hundreds of thousands of them moving in real time. Waves roll in on a cycle, and the final wave arrives from every direction with a boss.",
+      zh: "地图从一开始就被感染体覆盖，数十万个体实时活动。波次会周期性涌来，最后一波将从四面八方连同首领一起到来。",
+      ja: "マップは開始時点から感染体に覆われ、数十万の個体がリアルタイムで動きます。ウェーブは周期的に押し寄せ、最後のウェーブは全方向からボスとともに来ます。"
+    },
+    "faq.q5": {
+      ko: "매 판이 다른가요?",
+      en: "Is every run different?",
+      zh: "每一局都不同吗？",
+      ja: "毎回プレイは変わりますか？"
+    },
+    "faq.a5": {
+      ko: "지형, 자원, 네스트, 보스, 웨이브가 들어오는 방향까지 매번 새로 생성됩니다. 보스는 타입마다 패턴이 달라, 그 판에 걸린 보스에 맞는 전력을 갖추는 것이 승부처입니다.",
+      en: "Terrain, resources, nests, bosses, and the directions waves come from are generated fresh every time. Each boss type has its own patterns, so building the right force for the boss you drew is where the run is won or lost.",
+      zh: "地形、资源、巢穴、首领，以及波次来袭的方向，每次都会重新生成。首领按类型拥有不同的行为模式，能否针对本局抽到的首领组建战力，就是胜负所在。",
+      ja: "地形、資源、ネスト、ボス、ウェーブが来る方向まで毎回新しく生成されます。ボスはタイプごとにパターンが異なるため、そのプレイで引いたボスに合わせた戦力を整えることが勝負どころです。"
+    },
+    "faq.q6": {
+      ko: "많이 어렵나요?",
+      en: "Is it very hard?",
+      zh: "很难吗？",
+      ja: "かなり難しいですか？"
+    },
+    "faq.a6": {
+      ko: "어렵게 만들고 있습니다. 체력이나 산소가 바닥나거나 기지가 무너지면 그 판은 거기서 끝입니다. 실패는 버그가 아니라 설계입니다.",
+      en: "We are making it hard. If your health or oxygen runs out, or your base falls, the run ends there. Failure is design, not a bug.",
+      zh: "我们正把它做得很难。生命值或氧气耗尽，或者基地被摧毁，这一局就到此为止。失败是设计，不是 bug。",
+      ja: "難しく作っています。体力や酸素が尽きるか、拠点が崩れれば、そのプレイはそこで終わりです。失敗はバグではなく設計です。"
+    },
+    "faq.q7": {
       ko: "언제 나오나요?",
       en: "When does it come out?",
       zh: "什么时候发售？",
       ja: "いつ発売されますか？"
     },
-    "faq.a3": {
-      ko: "2027년입니다. 스팀에서 위시리스트에 담아두시면 출시 당일 알림을 받으실 수 있습니다.",
-      en: "2027. Wishlist on Steam and you will hear from us the day it goes live.",
-      zh: "2027 年。在 Steam 加入愿望单，发售当天就会收到通知。",
-      ja: "2027年です。Steam でウィッシュリストに追加しておくと、発売当日にお知らせが届きます。"
+    "faq.a7": {
+      ko: "2027년, 스팀 얼리 액세스로 먼저 공개할 계획입니다. 위시리스트에 담아두시면 출시와 업데이트 소식을 가장 먼저 받아보실 수 있습니다.",
+      en: "2027, starting with Steam Early Access. Wishlist it and you will be first to hear about launch and updates.",
+      zh: "2027 年，计划先以 Steam 抢先体验形式推出。加入愿望单，就能第一时间收到发售与更新消息。",
+      ja: "2027年、まず Steam アーリーアクセスで公開する予定です。ウィッシュリストに追加しておくと、発売とアップデートの情報をいち早く受け取れます。"
     },
-    "faq.q4": {
+    "faq.q8": {
       ko: "어디서 할 수 있나요?",
       en: "Where can I play it?",
       zh: "在哪里可以玩到？",
       ja: "どこでプレイできますか？"
     },
-    "faq.a4": {
-      ko: "스팀입니다. 상점 페이지는 이미 열려 있어 지금 위시리스트에 담으실 수 있습니다.",
-      en: "On Steam. The store page is open now for wishlisting.",
-      zh: "在 Steam。商店页面已经开放，现在就可以加入愿望单。",
-      ja: "Steam です。ストアページは公開済みで、今すぐウィッシュリストに追加できます。"
+    "faq.a8": {
+      ko: "스팀입니다. 상점 페이지는 이미 열려 있어 지금 바로 위시리스트에 담을 수 있습니다. 콘솔은 PC 출시 이후 검토하고 있습니다.",
+      en: "On Steam. The store page is open now, so you can wishlist it today. Console is under consideration after the PC release.",
+      zh: "在 Steam。商店页面已经开放，现在就可以加入愿望单。主机版将在 PC 发售后评估。",
+      ja: "Steam です。ストアページは公開済みで、今すぐウィッシュリストに追加できます。コンソールは PC 版のリリース後に検討しています。"
     },
-    "faq.q5": {
+    "faq.q9": {
       ko: "누가 만드나요?",
       en: "Who is making it?",
       zh: "由谁开发？",
       ja: "誰が作っていますか？"
     },
-    "faq.a5": {
-      ko: "서울의 2인 스튜디오 달라게임즈입니다. AeonFall은 언리얼 엔진 5로 만들고 있고, 에픽 메가그랜트에 선정되었습니다.",
-      en: "Dalla Games, a two-person studio in Seoul. AeonFall is built in Unreal Engine 5 and received an Epic MegaGrant.",
-      zh: "首尔的两人工作室 Dalla Games。AeonFall 使用虚幻引擎 5 开发，并获得了 Epic MegaGrant。",
-      ja: "ソウルの2人スタジオ Dalla Games です。AeonFall は Unreal Engine 5 で開発し、Epic MegaGrant に採択されました。"
+    "faq.a9": {
+      ko: "2인 스튜디오 달라게임즈입니다. 16년 경력의 아트 디렉터 출신과 13년 경력의 풀스택 개발자, 둘이서 만들고 있습니다. 언리얼 엔진 5로 개발 중이며 에픽 메가그랜트에 선정되었습니다.",
+      en: "Dalla Games, a two-person studio: a former art director with 16 years of experience and a full-stack developer with 13. Built in Unreal Engine 5 and selected for an Epic MegaGrant.",
+      zh: "两人工作室 Dalla Games —— 拥有 16 年经验的美术总监出身者，与 13 年经验的全栈开发者。使用虚幻引擎 5 开发，并获选 Epic MegaGrant。",
+      ja: "2人スタジオ Dalla Games です。16年のキャリアを持つ元アートディレクターと、13年のキャリアを持つフルスタック開発者の2人で作っています。Unreal Engine 5 で開発中で、Epic MegaGrant に採択されました。"
     },
-    "faq.q6": {
+    "faq.q10": {
       ko: "실제로 돌아가는 모습을 볼 수 있나요?",
       en: "Can I see it running?",
       zh: "能看到实际运行的样子吗？",
       ja: "実際に動いている様子は見られますか？"
     },
-    "faq.a6": {
-      ko: "이 페이지 위쪽에 트레일러가 있습니다. 더 긴 영상은 개발이 진행되는 대로 유튜브 채널에 올립니다.",
-      en: "The trailer is at the top of this page. Longer footage goes up on our YouTube channel as we go.",
-      zh: "本页顶部有预告片。更长的实机影像会随开发进度发布在我们的 YouTube 频道。",
-      ja: "このページの上部にトレーラーがあります。より長い映像は開発の進行に合わせて YouTube チャンネルで公開します。"
+    "faq.a10": {
+      ko: "이 페이지 상단에 게임플레이 영상이 있습니다. 개발 과정은 유튜브 채널에서 계속 공개할 예정입니다.",
+      en: "There is gameplay footage at the top of this page. We will keep sharing the development process on our YouTube channel.",
+      zh: "本页顶部有实机影像。开发过程也会持续在我们的 YouTube 频道公开。",
+      ja: "このページの上部にゲームプレイ映像があります。開発の過程は YouTube チャンネルで公開し続けます。"
     },
     "faq.contact": {
       ko: '취재·사업 문의: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
