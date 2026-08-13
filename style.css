@@ -313,9 +313,10 @@ label,
 .hero-content {
   position: relative;
   z-index: 2;
-  /* 하단 문구 자리를 비우느라 그룹이 너무 올라가서, 시각적으로 20px 내린다.
+  /* 하단 문구·화살표 자리를 비우느라 위쪽 패딩(헤더)보다 아래쪽 패딩이 훨씬 커서,
+     그냥 두면 그룹이 히어로 중앙보다 위로 뜬다. 그 차이만큼 내려 세로 중앙을 맞춘다.
      (레이아웃 높이는 그대로라 아래 문구/화살표 간격 계산에 영향을 주지 않는다) */
-  top: 20px;
+  top: 77px;
   width: 100%;
   max-width: 600px;
   margin: 0 auto 0 6%;     /* 좌측 영역에 모음 */
@@ -469,14 +470,22 @@ label,
    그만큼 출시 시기부터 아래 그룹 전체를 타이틀 쪽으로 끌어올린다. */
 .hero-title-wrap + .hero-coming { margin-top: 12px; }
 
-.hero-subtitle {
+/* Wishlist Now + 스팀 버튼을 한 줄에 나란히 두는 묶음.
+   세로로 쌓지 않으므로 그만큼 아래 트레일러가 위로 올라온다. */
+.hero-cta-row {
   position: relative;
   z-index: 1;               /* Coming 2027 아래 레이어 */
-  width: min(360px, 60%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.hero-subtitle {
+  width: min(210px, 42%);
   height: auto;
-  /* 위로 올려 Coming 2027 에 겹치게(위시리스트 글로우 영역이 넓어 실제 글자가
-     Coming 2027 에 살짝 물리도록 음수 여백으로 끌어올림) */
-  margin-top: -30px;
+  flex: none;               /* 좁은 폭에서 한쪽만 찌그러지지 않게 */
   /* 사이즈는 그대로 두고 밝기/글로우만 은은하게 깜빡여 클릭 유도 */
   animation: wishlist-pulse 2.4s ease-in-out infinite;
 }
@@ -495,12 +504,10 @@ label,
 
 /* 스팀 버튼: 이미지를 배경으로 두고 호버 시 교체 */
 .steam-btn {
-  position: relative;
-  z-index: 1;                     /* Coming 2027 아래 레이어(위시리스트와 동일) */
   display: block;
-  margin: -16px auto 0;           /* Wishlist Now만 10px 내려도 버튼은 제자리(여백으로 보정) */
-  width: 224px;
-  max-width: 60%;
+  margin: 0;                      /* 한 줄 배치라 세로 보정 여백이 필요 없다 */
+  flex: none;                     /* 좁은 폭에서 한쪽만 찌그러지지 않게 */
+  width: min(186px, 38%);
   aspect-ratio: 338 / 143;        /* 새 스팀버튼 원본 비율 */
   background-image: url("images/btn-steam.webp");
   background-size: contain;
@@ -1084,14 +1091,14 @@ label,
   }
   .hero-title-wrap { width: 90%; }
   .hero-coming { font-size: 18px; letter-spacing: 2px; margin-top: 14px; }
-  /* 위시리스트 + 스팀 버튼 그룹을 Coming 2027 쪽으로 더 끌어올려 간격을 좁힘
-     (subtitle 을 더 올리면 그 아래 스팀 버튼까지 함께 올라온다) */
-  .hero-subtitle { width: 64%; margin-top: -22px; }
-  .steam-btn { max-width: 168px; margin-top: -14px; } /* 위시리스트만 내려도 버튼은 제자리(보정) */
+  /* 위시리스트 + 스팀 버튼: 좁은 폭에서도 한 줄을 유지하도록 각각 축소 */
+  .hero-cta-row { gap: 12px; margin-top: 6px; }
+  .hero-subtitle { width: min(150px, 44%); }
+  .steam-btn { width: min(132px, 38%); }
 
   /* 트레일러 영상: 모바일에선 아래 Epic 박스와 같은 폭으로 키움
      (둘 다 히어로 좌우 패딩 안쪽을 꽉 채워 폭이 정확히 맞는다) */
-  .hero-video { width: 100%; margin-top: 24px; }
+  .hero-video { width: 100%; margin-top: 18px; }
 
   /* Epic 박스: 트레일러 영상 아래로 흐름(가로 박스 유지). */
   .epic-megagrant {
@@ -1170,7 +1177,10 @@ label,
 /* 아주 작은 화면 (420px 이하) 미세 조정 */
 @media (max-width: 420px) {
   .hero-title-wrap { width: 96%; }
-  .hero-subtitle { width: 72%; }
+  /* 한 줄 배치라 스팀 버튼과 나눠 쓸 만큼만 차지한다 */
+  .hero-cta-row { gap: 10px; }
+  .hero-subtitle { width: min(140px, 46%); }
+  .steam-btn { width: min(120px, 40%); }
   .brand-logo { height: 22px; }
   /* Epic 박스: 가로 배치 유지(시안), 좁은 화면에선 살짝 축소 */
   .epic-megagrant { gap: 12px; padding: 12px 14px; }

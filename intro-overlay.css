@@ -462,9 +462,10 @@ body.intro-done .hero-hook    { transition-delay: 0.15s; }
 
 body.intro-done .hero-title-wrap { transition-delay: 0s; }
 body.intro-done .hero-coming    { transition-delay: 0.12s; }
-body.intro-done .hero-subtitle  { transition-delay: 0.24s; }
-body.intro-done .steam-btn      { transition-delay: 0.36s; }
-body.intro-done .hero-video     { transition-delay: 0.48s; }
+/* Wishlist 와 스팀 버튼은 한 줄에 나란히 놓이므로 같은 시점에 함께 등장한다 */
+body.intro-done .hero-subtitle,
+body.intro-done .steam-btn      { transition-delay: 0.24s; }
+body.intro-done .hero-video     { transition-delay: 0.36s; }
 
 /* =========================================================================
    접근성: 모션 최소화 선호 시 — 인트로 자체를 JS가 건너뛰지만,
