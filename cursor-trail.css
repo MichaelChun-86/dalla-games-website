@@ -23,13 +23,14 @@
   overflow: hidden;
 }
 
-/* 잔상 하나 = 실제 녹색 커서 이미지(35×35) 그대로.
-   커서 핫스팟이 좌상단(0 0)이므로 좌표를 그대로 좌상단에 맞춘다. */
+/* 잔상 하나 = 실제 녹색 커서 이미지(32×32) 그대로.
+   커서 핫스팟이 좌상단(0 0)이므로 좌표를 그대로 좌상단에 맞춘다.
+   크기는 실제 커서와 반드시 같아야 잔상이 본체와 어긋나 보이지 않는다. */
 .ct-ghost {
   position: absolute;
-  width: 35px;
-  height: 35px;
-  background-image: url("images/Cursor_Normal.png");
+  width: 32px;
+  height: 32px;
+  background-image: url("images/Cursor_Normal_32.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   opacity: 0;            /* 평소엔 안 보임 — .on 이 붙는 순간만 나타남 */
@@ -60,7 +61,7 @@ html.cur-alt [role="button"],
 html.cur-alt [onclick],
 html.cur-alt .intro-skip,
 html.cur-alt .video-facade {
-  cursor: url("images/Cursor_Hover2.png") 0 0, pointer;
+  cursor: url("images/Cursor_Hover2_32.png") 0 0, pointer;
 }
 
 /* 접근성: 모션 최소화 선호 시 잔상을 끈다 (JS 도 잔상·깜박임을 만들지 않음 →

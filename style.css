@@ -93,9 +93,16 @@ a {
 /* 평상시: 녹색 화살표 커서.
    커서 이미지의 뾰족한 끝(팁)이 좌상단에 있으므로 hotspot 은 0 0.
    cursor 속성은 자식으로 상속되므로 html 에 걸어두면
-   페이지 전체(그리고 터미널 인트로 오버레이)까지 자동 적용된다. */
+   페이지 전체(그리고 터미널 인트로 오버레이)까지 자동 적용된다.
+
+   ★ 이미지는 반드시 32×32 이하여야 한다.
+   크롬은 32×32 를 넘는 커서 이미지를 화면 가장자리 근처에서 강제로 무시하고
+   기본 화살표로 되돌린다(가짜 커서로 브라우저 UI 를 흉내내는 걸 막는 보안 장치).
+   원본이 35×35 라 화면 맨 아래 고정된 소음 HUD 바 위에서 커서가 사라졌다.
+   그래서 32×32 로 줄인 *_32.png 를 쓴다(원본 35px 파일은 images/ 에 그대로 보존).
+   잔상 크기(.ct-ghost, cursor-trail.css)도 이 값과 같이 맞춰야 한다. */
 html {
-  cursor: url('images/Cursor_Normal.png') 0 0, auto;
+  cursor: url('images/Cursor_Normal_32.png') 0 0, auto;
 }
 
 /* 클릭 가능한 요소 위: 호버 커서 1번 프레임이 기본.
@@ -110,7 +117,7 @@ button,
 label,
 [role="button"],
 [onclick] {
-  cursor: url('images/Cursor_Hover1.png') 0 0, pointer;
+  cursor: url('images/Cursor_Hover1_32.png') 0 0, pointer;
 }
 
 /* 공통 유틸 */
@@ -215,6 +222,9 @@ label,
   gap: 36px;
 }
 
+/* 메뉴 안 소셜 버튼은 모바일 메뉴에서만 쓴다 (데스크톱은 푸터 것으로 충분) */
+.nav-social { display: none; }
+
 .nav-link {
   font-size: 16px;
   letter-spacing: 1px;
@@ -245,7 +255,7 @@ label,
   height: 22px;
   background: none;
   border: none;
-  cursor: url('images/Cursor_Hover1.png') 0 0, pointer;
+  cursor: url('images/Cursor_Hover1_32.png') 0 0, pointer;
   z-index: 1100;
 }
 .nav-toggle span {
@@ -992,6 +1002,14 @@ label,
   .epic-badge { width: 96px; }
 }
 
+/* 메뉴가 5개(FAQ 추가)가 되면서 좁은 데스크톱 폭에서 로고와 맞붙는다.
+   1024px 이하 데스크톱에선 간격과 글자를 줄여 여유를 만든다.
+   (768px 이하는 햄버거 메뉴라 해당 없음) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nav { gap: 22px; }
+  .nav-link { font-size: 14px; letter-spacing: 0.5px; }
+}
+
 /* =========================================================
    Epic 배지 세로 위치 — 화면 폭에 따라 3단계
    ① 1621px 이상 : 카피라이트와 아래 정렬 (기본 규칙, 우측 고정)
@@ -1012,6 +1030,10 @@ label,
   :root {
     --hero-epic-band: 216px;   /* 배지가 들어갈 한 줄 높이를 히어로 하단에 확보 */
   }
+  /* 이 구간에선 Epic 배지가 우측이 아니라 영상 바로 아래 가운데로 내려온다.
+     그래서 넓은 화면용 세로 중앙 보정(top: 77px)을 그대로 쓰면 영상이
+     그만큼 내려앉아 배지 위로 겹친다. 이 구간만 보정을 최소로 되돌린다. */
+  .hero-content { top: 20px; }
   .epic-megagrant {
     /* 영상 아래 가운데로 내려 같은 줄에서 겹치지 않게 한다.
        가운데 정렬에 transform 을 쓰면 .reveal 의 transform 과 충돌하므로
@@ -1058,6 +1080,23 @@ label,
 
   .nav-link { font-size: 20px; }
 
+  /* Contact 아래 소셜 버튼 줄: 메뉴 항목과 구분되도록 위에 옅은 구분선을 둔다.
+     푸터 아이콘(26px)보다 키워 터치하기 편하게 한다. */
+  .nav-social {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 4px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    width: 100%;
+  }
+  .nav-social .social-link {
+    width: 30px;
+    height: 30px;
+    opacity: 0.85;
+  }
+
   /* 햄버거 → X 모양 애니메이션 */
   .nav-toggle.active span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); }
   .nav-toggle.active span:nth-child(2) { opacity: 0; }
@@ -1081,9 +1120,16 @@ label,
   .hero-content {
     max-width: 100%;
     width: 100%;
-    /* 배경 캐릭터의 하체 즈음에서 로고가 시작되도록 아래로 내린다.
-       (배경 이미지는 그대로 두고 콘텐츠 그룹 전체만 내려간다) */
-    margin: calc(32vh + 165px) 0 0;
+    /* 데스크톱의 세로 중앙 보정(top: 77px)은 모바일에선 끈다.
+       레이아웃 높이는 그대로인 채 그림만 내려가는 값이라, 흐름 배치인
+       Epic 박스 위로 트레일러 영상이 겹쳐 올라탄다. */
+    top: 0;
+    /* 영상 상자(3:4) 아래쪽 그라디언트가 시작되는 지점(높이의 62%)에서
+       장르 문구가 시작되도록 맞춘다. 영상 상자는 가로폭 기준이므로
+       vh 가 아니라 vw 로 계산해야 기기별로 어긋나지 않는다.
+         영상 상자 높이 = 100vw × 4/3,  그라디언트 시작 = 그 62% = 82.67vw
+         빼는 값 = 히어로 위 패딩(헤더 + 20px) + 그룹 안 장르 문구 오프셋(14px) */
+    margin: calc(82.67vw - var(--header-h) - 34px) 0 0;
   }
   .hero-overlay {
     /* 키비주얼 자체에 하단 검정 페이드가 있어 오버레이는 아주 약하게만 */
@@ -1103,7 +1149,7 @@ label,
   /* Epic 박스: 트레일러 영상 아래로 흐름(가로 박스 유지). */
   .epic-megagrant {
     position: static;
-    margin: 40px auto 0;     /* 영상 아래 적당한 간격 → 스크롤하면 등장 */
+    margin: 56px auto 0;     /* 영상 아래 적당한 간격 → 스크롤하면 등장 */
     max-width: 100%;
     gap: 14px;
     padding: 14px 16px;
@@ -1160,14 +1206,40 @@ label,
   .feature-title { font-size: 15px; margin-bottom: 6px; }
   .feature-desc { font-size: 12.5px; }
 
-  /* --- ABOUT: 멤버 세로로 --- */
-  .team { gap: 44px; }
-  .member-role { font-size: 12.5px; }
-  /* 링크 버튼: 터치하기 편하게 살짝 키운다 */
-  .member-link { width: 42px; height: 42px; }
-  .member-link-icon { width: 20px; height: 20px; }
+  /* --- ABOUT: 데스크톱처럼 두 멤버를 한 가로 줄에 --- */
+  /* 원래는 폭이 모자라 아래로 접혔다. 접히지 않게 고정(nowrap)하고,
+     두 칸을 같은 폭으로 나눈 뒤 사진·글자를 그 폭에 맞게 줄인다.
+     이름/역할의 white-space: nowrap 을 풀어 줘야 좁은 칸에서 두 줄로 접힌다. */
+  .team {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .member {
+    flex: 1 1 0;
+    min-width: 0;        /* 플렉스 칸이 내용 때문에 늘어나지 않게 */
+  }
+  .member-photo {
+    width: min(118px, 32vw);
+    height: min(118px, 32vw);
+    margin-bottom: 12px;
+  }
+  .member-name {
+    font-size: 13.5px;
+    white-space: normal;
+    line-height: 1.35;
+  }
+  .member-role {
+    font-size: 11.5px;
+    white-space: normal;
+    line-height: 1.45;
+  }
+  /* 링크 버튼: 좁아진 칸 안에서 3개가 한 줄로 들어가는 크기 */
+  .member-links { gap: 8px; margin-top: 12px; }
+  .member-link { width: 36px; height: 36px; }
+  .member-link-icon { width: 18px; height: 18px; }
   /* 개인 웹 로고는 여백 보정분만큼 계속 더 크게 유지 */
-  .icon-web { width: 27px; height: 27px; }
+  .icon-web { width: 24px; height: 24px; }
   /* 태그라인: 데스크톱보다는 여백을 줄이되 버튼만큼은 더 내려준다.
      글자를 14.5px 로 낮춰 .br-m 로 끊은 두 조각이 4개 언어 모두 한 줄씩
      들어가게 한다(16px 에서는 영어 첫 조각이 넘쳐 3줄이 됐다). */
