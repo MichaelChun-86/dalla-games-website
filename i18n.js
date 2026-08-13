@@ -50,6 +50,14 @@
       ja: "Epic Games のサポートにより、AeonFall の開発を加速しています。"
     },
 
+    /* ---- 히어로 트레일러 파사드 위 문구 ---- */
+    "video.watch": {
+      ko: "트레일러 영상 보기",
+      en: "WATCH TRAILER",
+      zh: "观看预告片",
+      ja: "トレーラーを見る"
+    },
+
     /* ---- OUR GAMES ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
     "games.title": {
       en: 'OUR <span class="accent">GAME</span>',
