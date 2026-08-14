@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="日本">
+  <!-- 일장기 — 일본 국기법(1999)의 표준 비율.
+       · 깃면 가로:세로 = 3:2  (여기선 30 × 20)
+       · 붉은 원 지름 = 세로의 3/5 = 12  (반지름 6), 깃면 정중앙 -->
   <rect width="30" height="20" fill="#ffffff"/>
-  <circle cx="15" cy="10" r="5" fill="#bc002d"/>
+  <circle cx="15" cy="10" r="6" fill="#bc002d"/>
 </svg>

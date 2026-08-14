@@ -1,19 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="English">
+  <!-- 성조기 — 국기 버튼용이라 다른 국기와 같은 3:2 비율(30 × 20)로 맞췄다.
+       (미국기의 공식 비율은 1.9:1 이지만, 버튼 4개의 크기를 통일하는 쪽을 택했다)
+       · 가로줄 13개, 맨 위·맨 아래가 빨강 → 줄 높이 = 20/13 = 1.538
+       · 좌상단 파란 칸(canton): 가로 = 전체의 2/5 = 12, 세로 = 줄 7개분 = 10.769
+       · 별 50개: 6개·5개가 번갈아 9줄. 이 크기에선 점으로 보이므로 원으로 그린다. -->
   <rect width="30" height="20" fill="#b22234"/>
+
+  <!-- 흰 줄 6개 (2·4·6·8·10·12번째 줄) -->
   <g fill="#ffffff">
-    <rect y="1.54" width="30" height="1.54"/>
-    <rect y="4.62" width="30" height="1.54"/>
-    <rect y="7.69" width="30" height="1.54"/>
-    <rect y="10.77" width="30" height="1.54"/>
-    <rect y="13.85" width="30" height="1.54"/>
-    <rect y="16.92" width="30" height="1.54"/>
+    <rect y="1.538" width="30" height="1.538"/>
+    <rect y="4.615" width="30" height="1.538"/>
+    <rect y="7.692" width="30" height="1.538"/>
+    <rect y="10.769" width="30" height="1.538"/>
+    <rect y="13.846" width="30" height="1.538"/>
+    <rect y="16.923" width="30" height="1.538"/>
   </g>
-  <rect width="14" height="10.77" fill="#3c3b6e"/>
+
+  <rect width="12" height="10.769" fill="#3c3b6e"/>
+
   <g fill="#ffffff">
-    <circle cx="2" cy="1.8" r="0.7"/><circle cx="5" cy="1.8" r="0.7"/><circle cx="8" cy="1.8" r="0.7"/><circle cx="11" cy="1.8" r="0.7"/>
-    <circle cx="3.5" cy="3.6" r="0.7"/><circle cx="6.5" cy="3.6" r="0.7"/><circle cx="9.5" cy="3.6" r="0.7"/>
-    <circle cx="2" cy="5.4" r="0.7"/><circle cx="5" cy="5.4" r="0.7"/><circle cx="8" cy="5.4" r="0.7"/><circle cx="11" cy="5.4" r="0.7"/>
-    <circle cx="3.5" cy="7.2" r="0.7"/><circle cx="6.5" cy="7.2" r="0.7"/><circle cx="9.5" cy="7.2" r="0.7"/>
-    <circle cx="2" cy="9" r="0.7"/><circle cx="5" cy="9" r="0.7"/><circle cx="8" cy="9" r="0.7"/><circle cx="11" cy="9" r="0.7"/>
+    <circle cx="1" cy="1.077" r=".34"/><circle cx="3" cy="1.077" r=".34"/><circle cx="5" cy="1.077" r=".34"/><circle cx="7" cy="1.077" r=".34"/><circle cx="9" cy="1.077" r=".34"/><circle cx="11" cy="1.077" r=".34"/>
+    <circle cx="2" cy="2.154" r=".34"/><circle cx="4" cy="2.154" r=".34"/><circle cx="6" cy="2.154" r=".34"/><circle cx="8" cy="2.154" r=".34"/><circle cx="10" cy="2.154" r=".34"/>
+    <circle cx="1" cy="3.231" r=".34"/><circle cx="3" cy="3.231" r=".34"/><circle cx="5" cy="3.231" r=".34"/><circle cx="7" cy="3.231" r=".34"/><circle cx="9" cy="3.231" r=".34"/><circle cx="11" cy="3.231" r=".34"/>
+    <circle cx="2" cy="4.308" r=".34"/><circle cx="4" cy="4.308" r=".34"/><circle cx="6" cy="4.308" r=".34"/><circle cx="8" cy="4.308" r=".34"/><circle cx="10" cy="4.308" r=".34"/>
+    <circle cx="1" cy="5.385" r=".34"/><circle cx="3" cy="5.385" r=".34"/><circle cx="5" cy="5.385" r=".34"/><circle cx="7" cy="5.385" r=".34"/><circle cx="9" cy="5.385" r=".34"/><circle cx="11" cy="5.385" r=".34"/>
+    <circle cx="2" cy="6.462" r=".34"/><circle cx="4" cy="6.462" r=".34"/><circle cx="6" cy="6.462" r=".34"/><circle cx="8" cy="6.462" r=".34"/><circle cx="10" cy="6.462" r=".34"/>
+    <circle cx="1" cy="7.538" r=".34"/><circle cx="3" cy="7.538" r=".34"/><circle cx="5" cy="7.538" r=".34"/><circle cx="7" cy="7.538" r=".34"/><circle cx="9" cy="7.538" r=".34"/><circle cx="11" cy="7.538" r=".34"/>
+    <circle cx="2" cy="8.615" r=".34"/><circle cx="4" cy="8.615" r=".34"/><circle cx="6" cy="8.615" r=".34"/><circle cx="8" cy="8.615" r=".34"/><circle cx="10" cy="8.615" r=".34"/>
+    <circle cx="1" cy="9.692" r=".34"/><circle cx="3" cy="9.692" r=".34"/><circle cx="5" cy="9.692" r=".34"/><circle cx="7" cy="9.692" r=".34"/><circle cx="9" cy="9.692" r=".34"/><circle cx="11" cy="9.692" r=".34"/>
   </g>
 </svg>
