@@ -1,19 +1,18 @@
 /* =========================================================================
    히어로 특수효과 스크립트 (기존 코드와 분리된 추가 파일)
    ① 글리치 / RGB 스플릿 버스트 — 스캔 직후 1회 + 이후 랜덤 간격(GLITCH 설정), 0.2~0.4초씩
-   ② 로드 시 스캐너 스윕 리빌 — 매 로드마다 1회 (인트로가 있으면 그 직후)
+   ② 로드 시 스캐너 스윕 리빌 — 매 로드마다 1회
 
-   ※ head 에서 동기 로드(intro-overlay.js 다음):
-      새로고침(인트로 스킵) 시 첫 페인트 전에 스캔 커버를 씌워
-      히어로가 미리 번쩍 보이는 깜빡임(FOUC)을 막는다.
+   ※ head 에서 동기 로드:
+      첫 페인트 전에 스캔 커버를 씌워, 히어로가 미리 번쩍 보이는
+      깜빡임(FOUC)을 막는다.
 
    [테스트 방법]
    - 글리치 즉시 발동:   개발자도구 콘솔에서  HeroFX.burst()
    - 글리치 빈도 높이기: HeroFX.config.minInterval = 1000;
                          HeroFX.config.maxInterval = 2000;
                          (다음 스케줄부터 적용. 원래대로는 새로고침)
-   - 스캔 다시 보기:     새로고침(F5). 세션 첫 방문이면 터미널 인트로 후,
-                         그 다음부터는 로드 즉시 스캔이 실행된다.
+   - 스캔 다시 보기:     새로고침(F5). 매 로드마다 실행된다.
    ========================================================================= */
 (function () {
   "use strict";
@@ -65,19 +64,8 @@
       return;
     }
 
-    if (root.classList.contains("intro-playing")) {
-      // 터미널 인트로 재생 중 → 인트로가 끝나는 순간(body.intro-done) 스캔 시작
-      var mo = new MutationObserver(function () {
-        if (document.body.classList.contains("intro-done")) {
-          mo.disconnect();
-          startScan();
-        }
-      });
-      mo.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-    } else {
-      // 인트로가 스킵된 로드(같은 세션 새로고침 등) → 바로 스캔
-      startScan();
-    }
+    // 로드되면 바로 스캔 리빌 → 히어로 등장
+    startScan();
   }
 
   /* ----- 스캐너 스윕: 클래스 토글로 CSS 애니메이션 발동 ----- */

@@ -35,14 +35,8 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- 터미널형 부팅 인트로 오버레이 (기존 코드와 분리된 추가 파일) -->
-  <link rel="stylesheet" href="intro-overlay.css" />
-  <!-- 인트로 스크립트는 head에서 동기 로드: 첫 페인트 전에 히어로를 숨겨 깜빡임(FOUC) 방지 -->
-  <script src="intro-overlay.js"></script>
-
   <!-- 히어로 특수효과: 글리치 버스트 + 스캐너 스윕 리빌 (기존 코드와 분리된 추가 파일)
-       CSS는 intro-overlay.css 다음에(규칙 우선순위), JS는 intro-overlay.js 다음에
-       head 동기 로드(새로고침 시 스캔 커버로 FOUC 방지) -->
+       JS는 head에서 동기 로드 — 첫 페인트 전에 스캔 커버를 씌워 깜빡임(FOUC)을 막는다. -->
   <link rel="stylesheet" href="hero-fx.css" />
   <script src="hero-fx.js"></script>
 

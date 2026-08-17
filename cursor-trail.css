@@ -59,7 +59,6 @@ html.cur-alt .nav-link,
 html.cur-alt label,
 html.cur-alt [role="button"],
 html.cur-alt [onclick],
-html.cur-alt .intro-skip,
 html.cur-alt .video-facade {
   cursor: url("images/Cursor_Hover2_32.png") 0 0, pointer;
 }
