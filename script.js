@@ -52,7 +52,7 @@
   /* ---------- 2. 스크롤 시 섹션 페이드인 ---------- */
   // 페이드인 대상: OUR GAMES, ABOUT US, 푸터, 그리고 히어로의 Epic MegaGrant 박스
   // (Epic 박스는 화면에 들어올 때마다 살짝 위로 올라오며 등장해 존재감을 준다)
-  var revealTargets = document.querySelectorAll(".games .section-inner, .loop .section-inner, .about .section-inner, .faq .section-inner, .site-footer, .epic-megagrant");
+  var revealTargets = document.querySelectorAll(".games .section-inner, .about .section-inner, .faq .section-inner, .site-footer, .epic-megagrant");
 
   // 움직임 최소화 설정(접근성)을 켠 사용자는 애니메이션 없이 바로 표시
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;

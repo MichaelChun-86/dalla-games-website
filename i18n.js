@@ -70,80 +70,33 @@
       zh: "AeonFall – 硬核 Roguelike 塔防",
       ja: "AeonFall – ハードコア・ローグライク・ディフェンス"
     },
-    "f1.title": { ko: "압도적인 물량", en: "Massive Waves", zh: "海量敌潮", ja: "圧倒的な物量" },
+    "f1.title": { ko: "하이브리드 컨트롤", en: "Hybrid Control", zh: "混合操控", ja: "ハイブリッド操作" },
     "f1.desc": {
-      ko: "한계를 시험하는 규모의 적들이 끝없이 몰려옵니다. 모든 전투가 압도적인 수와의 싸움입니다.",
-      en: "Face relentless hordes at a scale that pushes your limits. Every battle is a fight against overwhelming numbers.",
-      zh: "面对将你逼至极限的无尽敌群。每一场战斗都是与压倒性数量的较量。",
-      ja: "限界を試す規模の敵の群れが絶え間なく押し寄せます。あらゆる戦いが圧倒的な数との戦いです。"
+      ko: "전략 디펜스와 캐릭터 직접 조작의 결합. 실시간 전략과 세밀한 전투를 동시에 다뤄야 합니다.",
+      en: "Strategic defense fused with direct character control. You have to handle real-time strategy and fine-grained combat at once.",
+      zh: "策略防守与角色直接操控的结合。你必须同时驾驭实时策略与精细战斗。",
+      ja: "戦略ディフェンスとキャラクターの直接操作の融合。リアルタイム戦略と繊細な戦闘を同時にこなす必要があります。"
     },
     "f2.title": { ko: "소음이 부르는 위협", en: "Noise-Driven Threat", zh: "噪声引发的威胁", ja: "騒音が招く脅威" },
     "f2.desc": {
-      ko: "당신의 모든 행동은 소음을 만들고, 소음은 죽음을 부릅니다. 신중히 확장하지 않으면 막을 수 없는 웨이브가 시작됩니다.",
-      en: "Every action you take generates noise — and noise brings death. Expand carefully, or trigger unstoppable waves.",
-      zh: "你的每个动作都会产生噪声——而噪声招致死亡。谨慎扩张，否则将引发无法阻挡的敌潮。",
-      ja: "あなたのあらゆる行動は騒音を生み、騒音は死を招きます。慎重に拡張しなければ、止められない波が押し寄せます。"
+      ko: "자원 파밍과 전투 등 모든 행동이 소음을 만듭니다. 무분별한 확장은 감당하기 힘든 거대한 웨이브로 이어집니다.",
+      en: "Every action makes noise — farming resources, fighting, all of it. Expand carelessly and it leads to a wave far bigger than you can handle.",
+      zh: "采集资源、战斗等一切行动都会产生噪声。盲目扩张将招来你无法承受的巨大敌潮。",
+      ja: "資源の採集や戦闘など、すべての行動が騒音を生みます。無分別な拡張は、手に負えない巨大なウェーブにつながります。"
     },
-    "f3.title": { ko: "하이브리드 컨트롤", en: "Hybrid Control", zh: "混合操控", ja: "ハイブリッド操作" },
+    "f3.title": { ko: "압도적인 물량", en: "Massive Waves", zh: "海量敌潮", ja: "圧倒的な物量" },
     "f3.desc": {
-      ko: "실시간으로 기지를 짓고 방어하면서 캐릭터를 직접 조종하세요. 액션과 전략의 균형으로 생존하세요.",
-      en: "Directly control your character while building and defending your base in real time. Balance action and strategy to survive.",
-      zh: "实时建造并防守基地的同时，直接操控你的角色。平衡动作与策略，方能生存。",
-      ja: "リアルタイムで拠点を築き守りながら、キャラクターを直接操作。アクションと戦略のバランスで生き延びましょう。"
+      ko: "화면을 가득 메우는 웨이브와 거대 보스의 공세. 단순한 화력만으로는 버틸 수 없는 수적 열세를 극복해야 합니다.",
+      en: "Waves that fill the screen, and the assault of colossal bosses. You have to overcome odds that raw firepower alone cannot hold back.",
+      zh: "铺满整个画面的敌潮，以及巨型首领的攻势。你必须克服单靠火力无法抵挡的数量劣势。",
+      ja: "画面を埋め尽くすウェーブと巨大ボスの攻勢。単純な火力だけでは耐えられない数的劣勢を乗り越えなければなりません。"
     },
     "f4.title": { ko: "다이내믹 생존", en: "Dynamic Survival", zh: "动态生存", ja: "ダイナミックな生存" },
     "f4.desc": {
-      ko: "지형, 자원, 적 패턴이 매번 달라지며 플레이가 새롭게 전개됩니다. 적응하지 못하면 무너집니다.",
-      en: "Each run unfolds differently with shifting terrain, resources, and enemy patterns. Adapt or be overwhelmed.",
-      zh: "地形、资源与敌人模式每局都不同，每次游玩都独一无二。适应，否则被吞没。",
-      ja: "地形・資源・敵のパターンが毎回変化し、プレイは常に新たに展開します。適応せよ、さもなくば圧倒されます。"
-    },
-
-    /* ---- THE LOOP ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
-    "loop.title": {
-      en: 'THE <span class="accent">LOOP</span>',
-      zh: '一<span class="accent">局</span>的流程', ja: '<span class="accent">1</span>プレイの流れ'
-    },
-    "loop.subtitle": {
-      ko: "성장할수록 커지는 소음, 압도적 웨이브 속에서 살아남아야 한다.",
-      en: "The more you grow, the louder you get — and you have to survive the waves that follow.",
-      zh: "成长越多，噪声越大 —— 你必须在压倒性的敌潮中活下来。",
-      ja: "成長するほど騒音は大きくなる。圧倒的なウェーブを生き延びなければならない。"
-    },
-    "loop.s1.name": { ko: "전력 확보", en: "Secure power", zh: "确保电力", ja: "電力確保" },
-    "loop.s1.desc": {
-      ko: "HQ를 중심으로 전력을 공급하고 방어 인프라를 구축합니다.",
-      en: "Run power out from your HQ and raise the defensive infrastructure around it.",
-      zh: "以 HQ 为中心供应电力，并构筑防御设施。",
-      ja: "HQ を中心に電力を供給し、防衛インフラを構築します。"
-    },
-    "loop.s2.name": { ko: "영역 확장", en: "Expand territory", zh: "扩张领地", ja: "領域拡張" },
-    "loop.s2.desc": {
-      ko: "높은 티어 자원과 포인트를 확보하기 위해 전장을 탐사합니다.",
-      en: "Push into the field to secure high-tier resources and points.",
-      zh: "为确保高阶资源与点数，探索战场。",
-      ja: "高ティア資源とポイントを確保するため、戦場を探索します。"
-    },
-    "loop.s3.name": { ko: "성장의 대가", en: "The cost of growth", zh: "成长的代价", ja: "成長の代償" },
-    "loop.s3.desc": {
-      ko: "발전과 전투 수위가 높아질수록 지속 소음 단계가 상승합니다.",
-      en: "The further your power and combat escalate, the higher your sustained noise level climbs.",
-      zh: "发展与战斗强度越高，持续噪声等级就越上升。",
-      ja: "発展と戦闘の水準が上がるほど、持続騒音レベルが上昇します。"
-    },
-    "loop.s4.name": { ko: "압도적 공세", en: "Overwhelming assault", zh: "压倒性攻势", ja: "圧倒的攻勢" },
-    "loop.s4.desc": {
-      ko: "기지 사방에서 몰려드는 군집 감염체와 보스를 격퇴합니다.",
-      en: "Swarming infected and bosses close in on every side of the base.",
-      zh: "击退从基地四面涌来的集群感染体与首领。",
-      ja: "拠点の四方から押し寄せる群集感染体とボスを撃退します。"
-    },
-    "loop.s5.name": { ko: "전술 재설계", en: "Redraw your tactics", zh: "重构战术", ja: "戦術再設計" },
-    "loop.s5.desc": {
-      ko: "무작위 지형과 직업 조합을 바탕으로 최선의 생존 경로를 재설계합니다.",
-      en: "Redraw your best route to survival around random terrain and your class composition.",
-      zh: "依据随机地形与职业组合，重新规划最佳生存路径。",
-      ja: "ランダムな地形と職業構成をもとに、最適な生存ルートを再設計します。"
+      ko: "매 판 달라지는 지형, 자원, 직업 빌드. 정해진 정답 없이 매번 새로운 생존 경로를 개척해야 합니다.",
+      en: "Terrain, resources and class builds change every run. There is no set answer — you carve out a new route to survival each time.",
+      zh: "地形、资源与职业流派每局都不同。没有固定的正解，每次都要开辟全新的生存路径。",
+      ja: "毎回変わる地形、資源、職業ビルド。決まった正解はなく、そのたびに新しい生存ルートを切り開く必要があります。"
     },
 
     /* ---- FAQ ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */

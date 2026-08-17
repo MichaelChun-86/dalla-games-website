@@ -38,7 +38,6 @@
     fill = document.getElementById("hudMeterFill");
     stateEl = document.getElementById("hudState");
 
-    initLoopGauges();
 
     if (!bar || !fill || !stateEl) return;
 
@@ -118,23 +117,4 @@
     window.requestAnimationFrame(tick);
   }
 
-  /* ----- THE LOOP: 섹션이 보이면 단계별 소음 막대가 차오른다 ----- */
-  function initLoopGauges() {
-    var steps = document.querySelectorAll(".loop-step");
-    if (!steps.length) return;
-
-    if (!("IntersectionObserver" in window)) {
-      steps.forEach(function (s) { s.classList.add("is-filled"); });
-      return;
-    }
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        // 들어오면 차오르고, 나가면 되돌려 다음에 다시 재생되게 한다
-        e.target.classList.toggle("is-filled", e.isIntersecting);
-      });
-    }, { threshold: 0.4 });
-
-    steps.forEach(function (s) { io.observe(s); });
-  }
 })();

@@ -1,10 +1,9 @@
 /* =========================================================================
    추가 섹션 & 하단 HUD — 기존 파일과 분리해 둔 확장 스타일
-   - THE LOOP : 한 판이 굴러가는 순서(01~05)와 그때의 소음 수준
    - FAQ      : 지금 확실히 답할 수 있는 것만
    - 하단 HUD : 소음 게이지 + 위시리스트 (게임 HUD 문법)
    이 기능을 통째로 빼려면 이 파일과 noise-hud.js, 그리고 index.html 의
-   .loop / .faq / .hud-bar 블록만 지우면 된다.
+   .faq / .hud-bar 블록만 지우면 된다.
    ========================================================================= */
 
 :root {
@@ -14,88 +13,7 @@
 }
 
 /* =========================================================================
-   THE LOOP
-   ========================================================================= */
-.loop {
-  background: var(--bg);
-  position: relative;
-}
-
-/* 5단계를 가로로 나란히. 번호 → 소음 막대 → 이름 → 설명 순서로 읽힌다. */
-.loop-steps {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  counter-reset: none;
-}
-
-.loop-step {
-  position: relative;
-  padding: 0 20px;
-  /* 단계 사이 얇은 구분선 — 순서가 있다는 걸 구조로 보여준다 */
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-}
-.loop-step:first-child { border-left: 0; padding-left: 0; }
-.loop-step:last-child  { padding-right: 0; }
-
-.loop-num {
-  display: block;
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  color: var(--text-dim);
-  opacity: 0.65;
-}
-
-/* 소음 막대: 이 단계에서 소음이 얼마나 찼는지.
-   01→04 로 갈수록 길어지고 05 에서 다시 짧아져, 한 판의 긴장 곡선이 된다. */
-.loop-gauge {
-  display: block;
-  height: 3px;
-  margin: 14px 0 16px;
-  background: rgba(255, 255, 255, 0.09);
-  overflow: hidden;
-}
-.loop-gauge-fill {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: var(--mint);
-  /* 화면에 들어올 때 차오른다 */
-  transition: width 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-/* 단계별 소음 수준(data-noise) → 막대 길이 */
-.loop-step[data-noise="1"].is-filled .loop-gauge-fill { width: 22%; }
-.loop-step[data-noise="2"].is-filled .loop-gauge-fill { width: 48%; }
-.loop-step[data-noise="3"].is-filled .loop-gauge-fill { width: 76%; }
-.loop-step[data-noise="4"].is-filled .loop-gauge-fill { width: 100%; }
-/* 순서대로 차오르도록 시작 시점을 어긋나게 */
-.loop-step:nth-child(1) .loop-gauge-fill { transition-delay: 0.00s; }
-.loop-step:nth-child(2) .loop-gauge-fill { transition-delay: 0.12s; }
-.loop-step:nth-child(3) .loop-gauge-fill { transition-delay: 0.24s; }
-.loop-step:nth-child(4) .loop-gauge-fill { transition-delay: 0.36s; }
-.loop-step:nth-child(5) .loop-gauge-fill { transition-delay: 0.52s; }
-
-/* 소음이 최고조인 단계(웨이브)만 붉게 — 여기서 판이 뒤집힌다 */
-.loop-step-peak .loop-gauge-fill { background: var(--noise-hot); }
-.loop-step-peak .loop-name { color: var(--noise-hot); }
-
-.loop-name {
-  font-size: 17px;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-}
-.loop-desc {
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: var(--text);
-  opacity: 0.8;
-}
-
-/* =========================================================================
-   FAQ — 조용하게. 강조는 THE LOOP 과 HUD 에서만 쓴다.
+   FAQ — 조용하게. 강조는 하단 HUD 에서만 쓴다.
    ========================================================================= */
 .faq {
   background: var(--bg-soft);
@@ -263,29 +181,7 @@ html.noise-high .noise-vignette { opacity: 1; }
 /* =========================================================================
    반응형
    ========================================================================= */
-@media (max-width: 1024px) {
-  /* 5칸을 한 줄에 넣기엔 좁다 → 3+2 배치 */
-  .loop-steps { grid-template-columns: repeat(3, 1fr); row-gap: 40px; }
-  .loop-step:nth-child(1),
-  .loop-step:nth-child(4) { border-left: 0; padding-left: 0; }
-}
-
 @media (max-width: 768px) {
-  /* 세로 목록으로. 번호와 막대가 왼쪽에 붙어 순서가 또렷해진다 */
-  .loop-steps { grid-template-columns: 1fr; row-gap: 26px; }
-  .loop-step {
-    border-left: 0;
-    padding: 0 0 0 16px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  .loop-step:nth-child(1),
-  .loop-step:nth-child(4) {
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    padding-left: 16px;
-  }
-  .loop-gauge { margin: 10px 0 12px; }
-  .loop-name { font-size: 15px; }
-  .loop-desc { font-size: 12.5px; }
 
   .faq-q { font-size: 14.5px; }
   .faq-a { font-size: 12.5px; }
@@ -306,7 +202,6 @@ html.noise-high .noise-vignette { opacity: 1; }
 
 /* 모션 최소화 선호: 차오르는 연출과 비네트를 끄고 결과만 보여준다 */
 @media (prefers-reduced-motion: reduce) {
-  .loop-gauge-fill { transition: none; }
   .hud-bar { transition: none; }
   .hud-meter-fill { transition: none; }
   .noise-vignette { display: none; }
