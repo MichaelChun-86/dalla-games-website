@@ -23,9 +23,16 @@
          hud    = 화면 하단 고정 바의 위시리스트 버튼
          footer = 페이지 맨 아래 스팀 아이콘
          menu   = 모바일 메뉴 안의 스팀 아이콘
-       → GA4 [보고서 > 참여도 > 이벤트] 에서 확인.
-         placement 별로 나눠 보려면 [관리 > 맞춤 정의] 에서
-         "맞춤 측정기준"으로 placement 를 한 번 등록해 주면 된다.
+       ※ 4개 버튼이 모두 같은 이벤트 이름을 쓰므로, 총 클릭 수는 자동으로
+         합산된다. placement 는 그 합계를 쪼개 보기 위한 값일 뿐,
+         합계 자체에는 영향을 주지 않는다.
+     · trailer_play    — 히어로 트레일러 재생 버튼 클릭
+     · faq_view        — FAQ 섹션이 실제로 화면에 보였을 때 (세션당 1회)
+     · language_change — 국기 버튼으로 언어를 바꿨을 때 (from → to)
+
+       → 모두 GA4 [보고서 > 참여도 > 이벤트] 에서 확인.
+         placement 처럼 파라미터별로 나눠 보려면 [관리 > 맞춤 정의] 에서
+         "맞춤 측정기준"으로 한 번 등록해 주면 된다.
 
    [로컬 테스트는 집계에서 제외]
      localhost / 127.0.0.1 / file:// 에서는 전송하지 않는다.
@@ -35,7 +42,7 @@
   "use strict";
 
   /* ▼ 여기에 측정 ID 를 넣으세요 (예: "G-ABC123XYZ4") */
-  var MEASUREMENT_ID = "";
+  var MEASUREMENT_ID = "G-T5S20FRH38";
 
   /* ---------- 전송할지 말지 판단 ---------- */
   var host = location.hostname;
@@ -60,6 +67,9 @@
   s.async = true;                  // 렌더링을 막지 않는다
   s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(MEASUREMENT_ID);
   document.head.appendChild(s);
+
+  /* 현재 언어: i18n.js 가 언어를 바꿀 때 <html lang> 도 함께 갱신한다 */
+  function lang() { return document.documentElement.lang || "en"; }
 
   /* ---------- 스팀 위시리스트 클릭 ----------
      버튼마다 data 속성을 다는 대신, 이미 있는 클래스로 위치를 알아낸다
@@ -87,8 +97,42 @@
 
     gtag("event", "wishlist_click", {
       placement: placementOf(a),
-      language: document.documentElement.lang || "en",
+      language: lang(),
       link_url: a.href
     });
   });
+
+  /* ---------- 트레일러 재생 ---------- */
+  document.addEventListener("click", function (ev) {
+    if (!ev.target.closest || !ev.target.closest(".video-facade")) return;
+    gtag("event", "trailer_play", { language: lang() });
+  });
+
+  /* ---------- 언어 변경 ----------
+     capture 단계로 듣는다. i18n.js 의 핸들러는 버튼 자신에 달려 있어
+     bubble 단계보다 먼저 실행되고, 그 안에서 <html lang> 을 새 언어로
+     바꿔 버린다. bubble 로 들으면 바뀐 뒤라 from 과 to 가 항상 같아져
+     이벤트가 하나도 안 나간다. capture 로 먼저 잡아야 바뀌기 전 값을 읽는다. */
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest && ev.target.closest(".lang-btn");
+    if (!b) return;
+    var to = b.getAttribute("data-lang");
+    if (!to || to === lang()) return;      // 같은 언어를 다시 누른 건 세지 않는다
+    gtag("event", "language_change", { from: lang(), to: to });
+  }, true);
+
+  /* ---------- FAQ 열람 ----------
+     FAQ 는 접었다 펴는 구조가 아니라 늘 펼쳐져 있으므로,
+     "열었다"가 아니라 "실제로 화면에 보였다"를 센다.
+     한 번 보면 관측을 끊어, 오르내려도 세션당 1회만 보낸다. */
+  var faqEl = document.querySelector(".faq");
+  if (faqEl && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      gtag("event", "faq_view", { language: lang() });
+    }, { threshold: 0.25 });
+    io.observe(faqEl);
+  }
+
 })();
