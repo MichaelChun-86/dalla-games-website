@@ -52,6 +52,12 @@
 
   <!-- 추가 섹션(THE LOOP / FAQ) + 하단 소음 HUD 스타일 -->
   <link rel="stylesheet" href="enhancements.css" />
+
+  <!-- 방문자 분석(GA4) + 스팀 위시리스트 클릭 추적.
+       head 에 두는 이유: 아주 짧게 머물다 나가는 방문도 집계되게 하기 위함.
+       내부에서 gtag 를 async 로 불러오므로 렌더링은 막지 않는다.
+       측정 ID 를 넣기 전까지는 아무 것도 하지 않는다 → analytics.js 상단 참고. -->
+  <script src="analytics.js"></script>
 </head>
 <body>
 
