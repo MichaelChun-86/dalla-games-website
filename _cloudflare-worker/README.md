@@ -102,21 +102,21 @@ Worker 화면 → **Settings** → **Variables and Secrets**
 
 | 이름 | 종류 | 값 |
 |---|---|---|
-|  | Text | 1단계의 숫자 9~10자리 |
-|  | Text |  |
-|  | **Secret** | 내려받은 JSON 파일 내용 **전체** ( 부터  까지) |
+| `GA_PROPERTY_ID` | Text | 1단계의 숫자 9~10자리 |
+| `ALLOWED_ORIGIN` | Text | `https://dallagames.com` |
+| `GA_SERVICE_ACCOUNT_JSON` | **Secret** | 내려받은 JSON 파일 내용 **전체** (`{` 부터 `}` 까지) |
 
 **방식 B — 두 값 따로**
 
 | 이름 | 종류 | 값 |
 |---|---|---|
-|  | Text | 숫자 9~10자리 |
-|  | Text |  |
-|  | **Secret** | JSON 의  값 |
-|  | **Secret** | JSON 의  값 (BEGIN/END 줄 포함) |
+| `GA4_PROPERTY_ID` | Text | 숫자 9~10자리 |
+| `ALLOWED_ORIGIN` | Text | `https://dallagames.com` |
+| `SA_CLIENT_EMAIL` | **Secret** | JSON 의 `client_email` 값 |
+| `SA_PRIVATE_KEY` | **Secret** | JSON 의 `private_key` 값 (BEGIN/END 줄 포함) |
 
 > Worker 가 두 방식을 모두 인식하므로 하나만 채우면 됩니다.
-> 설정이 잘못되면 화면에 **무엇이 잘못됐는지 한국어로** 나옵니다.
+> 설정이 잘못되면 Worker 주소를 열었을 때 **무엇이 잘못됐는지 한국어로** 표시됩니다.
 
 넣은 뒤 **Deploy**를 한 번 더 눌러야 반영됩니다.
 
