@@ -35,6 +35,13 @@
 
 * { box-sizing: border-box; }
 
+/* hidden 속성이 항상 이기게 한다.
+   브라우저 기본값은 [hidden] { display: none } 이지만, 작성자 스타일이면
+   .lock { display: flex } 같은 한 줄이 그걸 그냥 덮어써 버린다.
+   실제로 그 탓에 로그인에 성공해도 잠금 화면이 그대로 떠 있었다
+   (뒤에서 대시보드는 정상적으로 열려 있었는데 가려서 안 보였다). */
+[hidden] { display: none !important; }
+
 html, body {
   margin: 0;
   background: var(--bg);

@@ -29,7 +29,7 @@
 
   /* PIN(2027)의 SHA-256 해시. 원문을 그대로 두지 않기 위한 것이지
      암호학적 보호는 아닙니다 — 아래 [보안 한계] 참고. */
-  var PIN_SHA256 = "9dec56f0c5134f54af1504a900639ef7b92a0978ff25fb9bb77fc9113a9234a9";
+  var PIN_SHA256 = "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b";
 
   /* 실데이터 프록시 주소. 비워 두면 샘플 데이터로 그린다.
      (예: "https://dalla-ga4.your-name.workers.dev/metrics") */
