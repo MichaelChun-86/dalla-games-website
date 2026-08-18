@@ -33,7 +33,7 @@
 
   /* 실데이터 프록시 주소. 비워 두면 샘플 데이터로 그린다.
      (예: "https://dalla-ga4.your-name.workers.dev/metrics") */
-  var API_ENDPOINT = "";
+  var API_ENDPOINT = "https://dalla-ga-proxy.chun4422.workers.dev/";
 
   var SESSION_KEY = "dalla-admin-ok";
 
