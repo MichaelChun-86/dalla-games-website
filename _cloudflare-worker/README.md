@@ -96,15 +96,27 @@ JSON 안에서 두 값을 쓸 겁니다:
 
 Worker 화면 → **Settings** → **Variables and Secrets**
 
+서비스 계정은 **둘 중 편한 방식**으로 넣으면 됩니다.
+
+**방식 A — JSON 통째로 (권장, 실수가 적음)**
+
 | 이름 | 종류 | 값 |
 |---|---|---|
-| `GA4_PROPERTY_ID` | Text | 1단계의 숫자 9자리 |
-| `ALLOWED_ORIGIN` | Text | `https://dallagames.com` |
-| `SA_CLIENT_EMAIL` | **Secret** | JSON의 `client_email` 값 |
-| `SA_PRIVATE_KEY` | **Secret** | JSON의 `private_key` 값 |
+|  | Text | 1단계의 숫자 9~10자리 |
+|  | Text |  |
+|  | **Secret** | 내려받은 JSON 파일 내용 **전체** ( 부터  까지) |
 
-`SA_PRIVATE_KEY`는 `-----BEGIN PRIVATE KEY-----` 부터 `-----END PRIVATE KEY-----` 까지
-**전부** 넣습니다. JSON 안에 `\n`이 글자 그대로 들어 있어도 Worker가 알아서 처리합니다.
+**방식 B — 두 값 따로**
+
+| 이름 | 종류 | 값 |
+|---|---|---|
+|  | Text | 숫자 9~10자리 |
+|  | Text |  |
+|  | **Secret** | JSON 의  값 |
+|  | **Secret** | JSON 의  값 (BEGIN/END 줄 포함) |
+
+> Worker 가 두 방식을 모두 인식하므로 하나만 채우면 됩니다.
+> 설정이 잘못되면 화면에 **무엇이 잘못됐는지 한국어로** 나옵니다.
 
 넣은 뒤 **Deploy**를 한 번 더 눌러야 반영됩니다.
 

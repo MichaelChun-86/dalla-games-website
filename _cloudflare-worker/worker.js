@@ -84,16 +84,48 @@ function json(obj, origin, cacheState, status = 200) {
 /* ---------------------------------------------------------------------------
    구글 인증: 서비스 계정 키로 JWT 를 만들어 액세스 토큰과 교환한다
    --------------------------------------------------------------------------- */
+/* 서비스 계정 정보를 어떤 방식으로 넣었든 읽어낸다.
+   ① GA_SERVICE_ACCOUNT_JSON — 내려받은 JSON 파일 내용을 통째로 넣은 경우 (권장, 실수가 적다)
+   ② SA_CLIENT_EMAIL + SA_PRIVATE_KEY — 두 값을 따로 넣은 경우
+   둘 중 하나만 채워져 있으면 된다. */
+function readServiceAccount(env) {
+  if (env.GA_SERVICE_ACCOUNT_JSON) {
+    let sa;
+    try {
+      sa = JSON.parse(env.GA_SERVICE_ACCOUNT_JSON);
+    } catch (e) {
+      throw new Error("GA_SERVICE_ACCOUNT_JSON 이 올바른 JSON 이 아닙니다. 파일 내용을 통째로(중괄호 포함) 붙여넣었는지 확인하세요.");
+    }
+    if (!sa.client_email || !sa.private_key) {
+      throw new Error("GA_SERVICE_ACCOUNT_JSON 에 client_email 또는 private_key 가 없습니다.");
+    }
+    return { email: sa.client_email, key: sa.private_key };
+  }
+  if (env.SA_CLIENT_EMAIL && env.SA_PRIVATE_KEY) {
+    return { email: env.SA_CLIENT_EMAIL, key: env.SA_PRIVATE_KEY };
+  }
+  throw new Error("서비스 계정 미설정: GA_SERVICE_ACCOUNT_JSON 또는 SA_CLIENT_EMAIL+SA_PRIVATE_KEY 를 넣어주세요.");
+}
+
+/* 속성 ID 도 이름이 다를 수 있어 둘 다 받는다 */
+function readPropertyId(env) {
+  const id = env.GA4_PROPERTY_ID || env.GA_PROPERTY_ID;
+  if (!id) throw new Error("속성 ID 미설정: GA4_PROPERTY_ID (또는 GA_PROPERTY_ID) 를 넣어주세요.");
+  if (!/^[0-9]+$/.test(String(id).trim())) {
+    throw new Error("속성 ID 는 숫자여야 합니다. G- 로 시작하는 측정 ID 를 넣으신 것 같습니다: " + id);
+  }
+  return String(id).trim();
+}
+
 async function getAccessToken(env) {
   const now = Math.floor(Date.now() / 1000);
   if (tokenCache.value && now < tokenCache.expiresAt - 60) return tokenCache.value;
 
-  if (!env.SA_CLIENT_EMAIL) throw new Error("SA_CLIENT_EMAIL 미설정");
-  if (!env.SA_PRIVATE_KEY) throw new Error("SA_PRIVATE_KEY 미설정");
+  const sa = readServiceAccount(env);
 
   const header = { alg: "RS256", typ: "JWT" };
   const claim = {
-    iss: env.SA_CLIENT_EMAIL,
+    iss: sa.email,
     scope: SCOPE,
     aud: TOKEN_URL,
     iat: now,
@@ -101,7 +133,7 @@ async function getAccessToken(env) {
   };
 
   const signingInput = b64url(JSON.stringify(header)) + "." + b64url(JSON.stringify(claim));
-  const key = await importPrivateKey(env.SA_PRIVATE_KEY);
+  const key = await importPrivateKey(sa.key);
   const sigBuf = await crypto.subtle.sign(
     "RSASSA-PKCS1-v1_5", key, new TextEncoder().encode(signingInput)
   );
@@ -154,7 +186,7 @@ function b64urlFromBytes(bytes) {
    --------------------------------------------------------------------------- */
 async function runReport(env, token, body) {
   const res = await fetch(
-    `${GA4_API}/properties/${env.GA4_PROPERTY_ID}:runReport`,
+    `${GA4_API}/properties/${readPropertyId(env)}:runReport`,
     {
       method: "POST",
       headers: {
@@ -244,7 +276,7 @@ const PLACEMENT_NAMES = {
    관리자 페이지가 쓰는 모양으로 조립
    --------------------------------------------------------------------------- */
 async function buildMetrics(env, token) {
-  if (!env.GA4_PROPERTY_ID) throw new Error("GA4_PROPERTY_ID 미설정");
+  readPropertyId(env);   // 설정이 잘못됐으면 여기서 바로 알려준다
 
   const R = body => runReport(env, token, body);
 
