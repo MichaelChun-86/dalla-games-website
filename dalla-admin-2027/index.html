@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 검색 엔진 완전 차단: 색인도, 링크 추적도 하지 않는다 -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <!-- 링크 미리보기(카카오톡·디스코드 등)에도 아무것도 노출하지 않는다 -->
+  <meta property="og:title" content="" />
+  <meta name="referrer" content="no-referrer" />
+
+  <title>Dalla Admin</title>
+  <link rel="icon" type="image/png" href="../images/favicon.png" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- ===================== 잠금 화면 =====================
+       PIN 을 맞게 넣기 전까지 대시보드는 DOM 에 그려지지 않는다. -->
+  <div class="lock" id="lock">
+    <div class="lock-box">
+      <div class="lock-mark" aria-hidden="true"></div>
+      <h1 class="lock-title">DALLA<span class="accent">GAMES</span></h1>
+      <p class="lock-sub">관리자 인증</p>
+
+      <form class="lock-form" id="pinForm" autocomplete="off">
+        <input class="pin-input" id="pinInput" type="password" inputmode="numeric"
+               pattern="[0-9]*" maxlength="6" placeholder="• • • •"
+               aria-label="PIN" autocomplete="off" />
+        <button class="pin-go" type="submit">ENTER</button>
+      </form>
+
+      <p class="lock-err" id="pinErr" role="alert" hidden>PIN이 올바르지 않습니다.</p>
+    </div>
+  </div>
+
+  <!-- ===================== 대시보드 ===================== -->
+  <div class="wrap" id="dash" hidden>
+
+    <header class="top">
+      <div class="top-left">
+        <span class="dot" aria-hidden="true"></span>
+        <h1>ANALYTICS</h1>
+        <span class="top-sub">dallagames.com</span>
+      </div>
+      <div class="top-right">
+        <span class="updated" id="updated">—</span>
+        <button class="btn-ghost" id="refresh" type="button">새로고침</button>
+        <button class="btn-ghost" id="logout" type="button">잠금</button>
+      </div>
+    </header>
+
+    <!-- 데이터 출처 안내 배너 (실데이터 연결 전까지만 보인다) -->
+    <div class="notice" id="notice" hidden>
+      <strong>샘플 데이터입니다.</strong>
+      <span id="noticeText"></span>
+    </div>
+
+    <!-- ---------- 상단 KPI ---------- -->
+    <section class="kpis" aria-label="핵심 지표">
+      <article class="card kpi">
+        <p class="kpi-label">오늘 순 방문자</p>
+        <p class="kpi-value" id="kpiToday">—</p>
+        <p class="kpi-foot" id="kpiTodayDelta">&nbsp;</p>
+      </article>
+      <article class="card kpi">
+        <p class="kpi-label">이번 주 순 방문자</p>
+        <p class="kpi-value" id="kpiWeek">—</p>
+        <p class="kpi-foot" id="kpiWeekDelta">&nbsp;</p>
+      </article>
+      <article class="card kpi kpi-hero">
+        <p class="kpi-label">위시리스트 클릭</p>
+        <p class="kpi-value" id="kpiWish">—</p>
+        <p class="kpi-foot" id="kpiWishFoot">&nbsp;</p>
+      </article>
+      <article class="card kpi">
+        <p class="kpi-label">스팀 전환율</p>
+        <p class="kpi-value" id="kpiCtr">—</p>
+        <p class="kpi-foot">클릭 ÷ 방문자</p>
+      </article>
+      <article class="card kpi">
+        <p class="kpi-label">평균 체류 시간</p>
+        <p class="kpi-value" id="kpiTime">—</p>
+        <p class="kpi-foot">참여 세션 기준</p>
+      </article>
+    </section>
+
+    <div class="grid">
+      <!-- ---------- 유입 경로 ---------- -->
+      <section class="card panel" aria-label="유입 경로">
+        <h2 class="panel-title">유입 경로 <span class="panel-note">최근 7일</span></h2>
+        <div class="donut-row">
+          <div class="donut-wrap">
+            <svg class="donut" viewBox="0 0 120 120" id="donut" aria-hidden="true">
+              <circle class="donut-track" cx="60" cy="60" r="52" />
+              <g id="donutSegs"></g>
+            </svg>
+            <div class="donut-center">
+              <span class="donut-num" id="donutTotal">—</span>
+              <span class="donut-cap">세션</span>
+            </div>
+          </div>
+          <table class="tbl" id="srcTable">
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- 국가 Top 5 ---------- -->
+      <section class="card panel" aria-label="국가 순위">
+        <h2 class="panel-title">국가 TOP 5 <span class="panel-note">최근 7일</span></h2>
+        <ul class="bars" id="countryBars"></ul>
+      </section>
+
+      <!-- ---------- 인터랙션 ---------- -->
+      <section class="card panel panel-wide" aria-label="주요 인터랙션">
+        <h2 class="panel-title">주요 인터랙션 <span class="panel-note">최근 7일 · 이벤트 수</span></h2>
+        <ul class="bars bars-lg" id="eventBars"></ul>
+      </section>
+
+      <!-- ---------- 위시리스트 버튼별 ---------- -->
+      <section class="card panel panel-wide" aria-label="위시리스트 버튼별 클릭">
+        <h2 class="panel-title">위시리스트 버튼별 <span class="panel-note">placement</span></h2>
+        <ul class="bars" id="placementBars"></ul>
+      </section>
+    </div>
+
+    <footer class="foot">
+      <a href="https://analytics.google.com/" target="_blank" rel="noopener">GA4 원본 보고서 열기 →</a>
+      <span>G-T5S20FRH38</span>
+    </footer>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
