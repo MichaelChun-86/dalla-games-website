@@ -15,7 +15,7 @@
   <link rel="icon" type="image/png" href="../images/favicon.png" />
   <!-- ?v= 는 캐시 무효화용. 이 폴더의 파일을 고칠 때마다 숫자를 올려야
        브라우저가 옛 파일과 새 파일을 섞어 쓰는 사고를 막을 수 있다. -->
-  <link rel="stylesheet" href="admin.css?v=4" />
+  <link rel="stylesheet" href="admin.css?v=5" />
 </head>
 <body>
 
@@ -39,7 +39,8 @@
         <button class="pin-go" type="submit">ENTER</button>
       </form>
 
-      <p class="lock-err" id="pinErr" role="alert" hidden>비밀번호가 올바르지 않습니다.</p>
+      <!-- 비밀번호 오류에는 아무 문구도 띄우지 않는다. 이 칸은 고장(https 아님 등)일 때만 쓴다. -->
+      <p class="lock-err" id="pinErr" role="alert" hidden></p>
     </div>
   </div>
 
@@ -140,6 +141,6 @@
     </footer>
   </div>
 
-  <script src="admin.js?v=4"></script>
+  <script src="admin.js?v=5"></script>
 </body>
 </html>

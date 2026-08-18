@@ -29,7 +29,7 @@
 
   /* PIN(2027)의 SHA-256 해시. 원문을 그대로 두지 않기 위한 것이지
      암호학적 보호는 아닙니다 — 아래 [보안 한계] 참고. */
-  var PIN_SHA256 = "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b";
+  var PIN_SHA256 = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
 
   /* 실데이터 프록시 주소. 비워 두면 샘플 데이터로 그린다.
      (예: "https://dalla-ga4.your-name.workers.dev/metrics") */
@@ -136,16 +136,32 @@
         unlock();
         return;
       }
-      fail("비밀번호가 올바르지 않습니다.");
+      wrong();   // 문구 없이 흔들기만 — 아래 설명 참고
     } catch (ex) {
       fail("로그인 처리 중 오류: " + ex.message);
     }
   });
 
-  /* 틀렸을 때: 문구를 띄우고, 상자를 흔들고, 입력을 비운다 */
+  /* 비밀번호가 틀렸을 때: 아무 문구도 남기지 않고 흔들기만 한다.
+     "틀렸다"는 말조차 알려주지 않겠다는 방침. 흔들림은 글자가 아니므로
+     들여다보는 쪽에는 정보를 주지 않으면서, 오타를 낸 본인은 알아챌 수 있다.
+     ※ 아래 fail() 은 고장(예: https 아님, 예외 발생) 전용으로 남겨둔다.
+        그건 비밀번호 힌트가 아니라 "왜 안 되는지"라서, 지워버리면
+        예전처럼 눌러도 아무 반응 없는 상태를 다시 만들게 된다. */
+  function wrong() {
+    err.hidden = true;          // 이전 오류 문구가 남아 있으면 지운다
+    shake();
+  }
+
+  /* 고장났을 때: 이유를 보여준다 (비밀번호 오류에는 쓰지 않는다) */
   function fail(msg) {
     err.textContent = msg;
     err.hidden = false;
+    shake();
+  }
+
+  /* 상자를 짧게 흔들고 입력을 비운다 */
+  function shake() {
     var box = lock.querySelector(".lock-box");
     box.classList.remove("shake");
     void box.offsetWidth;            // 애니메이션 재시작을 위한 리플로우
