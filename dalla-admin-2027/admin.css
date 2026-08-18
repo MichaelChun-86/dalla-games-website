@@ -109,7 +109,9 @@ body::before {
   padding: 13px 14px;
   font-family: inherit;
   font-size: 17px;
-  letter-spacing: 7px;
+  /* 자간이 넓으면 비밀번호 길이만큼 금방 넘친다.
+     4자리 PIN 이 아니라 10자 안팎을 받으므로 좁게 잡는다. */
+  letter-spacing: 4px;
   text-align: center;
   color: var(--text);
   background: rgba(0, 0, 0, 0.5);

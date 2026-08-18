@@ -26,13 +26,18 @@
       <p class="lock-sub">관리자 인증</p>
 
       <form class="lock-form" id="pinForm" autocomplete="off">
-        <input class="pin-input" id="pinInput" type="password" inputmode="numeric"
-               pattern="[0-9]*" maxlength="6" placeholder="• • • •"
-               aria-label="PIN" autocomplete="off" />
+        <!-- 숫자 PIN 이 아니라 문자·기호가 섞인 비밀번호를 쓴다.
+             inputmode="numeric" / pattern="[0-9]*" 를 두면 모바일에서 숫자 자판만 떠
+             문자를 입력할 수 없으므로 반드시 빼야 한다.
+             autocapitalize=off 도 필수 — 모바일이 첫 글자를 대문자로 바꿔 버린다. -->
+        <input class="pin-input" id="pinInput" type="password"
+               maxlength="64" placeholder="••••••••••"
+               aria-label="관리자 비밀번호" autocomplete="off"
+               autocapitalize="off" autocorrect="off" spellcheck="false" />
         <button class="pin-go" type="submit">ENTER</button>
       </form>
 
-      <p class="lock-err" id="pinErr" role="alert" hidden>PIN이 올바르지 않습니다.</p>
+      <p class="lock-err" id="pinErr" role="alert" hidden>비밀번호가 올바르지 않습니다.</p>
     </div>
   </div>
 
