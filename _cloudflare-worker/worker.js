@@ -41,6 +41,23 @@ export default {
       return new Response(null, { status: 204, headers: cors(origin) });
     }
 
+    /* 진단: 주소 뒤에 ?debug=1 을 붙이면 어떤 설정값이 Worker 에 실제로
+       도착했는지 이름만 보여준다. 값은 절대 내보내지 않는다. */
+    if (new URL(request.url).searchParams.get("debug") === "1") {
+      const names = ["GA_SERVICE_ACCOUNT_JSON", "SA_CLIENT_EMAIL", "SA_PRIVATE_KEY",
+                     "GA_PROPERTY_ID", "GA4_PROPERTY_ID", "ALLOWED_ORIGIN"];
+      const state = {};
+      for (const n of names) {
+        const v = env[n];
+        state[n] = v ? ("설정됨 (" + String(v).length + "자)") : "없음";
+      }
+      return json({
+        도착한_설정값: state,
+        Worker에_보이는_전체_이름: Object.keys(env),
+        안내: "전부 없음 이면 변수 저장 후 Deploy 를 누르지 않았거나, 다른 Worker 에 넣은 것입니다."
+      }, origin, "debug");
+    }
+
     try {
       const now = Date.now();
       if (dataCache.value && now < dataCache.expiresAt) {
@@ -104,7 +121,11 @@ function readServiceAccount(env) {
   if (env.SA_CLIENT_EMAIL && env.SA_PRIVATE_KEY) {
     return { email: env.SA_CLIENT_EMAIL, key: env.SA_PRIVATE_KEY };
   }
-  throw new Error("서비스 계정 미설정: GA_SERVICE_ACCOUNT_JSON 또는 SA_CLIENT_EMAIL+SA_PRIVATE_KEY 를 넣어주세요.");
+  throw new Error(
+    "서비스 계정 미설정. Worker 에 도착한 설정값 이름: [" + Object.keys(env).join(", ") + "] " +
+    "— 목록이 비어 있으면 변수를 저장한 뒤 Deploy 를 누르지 않았거나, 다른 Worker 에 넣은 것입니다. " +
+    "자세히 보려면 주소 뒤에 ?debug=1 을 붙여보세요."
+  );
 }
 
 /* 속성 ID 도 이름이 다를 수 있어 둘 다 받는다 */
