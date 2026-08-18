@@ -13,7 +13,9 @@
 
   <title>Dalla Admin</title>
   <link rel="icon" type="image/png" href="../images/favicon.png" />
-  <link rel="stylesheet" href="admin.css" />
+  <!-- ?v= 는 캐시 무효화용. 이 폴더의 파일을 고칠 때마다 숫자를 올려야
+       브라우저가 옛 파일과 새 파일을 섞어 쓰는 사고를 막을 수 있다. -->
+  <link rel="stylesheet" href="admin.css?v=2" />
 </head>
 <body>
 
@@ -138,6 +140,6 @@
     </footer>
   </div>
 
-  <script src="admin.js"></script>
+  <script src="admin.js?v=2"></script>
 </body>
 </html>

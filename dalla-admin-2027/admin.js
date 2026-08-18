@@ -116,14 +116,35 @@
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
-    var got = await sha256(input.value.trim());
-    if (got === PIN_SHA256) {
-      try { localStorage.setItem(SESSION_KEY, PIN_SHA256); } catch (e2) {}
-      err.hidden = true;
-      unlock();
-      return;
+
+    /* 실패해도 화면에 아무 일도 일어나지 않는 상황을 만들지 않는다.
+       예전에 여기서 조용히 죽으면 사용자는 원인을 알 길이 없었다. */
+    try {
+      /* crypto.subtle 은 보안 컨텍스트(https 또는 localhost)에서만 존재한다.
+         file:// 로 열거나 http 로 접속하면 아예 없어서, 안내 없이는
+         버튼을 눌러도 아무 반응이 없는 것처럼 보인다. */
+      if (!window.crypto || !crypto.subtle) {
+        fail("이 페이지는 https 로 접속해야 로그인할 수 있습니다.");
+        return;
+      }
+
+      /* 모바일 자판이 끝에 공백을 붙이는 일이 잦아 앞뒤 공백은 떼고 본다 */
+      var got = await sha256(input.value.trim());
+      if (got === PIN_SHA256) {
+        try { localStorage.setItem(SESSION_KEY, PIN_SHA256); } catch (e2) {}
+        err.hidden = true;
+        unlock();
+        return;
+      }
+      fail("비밀번호가 올바르지 않습니다.");
+    } catch (ex) {
+      fail("로그인 처리 중 오류: " + ex.message);
     }
-    // 틀림: 흔들고 비운다
+  });
+
+  /* 틀렸을 때: 문구를 띄우고, 상자를 흔들고, 입력을 비운다 */
+  function fail(msg) {
+    err.textContent = msg;
     err.hidden = false;
     var box = lock.querySelector(".lock-box");
     box.classList.remove("shake");
@@ -131,8 +152,7 @@
     box.classList.add("shake");
     input.value = "";
     input.focus();
-  });
-
+  }
   document.getElementById("logout").addEventListener("click", lockUp);
   document.getElementById("refresh").addEventListener("click", render);
 
