@@ -5,8 +5,9 @@
    왜 이렇게 하나
    - CSS 의 display:none 은 <video> 의 다운로드를 막지 못한다.
      화면에 안 보이는 상황에서도 통째로 받아버려 데이터가 낭비된다.
-   - 모션 최소화를 선호하는 방문자에게는 주소를 아예 넣지 않는다.
-     이 경우 poster 정지 이미지만 보인다.
+   - 배경 영상은 모션 최소화 설정과 무관하게 항상 재생한다(요청 사항).
+     느리게 도는 배경이라 시선을 빼앗지 않는다고 보고 예외로 뒀다.
+     대신 글리치·스캔처럼 튀는 연출은 여전히 그 설정을 따른다(hero-fx.js).
    - 모바일에서도 재생한다(영상이 약 5MB 로 가벼워진 뒤 허용).
      단 preload="none" 이라 화면에 필요할 때부터 받기 시작한다.
    ========================================================================= */
@@ -33,18 +34,11 @@
       : video.getAttribute("data-src");
     if (!src) return;
 
-    // 모션 최소화 선호 시에는 받지 않는다 — poster 정지 이미지로 충분하다
-    var reduceMotion =
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     // 포스터도 화면 방향에 맞는 것으로 — 가로 이미지가 세로 화면에서 잘려 보이지 않게
     var mobilePoster = video.getAttribute("data-poster-mobile");
     if (isMobile && mobilePoster) {
       video.setAttribute("poster", mobilePoster);
     }
-
-    if (reduceMotion) return;
 
     video.src = src;
 
