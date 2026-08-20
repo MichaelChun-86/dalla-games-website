@@ -44,25 +44,39 @@
 
     video.loop = true;               // 속성으로도 걸려 있지만 확실히 해 둔다
 
+    /* 주소를 넣은 뒤 load() 로 내려받기를 직접 시작한다.
+       preload 를 auto 로 바꿨지만, src 를 자바스크립트로 나중에 넣는 경우
+       브라우저가 알아서 받기 시작하지 않는 때가 있다.
+       받지 못하면 프레임이 없어 화면이 그대로 검게 남는다. */
+    video.load();
+
     /* 항상 재생 상태를 유지한다.
        브라우저는 여러 이유로 영상을 멈춘다 — 탭을 숨겼다 돌아오거나,
        절전 모드에 들어가거나, 뒤로가기로 캐시된 페이지가 복원될 때.
        loop 속성만으로는 "한 번 멈춘 뒤" 다시 살아나지 않으므로,
        멈추면 다시 트는 감시를 붙인다. */
-    function keepPlaying() {
-      if (document.hidden) return;   // 안 보이는 동안은 굳이 되살리지 않는다
+    /* force=true 면 화면에 보이는지와 무관하게 시도한다.
+       첫 재생은 반드시 force 로 부른다 — 여기서 걸러지면 다운로드조차
+       시작되지 않아 배경이 검은 채로 남는다(실제로 그렇게 됐었다). */
+    function keepPlaying(force) {
+      if (!force && document.hidden) return;   // 되살리기는 보일 때만
       if (!video.paused) return;
       var p = video.play();
       if (p && p.catch) p.catch(function () {});
     }
 
-    video.addEventListener("pause", keepPlaying);
-    video.addEventListener("ended", keepPlaying);        // loop 이 어긋난 경우 대비
-    video.addEventListener("stalled", keepPlaying);
-    document.addEventListener("visibilitychange", keepPlaying);
-    window.addEventListener("pageshow", keepPlaying);    // 뒤로가기 복귀
-    window.addEventListener("focus", keepPlaying);
+    video.addEventListener("pause", function () { keepPlaying(); });
+    video.addEventListener("ended", function () { keepPlaying(); });   // loop 어긋남 대비
+    video.addEventListener("stalled", function () { keepPlaying(); });
+    document.addEventListener("visibilitychange", function () { keepPlaying(); });
+    window.addEventListener("pageshow", function () { keepPlaying(); });
+    window.addEventListener("focus", function () { keepPlaying(); });
 
-    keepPlaying();
+    /* 데이터가 들어오는 대로 한 번 더 시도 — 첫 play() 가 아직 데이터가 없어
+       거절당했을 수 있다 */
+    video.addEventListener("loadeddata", function () { keepPlaying(true); });
+    video.addEventListener("canplay", function () { keepPlaying(true); });
+
+    keepPlaying(true);   // 최초 재생: 조건 없이
   }
 })();
