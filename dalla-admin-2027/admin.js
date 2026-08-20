@@ -219,6 +219,11 @@
 
   /* 막대 목록 하나를 그린다 */
   function drawBars(el, rows, unit) {
+    /* 값이 하나도 없으면 빈 상자만 남아 고장난 것처럼 보인다 */
+    if (!rows.length) {
+      el.innerHTML = '<li class="bars-empty">아직 데이터가 없습니다</li>';
+      return;
+    }
     var max = Math.max.apply(null, rows.map(function (r) { return r.count || r.users; })) || 1;
     el.innerHTML = rows.map(function (r) {
       var v = r.count != null ? r.count : r.users;
