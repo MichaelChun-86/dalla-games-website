@@ -291,8 +291,8 @@ html.noise-high .noise-vignette { opacity: 1; }
      좁은 화면에서는 답이 화면 밖에서 열리는 일이 잦아, 눌러 놓고도
      다시 스크롤해서 찾아야 한다. 그럴 바에는 처음부터 보이는 편이 낫다.
      (여닫기 자체는 script.js 가 이 폭에서 아예 동작하지 않게 막는다) */
-  .faq-panel { grid-template-rows: 1fr; }
-  .faq-a { opacity: 1; padding-top: 2px; padding-bottom: 18px; }
+  .faq-panel { grid-template-rows: 1fr; transition: none; }
+  .faq-a { opacity: 1; padding-top: 2px; padding-bottom: 18px; transition: none; }
   .faq-mark { display: none; }
   .faq-q { cursor: default; padding-top: 16px; padding-bottom: 4px; }
   .faq-q::after { display: none; }   /* 누르는 곳이 아니니 호버 밑줄도 없앤다 */

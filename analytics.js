@@ -133,6 +133,8 @@
   document.addEventListener("click", function (ev2) {
     var b = ev2.target.closest && ev2.target.closest(".faq-q");
     if (!b) return;
+    /* 모바일은 처음부터 펼쳐져 있어 "열었다"가 성립하지 않는다 */
+    if (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) return;
     // script.js 가 클래스를 토글하기 전이므로, 지금 닫혀 있으면 곧 열린다
     var willOpen = !b.closest(".faq-item").classList.contains("is-open");
     var id = b.getAttribute("data-faq");
