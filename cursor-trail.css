@@ -63,3 +63,10 @@ html.cur-alt .video-facade {
   cursor: url("images/Cursor_Hover2_32.png") 0 0, pointer;
 }
 
+/* FAQ 질문 위에서는 깜박이지 않고 커서 하나로 고정한다.
+   읽는 동안 계속 올려 두는 자리라, 130ms 마다 그림이 바뀌면 눈에 거슬린다. */
+html.cur-alt .faq-q,
+.faq-q {
+  cursor: url("images/Cursor_Hover1_32.png") 0 0, pointer;
+}
+

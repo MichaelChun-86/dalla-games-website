@@ -110,6 +110,11 @@
   document.addEventListener("click", function (e) {
     var btn = e.target.closest && e.target.closest(".faq-q");
     if (!btn) return;
+
+    /* 모바일(768px 이하)에서는 접지 않고 전부 펼쳐 둔다 — enhancements.css 참고.
+       화면 폭은 그때그때 확인한다(회전하거나 창을 줄여도 맞게 동작하도록). */
+    if (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) return;
+
     var item = btn.closest(".faq-item");
     var open = !item.classList.contains("is-open");
     item.classList.toggle("is-open", open);

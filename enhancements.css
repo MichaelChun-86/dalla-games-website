@@ -24,7 +24,7 @@
   margin: 0 auto;
 }
 .faq-item {
-  padding: 22px 0;
+  padding: 0;                /* 여백은 질문 버튼이 갖는다 — 그래야 그 만큼이 클릭 영역 */
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 .faq-item:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
@@ -46,7 +46,10 @@
   align-items: baseline;
   gap: 14px;
   width: 100%;
-  padding: 4px 0 4px var(--q-indent);
+  /* 위아래 여백을 넉넉히 — 줄 사이 빈 곳을 눌러도 열리도록 클릭 판을 키운다.
+     .faq-item 의 padding 을 여기로 옮겨와 항목 전체가 눌리는 영역이 된다. */
+  padding: 18px 10px 18px calc(var(--q-indent) + 10px);
+  margin: 0 -10px;
   font-family: inherit;
   font-size: 19px;
   line-height: 1.5;
@@ -55,56 +58,59 @@
   color: #fff;
   background: none;
   border: 0;
+  border-radius: 6px;
   cursor: pointer;
-  transition: color 0.18s;
 }
-.faq-q:hover { color: var(--mint-bright); }
+/* 호버: 글자색은 그대로 두고 밑줄이 좌 → 우로 그어진다.
+   (상단 메뉴의 호버와 같은 방식이라 사이트 안에서 손짓이 통일된다)
+   글자색을 바꾸면 네온 그린이 "강조"라는 뜻을 잃어서 쓰지 않는다. */
+.faq-q::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--q-indent) + 10px);
+  right: 10px;
+  bottom: 12px;
+  height: 1px;
+  background: var(--mint);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.faq-q:hover::after,
+.faq-q:focus-visible::after { transform: scaleX(1); }
+
 .faq-q:focus-visible {
   outline: 2px solid var(--mint);
-  outline-offset: 4px;
-  border-radius: 4px;
+  outline-offset: 2px;
 }
 
 /* "Q." — 들여쓴 여백 안에 띄운다. 질문이 두 줄이어도 둘째 줄이 파고들지 않는다. */
 .faq-q::before {
   content: "Q.";
   position: absolute;
-  left: 0;
-  top: 4px;
+  left: 10px;
+  top: 18px;
   color: var(--mint);
   font-weight: 500;
   letter-spacing: 0;
 }
 .faq-q-text { flex: 1; min-width: 0; }
 
-/* 열림 표시: 가로줄 + 세로줄 = 十, 열리면 세로줄이 사라져 － 가 된다 */
+/* 열림 표시: 아래를 향한 꺾쇠(∨). 열리면 180도 돌아 위를 향한다(∧).
+   +/− 보다 "펼친다/접는다"가 바로 읽힌다.
+   사이트 아래쪽 스크롤 화살표와 같은 방식으로 그려 손짓을 맞춘다. */
 .faq-mark {
-  position: relative;
   flex: none;
-  width: 13px;
-  height: 13px;
-  margin-top: 4px;
+  width: 9px;
+  height: 9px;
+  margin-top: 2px;
+  border-right: 2px solid var(--mint);
+  border-bottom: 2px solid var(--mint);
+  transform: rotate(45deg) translate(-1px, -1px);
+  transition: transform 0.3s ease;
 }
-.faq-mark::before,
-.faq-mark::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  background: var(--mint);
-  transition: transform 0.28s ease, opacity 0.28s ease;
-}
-.faq-mark::before {           /* 가로줄 — 항상 보인다 */
-  width: 13px; height: 1.5px;
-  transform: translate(-50%, -50%);
-}
-.faq-mark::after {            /* 세로줄 — 열리면 접히며 사라진다 */
-  width: 1.5px; height: 13px;
-  transform: translate(-50%, -50%);
-}
-.faq-item.is-open .faq-mark::after {
-  transform: translate(-50%, -50%) scaleY(0);
-  opacity: 0;
+.faq-item.is-open .faq-mark {
+  transform: rotate(-135deg) translate(-1px, -1px);
 }
 
 /* 답변 칸: 접힌 상태는 높이 0 */
@@ -129,8 +135,8 @@
 .faq-item.is-open .faq-a {
   opacity: 1;
   transition-delay: 0.08s;   /* 칸이 열리기 시작한 뒤 글자가 따라 들어온다 */
-  padding-top: 10px;
-  padding-bottom: 4px;
+  padding-top: 2px;
+  padding-bottom: 20px;
 }
 
 .faq-contact {
@@ -275,6 +281,17 @@ html.noise-high .noise-vignette { opacity: 1; }
    반응형
    ========================================================================= */
 @media (max-width: 768px) {
+
+  /* 모바일은 접지 않고 전부 펼쳐 둔다.
+     좁은 화면에서는 답이 화면 밖에서 열리는 일이 잦아, 눌러 놓고도
+     다시 스크롤해서 찾아야 한다. 그럴 바에는 처음부터 보이는 편이 낫다.
+     (여닫기 자체는 script.js 가 이 폭에서 아예 동작하지 않게 막는다) */
+  .faq-panel { grid-template-rows: 1fr; }
+  .faq-a { opacity: 1; padding-top: 2px; padding-bottom: 18px; }
+  .faq-mark { display: none; }
+  .faq-q { cursor: default; padding-top: 16px; padding-bottom: 4px; }
+  .faq-q::after { display: none; }   /* 누르는 곳이 아니니 호버 밑줄도 없앤다 */
+  .faq-q::before { top: 16px; }
 
   .faq-item { --q-indent: 22px; }   /* 글자가 작아진 만큼 들여쓰기도 줄인다 */
   .faq-q { font-size: 15px; gap: 10px; }
