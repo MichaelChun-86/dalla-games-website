@@ -101,4 +101,18 @@
     frame.src = frame.getAttribute("data-src");  // autoplay=1 포함 → 바로 재생
     facade.classList.add("hidden");
   });
+
+  /* =========================================================
+     FAQ 아코디언 — 질문을 누르면 답이 펼쳐진다
+     여러 개를 동시에 열 수 있다. 하나를 열 때 다른 것이 닫히면
+     두 답을 견주어 보려던 사람이 방금 읽던 것을 잃는다.
+     ========================================================= */
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest && e.target.closest(".faq-q");
+    if (!btn) return;
+    var item = btn.closest(".faq-item");
+    var open = !item.classList.contains("is-open");
+    item.classList.toggle("is-open", open);
+    btn.setAttribute("aria-expanded", String(open));
+  });
 })();

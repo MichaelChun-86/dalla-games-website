@@ -35,30 +35,30 @@
 
   <!-- css/js 뒤의 ?v= 는 캐시 무효화용 버전. 파일을 고치면 이 숫자를 함께 올린다.
        (안 올리면 방문자 브라우저가 최대 10분간 옛 파일을 그대로 쓴다) -->
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
 
   <!-- 히어로 특수효과: 스캐너 스윕 리빌 (기존 코드와 분리된 추가 파일)
        JS는 head에서 동기 로드 — 첫 페인트 전에 스캔 커버를 씌워 깜빡임(FOUC)을 막는다. -->
-  <link rel="stylesheet" href="hero-fx.css?v=5" />
-  <script src="hero-fx.js?v=5"></script>
+  <link rel="stylesheet" href="hero-fx.css?v=6" />
+  <script src="hero-fx.js?v=6"></script>
 
   <!-- 히어로 배경 영상 레이어 -->
-  <link rel="stylesheet" href="hero-bg-swap.css?v=5" />
+  <link rel="stylesheet" href="hero-bg-swap.css?v=6" />
 
   <!-- 마우스 커서 잔상(트레일) 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="cursor-trail.css?v=5" />
+  <link rel="stylesheet" href="cursor-trail.css?v=6" />
 
   <!-- 다국어(로컬라이제이션) 국기 버튼 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="i18n.css?v=5" />
+  <link rel="stylesheet" href="i18n.css?v=6" />
 
   <!-- 추가 섹션(THE LOOP / FAQ) + 하단 소음 HUD 스타일 -->
-  <link rel="stylesheet" href="enhancements.css?v=5" />
+  <link rel="stylesheet" href="enhancements.css?v=6" />
 
   <!-- 방문자 분석(GA4) + 스팀 위시리스트 클릭 추적.
        head 에 두는 이유: 아주 짧게 머물다 나가는 방문도 집계되게 하기 위함.
        내부에서 gtag 를 async 로 불러오므로 렌더링은 막지 않는다.
        측정 ID 를 넣기 전까지는 아무 것도 하지 않는다 → analytics.js 상단 참고. -->
-  <script src="analytics.js?v=5"></script>
+  <script src="analytics.js?v=6"></script>
 </head>
 <body>
 
@@ -346,41 +346,113 @@
         <p class="section-subtitle" data-i18n="faq.subtitle">What we can tell you right now</p>
 
         <dl class="faq-list">
-          <div class="faq-item">
-            <dt class="faq-q" data-i18n="faq.q1">What kind of game is AeonFall?</dt>
-            <dd class="faq-a" data-i18n-html="faq.a1">A <span class="accent">hardcore roguelike defense game</span>. You control your character directly, gathering resources and expanding your base while surviving hundreds of thousands of infected to the very end.</dd>
+          <div class="faq-item is-open">
+            <dt>
+              <button class="faq-q" type="button" data-faq="q1"
+                      aria-expanded="true" aria-controls="faq-a1">
+                <span class="faq-q-text" data-i18n="faq.q1">What kind of game is AeonFall?</span>
+                <span class="faq-mark" aria-hidden="true"></span>
+              </button>
+            </dt>
+            <dd class="faq-panel" id="faq-a1">
+              <p class="faq-a" data-i18n-html="faq.a1">A <span class="accent">hardcore roguelike defense game</span>. You control your character directly, gathering resources and expanding your base while surviving hundreds of thousands of infected to the very end.</p>
+            </dd>
           </div>
           <div class="faq-item">
-            <dt class="faq-q" data-i18n="faq.q2">Is the noise system the core of it?</dt>
-            <dd class="faq-a" data-i18n-html="faq.a2">Yes. Mining, building, fighting &mdash; every action makes noise. The bigger and stronger your base gets, the louder it becomes, and the more enemies come for you. Walking <span class="accent">that line between risk and reward</span> is the heart of the game.</dd>
+            <dt>
+              <button class="faq-q" type="button" data-faq="q2"
+                      aria-expanded="false" aria-controls="faq-a2">
+                <span class="faq-q-text" data-i18n="faq.q2">Is the noise system the core of it?</span>
+                <span class="faq-mark" aria-hidden="true"></span>
+              </button>
+            </dt>
+            <dd class="faq-panel" id="faq-a2">
+              <p class="faq-a" data-i18n-html="faq.a2">Yes. Mining, building, fighting &mdash; every action makes noise. The bigger and stronger your base gets, the louder it becomes, and the more enemies come for you. Walking <span class="accent">that line between risk and reward</span> is the heart of the game.</p>
+            </dd>
           </div>
           <div class="faq-item">
-            <dt class="faq-q" data-i18n="faq.q3">How is this different from other defense games?</dt>
-            <dd class="faq-a" data-i18n-html="faq.a3">You directly control the lone survivor and have to stay alive yourself. And what sets the scale of the next attack is not a simple timer &mdash; it is <span class="accent">the noise you made</span>.</dd>
+            <dt>
+              <button class="faq-q" type="button" data-faq="q3"
+                      aria-expanded="false" aria-controls="faq-a3">
+                <span class="faq-q-text" data-i18n="faq.q3">How is this different from other defense games?</span>
+                <span class="faq-mark" aria-hidden="true"></span>
+              </button>
+            </dt>
+            <dd class="faq-panel" id="faq-a3">
+              <p class="faq-a" data-i18n-html="faq.a3">You directly control the lone survivor and have to stay alive yourself. And what sets the scale of the next attack is not a simple timer &mdash; it is <span class="accent">the noise you made</span>.</p>
+            </dd>
           </div>
           <div class="faq-item">
-            <dt class="faq-q" data-i18n="faq.q4">How many enemies are there?</dt>
-            <dd class="faq-a" data-i18n-html="faq.a4"><span class="accent">Hundreds of thousands of infected</span> move across the whole map in real time. Waves come on a cycle, and on the final day they pour in from every direction with a boss.</dd>
+            <dt>
+              <button class="faq-q" type="button" data-faq="q4"
+                      aria-expanded="false" aria-controls="faq-a4">
+                <span class="faq-q-text" data-i18n="faq.q4">How many enemies are there?</span>
+                <span class="faq-mark" aria-hidden="true"></span>
+              </button>
+            </dt>
+            <dd class="faq-panel" id="faq-a4">
+              <p class="faq-a" data-i18n-html="faq.a4"><span class="accent">Hundreds of thousands of infected</span> move across the whole map in real time. Waves come on a cycle, and on the final day they pour in from every direction with a boss.</p>
+            </dd>
           </div>
           <div class="faq-item">
-            <dt class="faq-q" data-i18n="faq.q5">Is every run different?</dt>
-            <dd class="faq-a" data-i18n-html="faq.a5">Terrain, resource placement, nest locations, boss types and the directions they attack from are <span class="accent">randomised every time</span>. You have to build to counter the boss you drew, in real time.</dd>
+            <dt>
+              <button class="faq-q" type="button" data-faq="q5"
+                      aria-expanded="false" aria-controls="faq-a5">
+                <span class="faq-q-text" data-i18n="faq.q5">Is every run different?</span>
+                <span class="faq-mark" aria-hidden="true"></span>
+              </button>
+            </dt>
+            <dd class="faq-panel" id="faq-a5">
+              <p class="faq-a" data-i18n-html="faq.a5">Terrain, resource placement, nest locations, boss types and the directions they attack from are <span class="accent">randomised every time</span>. You have to build to counter the boss you drew, in real time.</p>
+            </dd>
           </div>
           <div class="faq-item">
-            <dt class="faq-q" data-i18n="faq.q6">Is it very hard?</dt>
-            <dd class="faq-a" data-i18n-html="faq.a6">Yes, we are making it very hard. If your oxygen or health runs out, or your base is overrun, it ends immediately. It is designed so that you <span class="accent">find the answers through many failures</span>.</dd>
+            <dt>
+              <button class="faq-q" type="button" data-faq="q6"
+                      aria-expanded="false" aria-controls="faq-a6">
+                <span class="faq-q-text" data-i18n="faq.q6">Is it very hard?</span>
+                <span class="faq-mark" aria-hidden="true"></span>
+              </button>
+            </dt>
+            <dd class="faq-panel" id="faq-a6">
+              <p class="faq-a" data-i18n-html="faq.a6">Yes, we are making it very hard. If your oxygen or health runs out, or your base is overrun, it ends immediately. It is designed so that you <span class="accent">find the answers through many failures</span>.</p>
+            </dd>
           </div>
           <div class="faq-item">
-            <dt class="faq-q" data-i18n="faq.q7">When does it come out, and on what?</dt>
-            <dd class="faq-a" data-i18n-html="faq.a7"><span class="accent">Steam Early Access first, in 2027</span>. <span class="accent">Add it to your wishlist</span> and you will hear the news first. Console is planned for review in stages after the PC release.</dd>
+            <dt>
+              <button class="faq-q" type="button" data-faq="q7"
+                      aria-expanded="false" aria-controls="faq-a7">
+                <span class="faq-q-text" data-i18n="faq.q7">When does it come out, and on what?</span>
+                <span class="faq-mark" aria-hidden="true"></span>
+              </button>
+            </dt>
+            <dd class="faq-panel" id="faq-a7">
+              <p class="faq-a" data-i18n-html="faq.a7"><span class="accent">Steam Early Access first, in 2027</span>. <span class="accent">Add it to your wishlist</span> and you will hear the news first. Console is planned for review in stages after the PC release.</p>
+            </dd>
           </div>
           <div class="faq-item">
-            <dt class="faq-q" data-i18n="faq.q8">Who is making it?</dt>
-            <dd class="faq-a" data-i18n-html="faq.a8">Dalla Games, a two-person indie studio: an art director with 16 years of experience and a full-stack developer with 13. We were selected for an <span class="accent">Epic MegaGrant</span> and are building it in <span class="accent">Unreal Engine 5</span>. We are a small team, but we are making a game we can enjoy ourselves, without compromise.</dd>
+            <dt>
+              <button class="faq-q" type="button" data-faq="q8"
+                      aria-expanded="false" aria-controls="faq-a8">
+                <span class="faq-q-text" data-i18n="faq.q8">Who is making it?</span>
+                <span class="faq-mark" aria-hidden="true"></span>
+              </button>
+            </dt>
+            <dd class="faq-panel" id="faq-a8">
+              <p class="faq-a" data-i18n-html="faq.a8">Dalla Games, a two-person indie studio: an art director with 16 years of experience and a full-stack developer with 13. We were selected for an <span class="accent">Epic MegaGrant</span> and are building it in <span class="accent">Unreal Engine 5</span>. We are a small team, but we are making a game we can enjoy ourselves, without compromise.</p>
+            </dd>
           </div>
           <div class="faq-item">
-            <dt class="faq-q" data-i18n="faq.q9">Can I see actual gameplay?</dt>
-            <dd class="faq-a" data-i18n-html="faq.a9">There is a <span class="accent">trailer at the top of this page</span>. We plan to keep sharing gameplay footage on our <span class="accent">official YouTube channel</span>.</dd>
+            <dt>
+              <button class="faq-q" type="button" data-faq="q9"
+                      aria-expanded="false" aria-controls="faq-a9">
+                <span class="faq-q-text" data-i18n="faq.q9">Can I see actual gameplay?</span>
+                <span class="faq-mark" aria-hidden="true"></span>
+              </button>
+            </dt>
+            <dd class="faq-panel" id="faq-a9">
+              <p class="faq-a" data-i18n-html="faq.a9">There is a <span class="accent">trailer at the top of this page</span>. We plan to keep sharing gameplay footage on our <span class="accent">official YouTube channel</span>.</p>
+            </dd>
           </div>
         </dl>
 
@@ -435,16 +507,16 @@
     </p>
   </footer>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
   <!-- 합성 사운드 효과 (타이핑/CRT/스팀 버튼) — 기존 코드와 분리된 추가 파일 -->
-  <script src="sfx.js?v=5"></script>
+  <script src="sfx.js?v=6"></script>
   <!-- 마우스 커서 잔상(트레일) — 기존 코드와 분리된 추가 파일 -->
-  <script src="cursor-trail.js?v=5"></script>
+  <script src="cursor-trail.js?v=6"></script>
   <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
-  <script src="i18n.js?v=5"></script>
+  <script src="i18n.js?v=6"></script>
   <!-- 소음 HUD + THE LOOP 소음 막대 — 기존 코드와 분리된 추가 파일 -->
-  <script src="noise-hud.js?v=5"></script>
+  <script src="noise-hud.js?v=6"></script>
   <!-- 히어로 배경 영상: 데스크톱에서만 내려받아 재생 -->
-  <script src="hero-video.js?v=5"></script>
+  <script src="hero-video.js?v=6"></script>
 </body>
 </html>

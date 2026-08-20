@@ -16,7 +16,8 @@
    FAQ — 조용하게. 강조는 하단 HUD 에서만 쓴다.
    ========================================================================= */
 .faq {
-  background: var(--bg-soft);
+  /* 다른 섹션과 같은 검정. 예전엔 살짝 밝은 회색이라 이 구간만 떠 보였다. */
+  background: var(--bg);
 }
 .faq-list {
   max-width: 760px;
@@ -28,39 +29,110 @@
 }
 .faq-item:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 
-/* 질문 앞의 "Q." 표시.
-   HTML 이나 번역문에는 넣지 않고 CSS 로만 붙인다 —
-   9개 질문 × 4개 언어를 건드릴 필요가 없고, 빼고 싶으면 이 블록만 지우면 된다.
+/* ---------- 아코디언 ----------
+   질문만 늘어놓고 누르면 답이 펼쳐진다. 첫 항목은 열어 둔 채 시작해서,
+   한 번도 누르지 않는 방문자도 최소한 하나는 읽고 가게 한다.
 
-   질문과 답변에 같은 크기의 왼쪽 여백을 주고 "Q." 만 그 여백 안에 띄운다.
-   그래야 질문이 두 줄로 넘어가도 둘째 줄이 "Q." 아래가 아니라
-   첫 줄 글자와 나란히 떨어지고, 답변도 같은 세로선에서 시작한다. */
-.faq-item { --q-indent: 26px; }
+   여닫는 애니메이션은 grid-template-rows 0fr↔1fr 로 만든다.
+   max-height 로 하면 실제 높이를 모르니 넉넉한 값을 찍어야 하고,
+   그러면 짧은 답변일수록 여는 속도가 느려 보인다. */
 
+.faq-item { --q-indent: 30px; }
+
+/* 질문 = 버튼. 줄 전체가 눌리고 키보드로도 다룰 수 있다. */
 .faq-q {
   position: relative;
-  padding-left: var(--q-indent);
-  font-size: 16.5px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  width: 100%;
+  padding: 4px 0 4px var(--q-indent);
+  font-family: inherit;
+  font-size: 19px;
+  line-height: 1.5;
   letter-spacing: 0.3px;
+  text-align: left;
   color: #fff;
-  margin-bottom: 8px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.18s;
 }
+.faq-q:hover { color: var(--mint-bright); }
+.faq-q:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* "Q." — 들여쓴 여백 안에 띄운다. 질문이 두 줄이어도 둘째 줄이 파고들지 않는다. */
 .faq-q::before {
   content: "Q.";
   position: absolute;
   left: 0;
-  top: 0;
+  top: 4px;
   color: var(--mint);
   font-weight: 500;
   letter-spacing: 0;
 }
-.faq-a {
-  padding-left: var(--q-indent);
-  font-size: 14.5px;
-  line-height: 1.75;
-  color: var(--text-dim);
-  margin: 0;
+.faq-q-text { flex: 1; min-width: 0; }
+
+/* 열림 표시: 가로줄 + 세로줄 = 十, 열리면 세로줄이 사라져 － 가 된다 */
+.faq-mark {
+  position: relative;
+  flex: none;
+  width: 13px;
+  height: 13px;
+  margin-top: 4px;
 }
+.faq-mark::before,
+.faq-mark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: var(--mint);
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+.faq-mark::before {           /* 가로줄 — 항상 보인다 */
+  width: 13px; height: 1.5px;
+  transform: translate(-50%, -50%);
+}
+.faq-mark::after {            /* 세로줄 — 열리면 접히며 사라진다 */
+  width: 1.5px; height: 13px;
+  transform: translate(-50%, -50%);
+}
+.faq-item.is-open .faq-mark::after {
+  transform: translate(-50%, -50%) scaleY(0);
+  opacity: 0;
+}
+
+/* 답변 칸: 접힌 상태는 높이 0 */
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin: 0;
+  transition: grid-template-rows 0.3s ease;
+}
+.faq-item.is-open .faq-panel { grid-template-rows: 1fr; }
+
+.faq-a {
+  overflow: hidden;          /* 0fr 일 때 내용이 삐져나오지 않게 */
+  margin: 0;
+  padding-left: var(--q-indent);
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.faq-item.is-open .faq-a {
+  opacity: 1;
+  transition-delay: 0.08s;   /* 칸이 열리기 시작한 뒤 글자가 따라 들어온다 */
+  padding-top: 10px;
+  padding-bottom: 4px;
+}
+
 .faq-contact {
   margin-top: 40px;
   text-align: center;
@@ -204,9 +276,12 @@ html.noise-high .noise-vignette { opacity: 1; }
    ========================================================================= */
 @media (max-width: 768px) {
 
-  .faq-item { --q-indent: 21px; }   /* 글자가 작아진 만큼 들여쓰기도 줄인다 */
-  .faq-q { font-size: 14.5px; }
-  .faq-a { font-size: 12.5px; }
+  .faq-item { --q-indent: 22px; }   /* 글자가 작아진 만큼 들여쓰기도 줄인다 */
+  .faq-q { font-size: 15px; gap: 10px; }
+  .faq-a { font-size: 13px; line-height: 1.75; }
+  .faq-mark { width: 11px; height: 11px; }
+  .faq-mark::before { width: 11px; }
+  .faq-mark::after { height: 11px; }
   .faq-contact { font-size: 12px; }
 
   .hud-bar { padding: 8px 14px; gap: 10px; }

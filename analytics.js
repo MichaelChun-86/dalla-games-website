@@ -125,6 +125,22 @@
     gtag("event", "language_change", { from: lang(), to: to });
   }, true);
 
+  /* ---------- FAQ 질문 펼침 ----------
+     어떤 질문을 실제로 눌러보는지. 방문자가 무엇을 궁금해하는지가 남는다.
+     같은 질문을 접었다 다시 펴도 한 번만 센다 — 여닫기를 반복하면
+     관심도가 아니라 만지작거린 횟수가 되어 버린다. */
+  var faqOpened = {};
+  document.addEventListener("click", function (ev2) {
+    var b = ev2.target.closest && ev2.target.closest(".faq-q");
+    if (!b) return;
+    // script.js 가 클래스를 토글하기 전이므로, 지금 닫혀 있으면 곧 열린다
+    var willOpen = !b.closest(".faq-item").classList.contains("is-open");
+    var id = b.getAttribute("data-faq");
+    if (!willOpen || !id || faqOpened[id]) return;
+    faqOpened[id] = true;
+    gtag("event", "faq_open", { question: id, language: lang() });
+  }, true);
+
   /* ---------- FAQ 열람 ----------
      FAQ 는 접었다 펴는 구조가 아니라 늘 펼쳐져 있으므로,
      "열었다"가 아니라 "실제로 화면에 보였다"를 센다.
