@@ -242,7 +242,7 @@ body::before {
 /* ---------- KPI ---------- */
 .kpis {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 12px;
   margin-bottom: 12px;
 }
@@ -400,7 +400,7 @@ body::before {
    반응형
    ========================================================================= */
 @media (max-width: 900px) {
-  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .kpis { grid-template-columns: repeat(3, 1fr); }
   .grid { grid-template-columns: 1fr; }
   .donut-row { flex-direction: column; align-items: stretch; gap: 20px; }
   .donut-wrap { align-self: center; }

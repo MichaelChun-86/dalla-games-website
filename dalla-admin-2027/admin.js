@@ -39,6 +39,7 @@
      구조는 프록시가 돌려줘야 할 JSON 형태와 정확히 같습니다.
      --------------------------------------------------------------------- */
   var SAMPLE = {
+    totalUsers: 5820,
     todayUsers: 128,
     todayDeltaPct: 12,          // 어제 대비 %
     weekUsers: 741,
@@ -267,6 +268,7 @@
     }
 
     // KPI
+    $("kpiTotal").textContent = num(d.totalUsers || 0);
     $("kpiToday").textContent = num(d.todayUsers);
     $("kpiTodayDelta").innerHTML = delta(d.todayDeltaPct);
     $("kpiWeek").textContent = num(d.weekUsers);

@@ -384,8 +384,15 @@ async function buildMetrics(env, token) {
 
   const R = body => runReport(env, token, body);
 
-  const [today, yesterday, week, prevWeek, engage, sources, countries, events, placements] =
+  const [allTime, today, yesterday, week, prevWeek, engage, sources, countries, events, placements] =
     await Promise.all([
+      /* 총 누적 방문자 — 전체 기간.
+         GA4 속성이 생기기 전 날짜를 넣어도 문제없다. 있는 기간만 집계된다.
+         다른 카드는 activeUsers(참여한 사용자)지만 "총 누적"은 말 그대로
+         다녀간 사람 전부라서 totalUsers 를 쓴다. */
+      R({ dateRanges: [{ startDate: "2020-01-01", endDate: "today" }],
+          metrics: [{ name: "totalUsers" }] }),
+
       // 오늘 / 어제 순 방문자
       R({ dateRanges: [{ startDate: "today", endDate: "today" }],
           metrics: [{ name: "activeUsers" }] }),
@@ -457,6 +464,7 @@ async function buildMetrics(env, token) {
     (eventRows.find(r => r.key === "wishlist_click") || {}).value || 0;
 
   return {
+    totalUsers: firstMetric(allTime),
     todayUsers,
     todayDeltaPct: pctChange(todayUsers, firstMetric(yesterday)),
     weekUsers,

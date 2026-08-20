@@ -15,7 +15,7 @@
   <link rel="icon" type="image/png" href="../images/favicon.png" />
   <!-- ?v= 는 캐시 무효화용. 이 폴더의 파일을 고칠 때마다 숫자를 올려야
        브라우저가 옛 파일과 새 파일을 섞어 쓰는 사고를 막을 수 있다. -->
-  <link rel="stylesheet" href="admin.css?v=6" />
+  <link rel="stylesheet" href="admin.css?v=7" />
 </head>
 <body>
 
@@ -68,6 +68,11 @@
 
     <!-- ---------- 상단 KPI ---------- -->
     <section class="kpis" aria-label="핵심 지표">
+      <article class="card kpi">
+        <p class="kpi-label">총 누적 방문자</p>
+        <p class="kpi-value" id="kpiTotal">—</p>
+        <p class="kpi-foot">전체 기간</p>
+      </article>
       <article class="card kpi">
         <p class="kpi-label">오늘 순 방문자</p>
         <p class="kpi-value" id="kpiToday">—</p>
@@ -141,6 +146,6 @@
     </footer>
   </div>
 
-  <script src="admin.js?v=6"></script>
+  <script src="admin.js?v=7"></script>
 </body>
 </html>
