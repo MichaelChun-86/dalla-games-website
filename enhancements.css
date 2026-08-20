@@ -28,13 +28,34 @@
 }
 .faq-item:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 
+/* 질문 앞의 "Q." 표시.
+   HTML 이나 번역문에는 넣지 않고 CSS 로만 붙인다 —
+   9개 질문 × 4개 언어를 건드릴 필요가 없고, 빼고 싶으면 이 블록만 지우면 된다.
+
+   질문과 답변에 같은 크기의 왼쪽 여백을 주고 "Q." 만 그 여백 안에 띄운다.
+   그래야 질문이 두 줄로 넘어가도 둘째 줄이 "Q." 아래가 아니라
+   첫 줄 글자와 나란히 떨어지고, 답변도 같은 세로선에서 시작한다. */
+.faq-item { --q-indent: 26px; }
+
 .faq-q {
+  position: relative;
+  padding-left: var(--q-indent);
   font-size: 16.5px;
   letter-spacing: 0.3px;
   color: #fff;
   margin-bottom: 8px;
 }
+.faq-q::before {
+  content: "Q.";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--mint);
+  font-weight: 500;
+  letter-spacing: 0;
+}
 .faq-a {
+  padding-left: var(--q-indent);
   font-size: 14.5px;
   line-height: 1.75;
   color: var(--text-dim);
@@ -183,6 +204,7 @@ html.noise-high .noise-vignette { opacity: 1; }
    ========================================================================= */
 @media (max-width: 768px) {
 
+  .faq-item { --q-indent: 21px; }   /* 글자가 작아진 만큼 들여쓰기도 줄인다 */
   .faq-q { font-size: 14.5px; }
   .faq-a { font-size: 12.5px; }
   .faq-contact { font-size: 12px; }
