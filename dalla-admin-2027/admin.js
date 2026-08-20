@@ -66,6 +66,21 @@
       { name: "FAQ 열람",        key: "faq_view",        count: 168 },
       { name: "언어 변경",       key: "language_change", count: 73 }
     ],
+    devices: [
+      { name: "PC",     users: 430 },
+      { name: "모바일", users: 288 },
+      { name: "태블릿", users: 23 }
+    ],
+    visitors: [
+      { name: "신규",   key: "new",       users: 604 },
+      { name: "재방문", key: "returning", users: 137 }
+    ],
+    scrolls: [
+      { name: "25% 이상", key: "scroll_25",  count: 690 },
+      { name: "50% 이상", key: "scroll_50",  count: 471 },
+      { name: "75% 이상", key: "scroll_75",  count: 302 },
+      { name: "끝까지",   key: "scroll_100", count: 188 }
+    ],
     placements: [
       { name: "히어로 버튼",   key: "hero",   count: 51 },
       { name: "하단 고정 바",  key: "hud",    count: 28 },
@@ -254,6 +269,21 @@
     }).join("");
   }
 
+  /* 신규/재방문: 막대 하나를 비율대로 둘로 가른다 */
+  function drawSplit(rows) {
+    var el = $("visitorSplit");
+    var total = rows.reduce(function (a2, r) { return a2 + r.users; }, 0);
+    if (!total) { el.innerHTML = '<div class="split-empty">아직 데이터가 없습니다</div>'; return; }
+
+    el.innerHTML = rows.map(function (r) {
+      var pct = Math.round(r.users / total * 100);
+      var cls = r.key === "new" ? "split-new" : "split-back";
+      return '<div class="split-seg ' + cls + '" style="flex-grow:' + r.users + '" title="' +
+             r.name + ' ' + num(r.users) + '명 (' + pct + '%)">' +
+             '<span>' + r.name + '</span><b>' + pct + '%</b></div>';
+    }).join("");
+  }
+
   async function render() {
     var out = await loadMetrics();
     var d = out.data;
@@ -284,6 +314,9 @@
     drawBars($("countryBars"), d.countries, "명");
     drawBars($("eventBars"), d.events, "회");
     drawBars($("placementBars"), d.placements, "회");
+    drawBars($("scrollBars"), d.scrolls || [], "회");
+    drawBars($("deviceBars"), d.devices || [], "명");
+    drawSplit(d.visitors || []);
 
     $("updated").textContent = new Date().toLocaleString("ko-KR", {
       month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit"

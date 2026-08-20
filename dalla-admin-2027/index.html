@@ -15,7 +15,7 @@
   <link rel="icon" type="image/png" href="../images/favicon.png" />
   <!-- ?v= 는 캐시 무효화용. 이 폴더의 파일을 고칠 때마다 숫자를 올려야
        브라우저가 옛 파일과 새 파일을 섞어 쓰는 사고를 막을 수 있다. -->
-  <link rel="stylesheet" href="admin.css?v=8" />
+  <link rel="stylesheet" href="admin.css?v=9" />
 </head>
 <body>
 
@@ -143,6 +143,24 @@
         <h2 class="panel-title">위시리스트 버튼별 <span class="panel-note">placement</span></h2>
         <ul class="bars" id="placementBars"></ul>
       </section>
+
+      <!-- ---------- 스크롤 깊이 ---------- -->
+      <section class="card panel panel-half" aria-label="스크롤 깊이">
+        <h2 class="panel-title">스크롤 깊이 <span class="panel-note">최근 7일 · 도달 세션</span></h2>
+        <ul class="bars" id="scrollBars"></ul>
+      </section>
+
+      <!-- ---------- 기기 ---------- -->
+      <section class="card panel panel-half" aria-label="기기">
+        <h2 class="panel-title">기기 <span class="panel-note">최근 7일</span></h2>
+        <ul class="bars" id="deviceBars"></ul>
+      </section>
+
+      <!-- ---------- 신규 / 재방문 ---------- -->
+      <section class="card panel panel-wide" aria-label="신규 재방문">
+        <h2 class="panel-title">신규 / 재방문 <span class="panel-note">최근 7일</span></h2>
+        <div class="split" id="visitorSplit"></div>
+      </section>
     </div>
 
     <footer class="foot">
@@ -151,6 +169,6 @@
     </footer>
   </div>
 
-  <script src="admin.js?v=8"></script>
+  <script src="admin.js?v=9"></script>
 </body>
 </html>

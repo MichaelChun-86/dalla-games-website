@@ -369,6 +369,27 @@ const EVENT_NAMES = {
   language_change: "언어 변경"
 };
 
+const DEVICE_NAMES = {
+  desktop: "PC",
+  mobile: "모바일",
+  tablet: "태블릿",
+  smart_tv: "스마트TV"
+};
+
+const VISITOR_NAMES = {
+  "new": "신규",
+  "returning": "재방문"
+};
+
+/* 스크롤 깊이는 이벤트 이름을 나눠 심었다(scroll_25 …).
+   GA4 에 맞춤 측정기준을 추가로 등록하지 않아도 되기 때문. */
+const SCROLL_STEPS = [
+  { key: "scroll_25",  name: "25% 이상" },
+  { key: "scroll_50",  name: "50% 이상" },
+  { key: "scroll_75",  name: "75% 이상" },
+  { key: "scroll_100", name: "끝까지" }
+];
+
 const PLACEMENT_NAMES = {
   hero: "히어로 버튼",
   hud: "하단 고정 바",
@@ -384,7 +405,8 @@ async function buildMetrics(env, token) {
 
   const R = body => runReport(env, token, body);
 
-  const [allTime, today, yesterday, week, prevWeek, engage, sources, countries, events, placements] =
+  const [allTime, today, yesterday, week, prevWeek, engage, sources, countries, events,
+         devices, visitors, scrolls, placements] =
     await Promise.all([
       /* 총 누적 방문자 — 전체 기간.
          GA4 속성이 생기기 전 날짜를 넣어도 문제없다. 있는 기간만 집계된다.
@@ -433,6 +455,28 @@ async function buildMetrics(env, token) {
               inListFilter: {
                 values: ["wishlist_click", "trailer_play", "faq_view", "language_change"]
               }
+            }
+          } }),
+
+      // 기기 구분
+      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+          dimensions: [{ name: "deviceCategory" }],
+          metrics: [{ name: "activeUsers" }],
+          orderBys: [{ desc: true, metric: { metricName: "activeUsers" } }] }),
+
+      // 신규 / 재방문
+      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+          dimensions: [{ name: "newVsReturning" }],
+          metrics: [{ name: "activeUsers" }] }),
+
+      // 스크롤 깊이 — 우리가 심은 scroll_* 이벤트를 모아 본다
+      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+          dimensions: [{ name: "eventName" }],
+          metrics: [{ name: "eventCount" }],
+          dimensionFilter: {
+            filter: {
+              fieldName: "eventName",
+              inListFilter: { values: SCROLL_STEPS.map(x => x.key) }
             }
           } }),
 
@@ -490,6 +534,25 @@ async function buildMetrics(env, token) {
       name: EVENT_NAMES[key],
       key,
       count: (eventRows.find(r => r.key === key) || {}).value || 0
+    })),
+
+    devices: mergeByName(
+      toRows(devices).map(r => ({ name: DEVICE_NAMES[r.key] || r.key, users: r.value })),
+      "users", 5
+    ),
+
+    /* 신규·재방문은 항상 두 줄로 보이게 없는 쪽은 0 으로 채운다 */
+    visitors: Object.keys(VISITOR_NAMES).map(key => ({
+      name: VISITOR_NAMES[key],
+      key,
+      users: (toRows(visitors).find(r => r.key === key) || {}).value || 0
+    })),
+
+    /* 스크롤은 25 → 끝까지 순서를 고정한다. 깔때기라 순서가 뒤집히면 못 읽는다 */
+    scrolls: SCROLL_STEPS.map(step => ({
+      name: step.name,
+      key: step.key,
+      count: (toRows(scrolls).find(r => r.key === step.key) || {}).value || 0
     })),
 
     placements: Object.keys(PLACEMENT_NAMES).map(key => ({

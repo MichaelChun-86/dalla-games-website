@@ -29,6 +29,10 @@
      · trailer_play    — 히어로 트레일러 재생 버튼 클릭
      · faq_view        — FAQ 섹션이 실제로 화면에 보였을 때 (세션당 1회)
      · language_change — 국기 버튼으로 언어를 바꿨을 때 (from → to)
+     · scroll_25 / scroll_50 / scroll_75 / scroll_100
+                       — 페이지를 그만큼 내려봤을 때. 각 단계는 한 번만 보낸다.
+                         이름을 나눈 이유: 파라미터로 붙이면 GA4 에 맞춤 측정기준을
+                         또 등록해야 하지만, 이름이 다르면 그냥 이벤트 수로 읽힌다.
 
        → 모두 GA4 [보고서 > 참여도 > 이벤트] 에서 확인.
          placement 처럼 파라미터별로 나눠 보려면 [관리 > 맞춤 정의] 에서
@@ -134,5 +138,43 @@
     }, { threshold: 0.25 });
     io.observe(faqEl);
   }
+
+
+  /* ---------- 스크롤 깊이 ----------
+     방문자가 페이지를 어디까지 내려봤는지. 25/50/75/100% 지점을 지날 때
+     한 번씩만 보낸다. 어디서 이탈하는지 깔때기로 볼 수 있다.
+     스크롤은 초당 수십 번 발생하므로 requestAnimationFrame 으로 묶어
+     프레임당 한 번만 계산한다(스크롤이 버벅이지 않게). */
+  (function trackScrollDepth() {
+    var marks = [25, 50, 75, 100];
+    var hit = {};                    // 이미 보낸 지점
+    var ticking = false;
+
+    function measure() {
+      ticking = false;
+      var doc = document.documentElement;
+      var total = doc.scrollHeight - window.innerHeight;
+      // 스크롤할 것이 없는 짧은 화면은 100% 로 친다
+      var pct = total <= 0 ? 100 : (window.scrollY / total) * 100;
+
+      for (var i = 0; i < marks.length; i++) {
+        var m = marks[i];
+        if (pct >= m && !hit[m]) {
+          hit[m] = true;
+          gtag("event", "scroll_" + m, { language: lang() });
+        }
+      }
+      if (hit[100]) window.removeEventListener("scroll", onScroll);
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(measure);
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    measure();                       // 열자마자 이미 보이는 만큼 먼저 집계
+  })();
 
 })();

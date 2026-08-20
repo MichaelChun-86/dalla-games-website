@@ -294,6 +294,30 @@ body::before {
 /* 인터랙션·버튼별 두 패널은 막대가 짧아 한 줄을 다 쓰면 오히려 읽기 나쁘다.
    나란히 놓아 폭을 절반으로 줄인다. */
 .panel-half { grid-column: auto; }
+.panel-wide { grid-column: 1 / -1; }
+
+/* ---------- 신규/재방문: 하나의 막대를 둘로 나눈다 ---------- */
+.split { display: flex; height: 34px; border-radius: 6px; overflow: hidden; }
+.split-seg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 12.5px;
+  white-space: nowrap;
+  transition: flex-grow 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.split-new  { background: var(--mint); color: #001208; }
+.split-back { background: rgba(255, 255, 255, 0.10); color: var(--text); }
+.split-seg b { font-weight: 500; }
+/* 칸이 좁아 글자가 넘칠 땐 숫자만 남긴다 */
+.split-seg span { overflow: hidden; text-overflow: ellipsis; }
+.split-empty {
+  display: flex; align-items: center; justify-content: center;
+  height: 34px; font-size: 12.5px; color: var(--dim);
+  background: rgba(255,255,255,0.05); border-radius: 6px;
+}
 .panel-title {
   margin: 0 0 20px;
   font-size: 13px;
