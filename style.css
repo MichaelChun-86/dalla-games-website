@@ -1129,7 +1129,10 @@ label,
     font-size: min(13px, calc((100vw - 56px) / 27));
   }
   .hero-eyebrow {
-    font-size: min(11px, calc((100vw - 56px) / 24));
+    /* 장르 줄에서 가장 긴 건 일본어다.
+       "ハードコア・ローグライク・ディフェンス" 는 전각 19자라
+       자간까지 더하면 약 26em — 영문(약 22em)보다 넓다. 그쪽에 맞춘다. */
+    font-size: min(11px, calc((100vw - 56px) / 26.5));
   }
 
   .hero-title-wrap { width: 90%; }
