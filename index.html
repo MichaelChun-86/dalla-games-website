@@ -35,13 +35,12 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- 히어로 특수효과: 글리치 버스트 + 스캐너 스윕 리빌 (기존 코드와 분리된 추가 파일)
+  <!-- 히어로 특수효과: 스캐너 스윕 리빌 (기존 코드와 분리된 추가 파일)
        JS는 head에서 동기 로드 — 첫 페인트 전에 스캔 커버를 씌워 깜빡임(FOUC)을 막는다. -->
   <link rel="stylesheet" href="hero-fx.css" />
   <script src="hero-fx.js"></script>
 
-  <!-- 히어로 배경 키비주얼 교차 페이드 (A01 ↔ A02).
-       hero-fx.css 다음에 둬야 글리치 레이어 제어가 적용된다. -->
+  <!-- 히어로 배경 영상 레이어 -->
   <link rel="stylesheet" href="hero-bg-swap.css" />
 
   <!-- 마우스 커서 잔상(트레일) 스타일 — 스크립트는 body 끝에서 로드 -->
@@ -149,18 +148,6 @@
 
       <!-- 배경 위 가독성을 위한 어두운 오버레이 -->
       <div class="hero-overlay"></div>
-
-      <!-- 글리치/RGB 스플릿 버스트 레이어: 평소엔 전부 투명,
-           hero-fx.js 가 랜덤 간격으로 잠깐씩만 발동(hero-fx.css 참고)
-           배경 글리치 소스는 캐릭터가 뚫린 hero-bg-glitchzone.webp,
-           그 위에 hero-bg-ch.webp(캐릭터 컷아웃)를 올려 캐릭터를 보호 -->
-      <div class="hero-glitch" aria-hidden="true">
-        <div class="hg-layer hg-rgb-r"></div>   <!-- 빨강 채널 고스트 -->
-        <div class="hg-layer hg-rgb-c"></div>   <!-- 시안 채널 고스트 -->
-        <div class="hg-layer hg-slice-1"></div> <!-- 가로 슬라이스 어긋남 1 -->
-        <div class="hg-layer hg-slice-2"></div> <!-- 가로 슬라이스 어긋남 2 -->
-        <div class="hg-layer hg-ch"></div>      <!-- 캐릭터 보호용 원본 컷아웃 -->
-      </div>
 
       <div class="hero-content">
         <!-- 로고 위 두 줄: 장르(아이브로우) → 훅.

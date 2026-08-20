@@ -200,14 +200,3 @@ html.noise-high .noise-vignette { opacity: 1; }
   .hud-label { font-size: 8.5px; }
 }
 
-/* 모션 최소화 선호: 차오르는 연출과 비네트를 끄고 결과만 보여준다 */
-@media (prefers-reduced-motion: reduce) {
-  .hud-bar { transition: none; }
-  .hud-meter-fill { transition: none; }
-  .noise-vignette { display: none; }
-  /* 깜박임 대신 붉은색으로 고정 — 상태는 그대로 전달된다 */
-  .hud-bar.is-hot .hud-cta {
-    animation: none;
-    background-color: var(--noise-hot);
-  }
-}

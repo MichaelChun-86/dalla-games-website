@@ -26,11 +26,6 @@
     interval: 130  // 호버 커서 Hover1↔Hover2 전환 간격(ms). 작을수록 빠르게 깜박임.
   };
 
-  // 모션 최소화 선호 → 잔상·깜박임 모두 끔
-  if (
-    window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  ) return;
   // 정밀 포인터(마우스)가 없는 터치 기기 → 끔
   if (window.matchMedia && !window.matchMedia("(pointer: fine)").matches) return;
 

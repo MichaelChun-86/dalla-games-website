@@ -54,11 +54,8 @@
   // (Epic 박스는 화면에 들어올 때마다 살짝 위로 올라오며 등장해 존재감을 준다)
   var revealTargets = document.querySelectorAll(".games .section-inner, .about .section-inner, .faq .section-inner, .site-footer, .epic-megagrant");
 
-  // 움직임 최소화 설정(접근성)을 켠 사용자는 애니메이션 없이 바로 표시
-  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (reduceMotion || !("IntersectionObserver" in window)) {
-    // 지원 안 하거나 모션 최소화 → 그냥 보이게
+  if (!("IntersectionObserver" in window)) {
+    // 옛 브라우저라 관측을 못 하면 그냥 보이게 둔다
     revealTargets.forEach(function (el) { el.classList.add("is-visible"); });
   } else {
     revealTargets.forEach(function (el) { el.classList.add("reveal"); });

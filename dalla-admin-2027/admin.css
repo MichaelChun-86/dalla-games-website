@@ -240,9 +240,10 @@ body::before {
 }
 
 /* ---------- KPI ---------- */
+/* KPI 는 두 줄로 나뉘어 있다(방문자 / 성과). 각 줄이 3칸. */
 .kpis {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   margin-bottom: 12px;
 }
@@ -290,7 +291,9 @@ body::before {
   gap: 12px;
 }
 .panel { padding: 20px 20px 22px; }
-.panel-wide { grid-column: 1 / -1; }
+/* 인터랙션·버튼별 두 패널은 막대가 짧아 한 줄을 다 쓰면 오히려 읽기 나쁘다.
+   나란히 놓아 폭을 절반으로 줄인다. */
+.panel-half { grid-column: auto; }
 .panel-title {
   margin: 0 0 20px;
   font-size: 13px;
@@ -401,6 +404,7 @@ body::before {
    ========================================================================= */
 @media (max-width: 900px) {
   .kpis { grid-template-columns: repeat(3, 1fr); }
+  .panel-half { grid-column: 1 / -1; }   /* 좁아지면 다시 한 줄씩 */
   .grid { grid-template-columns: 1fr; }
   .donut-row { flex-direction: column; align-items: stretch; gap: 20px; }
   .donut-wrap { align-self: center; }

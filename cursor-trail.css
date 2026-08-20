@@ -63,8 +63,3 @@ html.cur-alt .video-facade {
   cursor: url("images/Cursor_Hover2_32.png") 0 0, pointer;
 }
 
-/* 접근성: 모션 최소화 선호 시 잔상을 끈다 (JS 도 잔상·깜박임을 만들지 않음 →
-   호버 커서는 흰색 고정, 평상시는 녹색 고정으로 여전히 구분된다) */
-@media (prefers-reduced-motion: reduce) {
-  .cursor-trail { display: none !important; }
-}

@@ -1,18 +1,11 @@
 /* =========================================================================
-   히어로 특수효과 (기존 코드와 분리된 추가 파일)
-   ① 글리치 / RGB 스플릿 버스트 — 드물게, 짧게 한 번씩 튀는 효과
-   ② 로드 시 스캐너 스윕 리빌 — 밝은 스캔라인이 위→아래로 훑으며 히어로 등장
-
-   - 발동 타이밍(언제/얼마나 자주)은 hero-fx.js 가 클래스 토글로 제어한다.
+   히어로 스캐너 스윕 리빌 — 밝은 스캔라인이 위→아래로 훑으며 히어로가 등장
+   - 발동 타이밍은 hero-fx.js 가 클래스 토글로 제어한다.
+   - 모션 최소화(prefers-reduced-motion) 설정과 무관하게 항상 재생한다.
    ========================================================================= */
-
 /* ---------- 조절 변수 (여기 값만 바꾸면 튜닝 끝) ---------- */
 :root {
-  /* ① 글리치 버스트 — 강도. (빈도·지속시간은 hero-fx.js 상단 GLITCH 에서) */
-  --hg-shift: 12px;         /* RGB 색 분리(고스트) 어긋남 폭 */
-  --hg-rgb-opacity: 0.6;    /* RGB 고스트 최대 불투명도 (0~1) */
-  --hg-slice-shift: 32px;   /* 가로 슬라이스 어긋남 폭 */
-  --hg-dur: 300ms;          /* 버스트 1회 길이(기본값) — 실제론 JS가 매회 랜덤 지정 */
+  /* 스캐너 스윕 — 타이밍. (전체 길이는 hero-fx.js SCAN.duration 이 덮어씀) */
 
   /* ② 스캐너 스윕 — 타이밍. (전체 길이는 hero-fx.js SCAN.duration 이 덮어씀) */
   --hs-duration: 1400ms;    /* 스캔 전체 길이 */
@@ -21,134 +14,6 @@
   --hs-stagger: 0.12s;      /* 스캔 후 텍스트 순차 등장 간격 */
 }
 
-/* =========================================================================
-   ① 글리치 / RGB 스플릿 버스트
-   사용 리소스 (모바일 ≤768px 은 아래 미디어쿼리에서 -mobile 버전으로 교체):
-     hero-bg-glitchzone.webp : 캐릭터 실루엣이 투명하게 뚫린 "배경 전용" 이미지
-                               (+ 하프톤으로 페이드아웃된 글리치 허용 존)
-                               → 슬라이스/RGB 분리가 캐릭터를 복제하지 않는다
-     hero-bg-ch.webp         : 캐릭터만 있는 컷아웃 — 최상단에 올려
-                               글리치 조각이 캐릭터를 가리는 순간을 보호
-   레이어 구성(index.html 의 .hero-glitch 안, 아래→위 순서):
-     .hg-rgb-r   : 원본 배경을 빨강 채널만 남긴 고스트 (screen 블렌드)
-     .hg-rgb-c   : 시안 채널 고스트 (반대쪽으로 어긋남)
-     .hg-slice-1 : 배경(글리치존)의 가로 밴드를 잘라 좌우로 어긋나게
-     .hg-slice-2 : 더 얇은 밴드, 반대 방향
-     .hg-ch      : 캐릭터 컷아웃 — 버스트 내내 캐릭터를 또렷하게 유지하며
-                   순간순간 살짝만 함께 튄다(미세 지터)
-   평소엔 전부 opacity:0. .hero.is-glitching 일 때만 1회성 keyframes 재생.
-   ========================================================================= */
-.hero-glitch {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  /* 주의: z-index 를 주지 않는다(스택 컨텍스트를 만들지 않아야
-     안쪽 screen 블렌드가 히어로 배경과 섞인다). 콘텐츠(z-index:2)보다는
-     항상 아래에 깔린다. */
-}
-
-.hg-layer {
-  position: absolute;
-  inset: 0;
-  /* .hero 배경과 똑같은 방식으로 깔아야 픽셀이 정확히 겹친다 */
-  background-image: url("images/hero-bg-glitchzone.webp");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  opacity: 0;
-}
-
-/* RGB 분리: 배경색과 multiply → 해당 색 채널만 남김 → screen 으로 밝게 합성.
-   ※ 여기만은 원본(hero-bg.webp, 불투명)을 쓴다 — multiply 용 배경색이
-     투명 영역에서 그대로 드러나기 때문에 글리치존(투명 있음)을 쓸 수 없다.
-     캐릭터 위 색 번짐은 위의 .hg-ch 컷아웃이 덮어서 가장자리만 살짝 남는다. */
-.hg-rgb-r {
-  background-image: url("images/hero-bg.webp");
-  background-color: #ff0040;
-  background-blend-mode: multiply;
-  mix-blend-mode: screen;
-}
-.hg-rgb-c {
-  background-image: url("images/hero-bg.webp");
-  background-color: #00e5ff;
-  background-blend-mode: multiply;
-  mix-blend-mode: screen;
-}
-
-/* 캐릭터 보호 컷아웃(최상단) */
-.hg-ch { background-image: url("images/hero-bg-ch.webp"); }
-
-/* ----- 발동: .hero.is-glitching 동안 각 레이어가 1회성 애니메이션 -----
-   step-end: 값이 부드럽게 흐르지 않고 프레임 단위로 "탁탁" 튀게 만든다. */
-.hero.is-glitching .hg-rgb-r   { animation: hg-rgb-r   var(--hg-dur) step-end 1 both; }
-.hero.is-glitching .hg-rgb-c   { animation: hg-rgb-c   var(--hg-dur) step-end 1 both; }
-.hero.is-glitching .hg-slice-1 { animation: hg-slice-1 var(--hg-dur) step-end 1 both; }
-.hero.is-glitching .hg-slice-2 { animation: hg-slice-2 var(--hg-dur) step-end 1 both; }
-.hero.is-glitching .hg-ch      { animation: hg-ch      var(--hg-dur) step-end 1 both; }
-
-/* 빨강 고스트: 좌우로 튀며 깜빡임 */
-@keyframes hg-rgb-r {
-  0%   { opacity: var(--hg-rgb-opacity);              transform: translateX(calc(var(--hg-shift) * -1)); }
-  22%  { opacity: var(--hg-rgb-opacity);              transform: translateX(calc(var(--hg-shift) *  0.7)); }
-  40%  { opacity: calc(var(--hg-rgb-opacity) * 0.8);  transform: translateX(calc(var(--hg-shift) * -1.6)); }
-  62%  { opacity: var(--hg-rgb-opacity);              transform: translateX(calc(var(--hg-shift) *  0.4)); }
-  80%  { opacity: calc(var(--hg-rgb-opacity) * 0.5);  transform: translateX(calc(var(--hg-shift) * -0.8)); }
-  100% { opacity: 0;                                  transform: translateX(0); }
-}
-/* 시안 고스트: 빨강과 반대 방향 */
-@keyframes hg-rgb-c {
-  0%   { opacity: var(--hg-rgb-opacity);              transform: translateX(var(--hg-shift)); }
-  22%  { opacity: var(--hg-rgb-opacity);              transform: translateX(calc(var(--hg-shift) * -0.7)); }
-  40%  { opacity: calc(var(--hg-rgb-opacity) * 0.8);  transform: translateX(calc(var(--hg-shift) *  1.6)); }
-  62%  { opacity: var(--hg-rgb-opacity);              transform: translateX(calc(var(--hg-shift) * -0.4)); }
-  80%  { opacity: calc(var(--hg-rgb-opacity) * 0.5);  transform: translateX(calc(var(--hg-shift) *  0.8)); }
-  100% { opacity: 0;                                  transform: translateX(0); }
-}
-
-/* 가로 슬라이스 1: 배경의 얇은 밴드(clip-path)가 위치를 바꿔가며 좌우로 어긋남 */
-@keyframes hg-slice-1 {
-  0%   { opacity: 1; clip-path: inset(16% 0 76% 0); transform: translateX(calc(var(--hg-slice-shift) * -1)); }
-  20%  { opacity: 1; clip-path: inset(38% 0 55% 0); transform: translateX(calc(var(--hg-slice-shift) *  0.75)); }
-  45%  { opacity: 1; clip-path: inset(60% 0 30% 0); transform: translateX(calc(var(--hg-slice-shift) * -0.6)); }
-  70%  { opacity: 1; clip-path: inset(26% 0 66% 0); transform: translateX(var(--hg-slice-shift)); }
-  88%  { opacity: 1; clip-path: inset(48% 0 47% 0); transform: translateX(calc(var(--hg-slice-shift) * -0.35)); }
-  100% { opacity: 0; clip-path: inset(48% 0 47% 0); transform: translateX(0); }
-}
-/* 가로 슬라이스 2: 더 얇게, 반대 방향으로 */
-@keyframes hg-slice-2 {
-  0%   { opacity: 1; clip-path: inset(70% 0 27% 0); transform: translateX(calc(var(--hg-slice-shift) *  0.8)); }
-  25%  { opacity: 1; clip-path: inset(12% 0 85% 0); transform: translateX(calc(var(--hg-slice-shift) * -1.1)); }
-  50%  { opacity: 1; clip-path: inset(52% 0 45% 0); transform: translateX(calc(var(--hg-slice-shift) *  0.5)); }
-  75%  { opacity: 1; clip-path: inset(82% 0 15% 0); transform: translateX(calc(var(--hg-slice-shift) * -0.9)); }
-  100% { opacity: 0; clip-path: inset(82% 0 15% 0); transform: translateX(0); }
-}
-
-/* 캐릭터 보호 + 미세 지터: 버스트 내내 캐릭터를 또렷하게 덮어 두고,
-   두 순간만 캐릭터가 살짝 옆으로 튄다(아래 원본 캐릭터와 겹쳐 이중상 느낌). */
-@keyframes hg-ch {
-  0%   { opacity: 1; transform: translateX(0); }
-  28%  { opacity: 1; transform: translateX(calc(var(--hg-shift) * -0.5)); }
-  38%  { opacity: 1; transform: translateX(0); }
-  56%  { opacity: 1; transform: translateX(calc(var(--hg-shift) * 0.5)); }
-  66%  { opacity: 1; transform: translateX(0); }
-  100% { opacity: 0; transform: translateX(0); }
-}
-
-/* 모바일(≤768px): 히어로가 세로 키비주얼(hero-bg-mobile.webp)로 바뀌므로
-   글리치 레이어도 모바일 전용 리소스로 교체하고,
-   .hero 의 모바일 배경 정렬(center calc(var(--header-h)))과 똑같이 맞춰 픽셀을 일치시킨다. */
-@media (max-width: 768px) {
-  .hg-layer {
-    background-image: url("images/hero-bg-mobile-glitchzone.webp");
-    background-position: center calc(var(--header-h));
-  }
-  .hg-rgb-r,
-  .hg-rgb-c {
-    background-image: url("images/hero-bg-mobile.webp");
-  }
-  .hg-ch {
-    background-image: url("images/hero-bg-mobile-ch.webp");
-  }
 }
 
 /* =========================================================================
@@ -275,22 +140,3 @@ body.fx-scan-done .scroll-down {
 }
 /* Wishlist 펄스는 페이드인이 끝난 뒤에 다시 시작(등장 중 깜빡임 방지) */
 body.fx-scan-done .hero-subtitle { animation-delay: 1.2s; }
-
-/* =========================================================================
-   접근성: 모션 최소화 선호 시
-   - 글리치 버스트는 완전히 끔 (JS 도 스케줄하지 않음)
-   - 스캔 대신 히어로 전체가 단순 페이드인 (텍스트도 즉시 표시)
-   ========================================================================= */
-@media (prefers-reduced-motion: reduce) {
-  .hero-glitch,
-  .hero-scan {
-    display: none !important;
-  }
-  body.fx-scan-done .hero {
-    animation: hs-simple-fade 0.8s ease both;
-  }
-}
-@keyframes hs-simple-fade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}

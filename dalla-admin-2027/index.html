@@ -15,7 +15,7 @@
   <link rel="icon" type="image/png" href="../images/favicon.png" />
   <!-- ?v= 는 캐시 무효화용. 이 폴더의 파일을 고칠 때마다 숫자를 올려야
        브라우저가 옛 파일과 새 파일을 섞어 쓰는 사고를 막을 수 있다. -->
-  <link rel="stylesheet" href="admin.css?v=7" />
+  <link rel="stylesheet" href="admin.css?v=8" />
 </head>
 <body>
 
@@ -67,22 +67,27 @@
     </div>
 
     <!-- ---------- 상단 KPI ---------- -->
-    <section class="kpis" aria-label="핵심 지표">
+    <!-- 방문자 3개를 윗줄, 성과 지표 3개를 아랫줄로 나눈다.
+         성격이 다른 숫자를 한 줄에 늘어놓으면 눈이 어디를 봐야 할지 흩어진다. -->
+    <section class="kpis" aria-label="방문자">
       <article class="card kpi">
         <p class="kpi-label">총 누적 방문자</p>
         <p class="kpi-value" id="kpiTotal">—</p>
         <p class="kpi-foot">전체 기간</p>
       </article>
       <article class="card kpi">
-        <p class="kpi-label">오늘 순 방문자</p>
-        <p class="kpi-value" id="kpiToday">—</p>
-        <p class="kpi-foot" id="kpiTodayDelta">&nbsp;</p>
-      </article>
-      <article class="card kpi">
-        <p class="kpi-label">이번 주 순 방문자</p>
+        <p class="kpi-label">이번 주 방문자</p>
         <p class="kpi-value" id="kpiWeek">—</p>
         <p class="kpi-foot" id="kpiWeekDelta">&nbsp;</p>
       </article>
+      <article class="card kpi">
+        <p class="kpi-label">오늘 방문자</p>
+        <p class="kpi-value" id="kpiToday">—</p>
+        <p class="kpi-foot" id="kpiTodayDelta">&nbsp;</p>
+      </article>
+    </section>
+
+    <section class="kpis" aria-label="성과 지표">
       <article class="card kpi kpi-hero">
         <p class="kpi-label">위시리스트 클릭</p>
         <p class="kpi-value" id="kpiWish">—</p>
@@ -128,13 +133,13 @@
       </section>
 
       <!-- ---------- 인터랙션 ---------- -->
-      <section class="card panel panel-wide" aria-label="주요 인터랙션">
+      <section class="card panel panel-half" aria-label="주요 인터랙션">
         <h2 class="panel-title">주요 인터랙션 <span class="panel-note">최근 7일 · 이벤트 수</span></h2>
         <ul class="bars bars-lg" id="eventBars"></ul>
       </section>
 
       <!-- ---------- 위시리스트 버튼별 ---------- -->
-      <section class="card panel panel-wide" aria-label="위시리스트 버튼별 클릭">
+      <section class="card panel panel-half" aria-label="위시리스트 버튼별 클릭">
         <h2 class="panel-title">위시리스트 버튼별 <span class="panel-note">placement</span></h2>
         <ul class="bars" id="placementBars"></ul>
       </section>
@@ -146,6 +151,6 @@
     </footer>
   </div>
 
-  <script src="admin.js?v=7"></script>
+  <script src="admin.js?v=8"></script>
 </body>
 </html>
