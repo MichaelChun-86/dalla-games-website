@@ -59,7 +59,12 @@
   background: none;
   border: 0;
   border-radius: 6px;
-  cursor: pointer;
+  /* 여기서 그냥 pointer 를 쓰면 안 된다.
+     이 파일이 cursor-trail.css 보다 나중에 로드돼 커스텀 커서를 덮어쓰는데,
+     우선순위가 더 높은 html.cur-alt .faq-q 규칙은 살아남는다.
+     그 결과 깜박임 주기마다 손가락 커서와 커스텀 커서가 번갈아 나왔다.
+     같은 커스텀 커서를 직접 지정해 두 상태를 하나로 맞춘다. */
+  cursor: url("images/Cursor_Hover1_32.png") 0 0, pointer;
 }
 /* 호버: 글자색은 그대로 두고 밑줄이 좌 → 우로 그어진다.
    (상단 메뉴의 호버와 같은 방식이라 사이트 안에서 손짓이 통일된다)
