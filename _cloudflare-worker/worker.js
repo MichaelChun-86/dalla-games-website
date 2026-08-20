@@ -29,8 +29,17 @@ const SCOPE = "https://www.googleapis.com/auth/analytics.readonly";
    (Worker 인스턴스가 살아있는 동안 유지 — 매 요청마다 재발급하면 느리고 낭비다) */
 let tokenCache = { value: null, expiresAt: 0 };
 
-/* 결과도 5분간 재사용한다. 새로고침을 연타해도 GA4 를 계속 때리지 않게. */
-let dataCache = { value: null, expiresAt: 0 };
+/* 결과는 5분간 재사용한다. 새로고침을 연타해도 GA4 를 계속 때리지 않게.
+   기간(all/7d/30d)마다 따로 담는다 — 하나로 쓰면 기간을 바꿔도 앞선 결과가 나온다. */
+const dataCache = new Map();   // range -> { value, expiresAt }
+
+/* 화면에서 고를 수 있는 기간. 값은 GA4 가 알아듣는 날짜 표현. */
+const RANGES = {
+  all: { start: "2020-01-01", label: "전체 기간" },
+  "30d": { start: "30daysAgo", label: "최근 30일" },
+  "7d": { start: "7daysAgo", label: "최근 7일" }
+};
+const DEFAULT_RANGE = "all";
 
 export default {
   async fetch(request, env) {
@@ -59,15 +68,20 @@ export default {
     }
 
     try {
+      // ?range=all | 7d | 30d — 모르는 값이 오면 기본값으로 되돌린다
+      let range = new URL(request.url).searchParams.get("range") || DEFAULT_RANGE;
+      if (!RANGES[range]) range = DEFAULT_RANGE;
+
       const now = Date.now();
-      if (dataCache.value && now < dataCache.expiresAt) {
-        return json(dataCache.value, origin, "hit");
+      const hit = dataCache.get(range);
+      if (hit && now < hit.expiresAt) {
+        return json(hit.value, origin, "hit");
       }
 
       const token = await getAccessToken(env);
-      const data = await buildMetrics(env, token);
+      const data = await buildMetrics(env, token, range);
 
-      dataCache = { value: data, expiresAt: now + 5 * 60 * 1000 };
+      dataCache.set(range, { value: data, expiresAt: now + 5 * 60 * 1000 });
       return json(data, origin, "miss");
     } catch (err) {
       // 실패해도 관리자 페이지가 이유를 알 수 있게 메시지를 담아 보낸다
@@ -400,10 +414,14 @@ const PLACEMENT_NAMES = {
 /* ---------------------------------------------------------------------------
    관리자 페이지가 쓰는 모양으로 조립
    --------------------------------------------------------------------------- */
-async function buildMetrics(env, token) {
+async function buildMetrics(env, token, range) {
   readPropertyId(env);   // 설정이 잘못됐으면 여기서 바로 알려준다
 
   const R = body => runReport(env, token, body);
+
+  /* 선택한 기간. 아래 "패널용" 조회는 전부 이 기간을 쓴다. */
+  const RANGE_START = RANGES[range].start;
+  const inRange = { startDate: RANGE_START, endDate: "today" };
 
   const [allTime, today, yesterday, week, prevWeek, engage, sources, countries, events,
          devices, visitors, scrolls, placements] =
@@ -421,32 +439,34 @@ async function buildMetrics(env, token) {
       R({ dateRanges: [{ startDate: "yesterday", endDate: "yesterday" }],
           metrics: [{ name: "activeUsers" }] }),
 
-      // 최근 7일 / 그 이전 7일 순 방문자
+      /* 최근 7일 / 그 이전 7일 순 방문자.
+         이 둘은 "이번 주 방문자" 카드 전용이라 기간 필터를 따르지 않는다.
+         카드 이름 자체가 기간을 말하고 있어서, 필터로 바뀌면 이름과 어긋난다. */
       R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
           metrics: [{ name: "activeUsers" }] }),
       R({ dateRanges: [{ startDate: "14daysAgo", endDate: "8daysAgo" }],
           metrics: [{ name: "activeUsers" }] }),
 
       // 평균 참여 시간 = 총 참여 시간 ÷ 순 방문자
-      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+      R({ dateRanges: [inRange],
           metrics: [{ name: "userEngagementDuration" }, { name: "activeUsers" }] }),
 
       // 유입 경로 상위 5
-      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+      R({ dateRanges: [inRange],
           dimensions: [{ name: "sessionSource" }],
           metrics: [{ name: "sessions" }],
           orderBys: [{ desc: true, metric: { metricName: "sessions" } }],
           limit: 20 }),   // 한글 이름으로 합친 뒤 상위 5개를 고르므로 넉넉히 받는다
 
       // 국가 상위 5
-      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+      R({ dateRanges: [inRange],
           dimensions: [{ name: "countryId" }, { name: "country" }],
           metrics: [{ name: "activeUsers" }],
           orderBys: [{ desc: true, metric: { metricName: "activeUsers" } }],
           limit: 20 }),
 
       // 우리가 심은 이벤트 4종
-      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+      R({ dateRanges: [inRange],
           dimensions: [{ name: "eventName" }],
           metrics: [{ name: "eventCount" }],
           dimensionFilter: {
@@ -459,18 +479,18 @@ async function buildMetrics(env, token) {
           } }),
 
       // 기기 구분
-      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+      R({ dateRanges: [inRange],
           dimensions: [{ name: "deviceCategory" }],
           metrics: [{ name: "activeUsers" }],
           orderBys: [{ desc: true, metric: { metricName: "activeUsers" } }] }),
 
       // 신규 / 재방문
-      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+      R({ dateRanges: [inRange],
           dimensions: [{ name: "newVsReturning" }],
           metrics: [{ name: "activeUsers" }] }),
 
       // 스크롤 깊이 — 우리가 심은 scroll_* 이벤트를 모아 본다
-      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+      R({ dateRanges: [inRange],
           dimensions: [{ name: "eventName" }],
           metrics: [{ name: "eventCount" }],
           dimensionFilter: {
@@ -481,7 +501,7 @@ async function buildMetrics(env, token) {
           } }),
 
       // 위시리스트 버튼별 (GA4 에 placement 를 맞춤 측정기준으로 등록해야 나온다)
-      R({ dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+      R({ dateRanges: [inRange],
           dimensions: [{ name: "customEvent:placement" }],
           metrics: [{ name: "eventCount" }],
           dimensionFilter: {
@@ -508,6 +528,8 @@ async function buildMetrics(env, token) {
     (eventRows.find(r => r.key === "wishlist_click") || {}).value || 0;
 
   return {
+    range,
+    rangeLabel: RANGES[range].label,
     totalUsers: firstMetric(allTime),
     todayUsers,
     todayDeltaPct: pctChange(todayUsers, firstMetric(yesterday)),

@@ -15,7 +15,7 @@
   <link rel="icon" type="image/png" href="../images/favicon.png" />
   <!-- ?v= 는 캐시 무효화용. 이 폴더의 파일을 고칠 때마다 숫자를 올려야
        브라우저가 옛 파일과 새 파일을 섞어 쓰는 사고를 막을 수 있다. -->
-  <link rel="stylesheet" href="admin.css?v=10" />
+  <link rel="stylesheet" href="admin.css?v=11" />
 </head>
 <body>
 
@@ -105,10 +105,21 @@
       </article>
     </section>
 
+    <!-- 기간 필터: 아래 패널 전체에 적용된다. 위 KPI 카드는 이름 자체가
+         기간을 말하고 있어(오늘/이번 주/누적) 필터를 따르지 않는다. -->
+    <div class="rangebar">
+      <span class="rangebar-label">기간</span>
+      <div class="segmented" id="rangePicker" role="group" aria-label="조회 기간">
+        <button type="button" class="seg on" data-range="all">전체 기간</button>
+        <button type="button" class="seg" data-range="30d">최근 30일</button>
+        <button type="button" class="seg" data-range="7d">최근 7일</button>
+      </div>
+    </div>
+
     <div class="grid">
       <!-- ---------- 유입 경로 ---------- -->
       <section class="card panel" aria-label="유입 경로">
-        <h2 class="panel-title">유입 경로 <span class="panel-note">최근 7일</span></h2>
+        <h2 class="panel-title">유입 경로 <span class="panel-note"><span class="rng"></span></span></h2>
         <div class="donut-row">
           <div class="donut-wrap">
             <svg class="donut" viewBox="0 0 120 120" id="donut" aria-hidden="true">
@@ -128,13 +139,13 @@
 
       <!-- ---------- 국가 Top 5 ---------- -->
       <section class="card panel" aria-label="국가 순위">
-        <h2 class="panel-title">국가 TOP 5 <span class="panel-note">최근 7일</span></h2>
+        <h2 class="panel-title">국가 TOP 5 <span class="panel-note"><span class="rng"></span></span></h2>
         <ul class="bars" id="countryBars"></ul>
       </section>
 
       <!-- ---------- 인터랙션 ---------- -->
       <section class="card panel panel-half" aria-label="주요 인터랙션">
-        <h2 class="panel-title">주요 인터랙션 <span class="panel-note">최근 7일 · 이벤트 수</span></h2>
+        <h2 class="panel-title">주요 인터랙션 <span class="panel-note"><span class="rng"></span> · 이벤트 수</span></h2>
         <ul class="bars bars-lg" id="eventBars"></ul>
       </section>
 
@@ -146,19 +157,19 @@
 
       <!-- ---------- 스크롤 깊이 ---------- -->
       <section class="card panel panel-half" aria-label="스크롤 깊이">
-        <h2 class="panel-title">스크롤 깊이 <span class="panel-note">최근 7일 · 도달 세션</span></h2>
+        <h2 class="panel-title">스크롤 깊이 <span class="panel-note"><span class="rng"></span> · 도달 세션</span></h2>
         <ul class="bars" id="scrollBars"></ul>
       </section>
 
       <!-- ---------- 기기 ---------- -->
       <section class="card panel panel-half" aria-label="기기">
-        <h2 class="panel-title">기기 <span class="panel-note">최근 7일</span></h2>
+        <h2 class="panel-title">기기 <span class="panel-note"><span class="rng"></span></span></h2>
         <ul class="bars" id="deviceBars"></ul>
       </section>
 
       <!-- ---------- 신규 / 재방문 ---------- -->
       <section class="card panel panel-wide" aria-label="신규 재방문">
-        <h2 class="panel-title">신규 / 재방문 <span class="panel-note">최근 7일</span></h2>
+        <h2 class="panel-title">신규 / 재방문 <span class="panel-note"><span class="rng"></span></span></h2>
         <div class="split" id="visitorSplit"></div>
       </section>
     </div>
@@ -169,6 +180,6 @@
     </footer>
   </div>
 
-  <script src="admin.js?v=10"></script>
+  <script src="admin.js?v=11"></script>
 </body>
 </html>

@@ -33,12 +33,21 @@
   var API_ENDPOINT = "https://dalla-ga-proxy.chun4422.workers.dev/";
 
   var SESSION_KEY = "dalla-admin-ok";
+  var RANGE_KEY = "dalla-admin-range";
+
+  /* 지금 보고 있는 기간. 기본은 전체 기간.
+     고른 값은 저장해 다음에 열 때도 그대로 보이게 한다. */
+  var currentRange = "all";
+  try { currentRange = localStorage.getItem(RANGE_KEY) || "all"; } catch (e) {}
+  var RANGE_LABELS = { all: "전체 기간", "30d": "최근 30일", "7d": "최근 7일" };
+  if (!RANGE_LABELS[currentRange]) currentRange = "all";
 
   /* ---------------------------------------------------------------------
      샘플 데이터 — 실데이터가 붙으면 이 값은 쓰이지 않습니다.
      구조는 프록시가 돌려줘야 할 JSON 형태와 정확히 같습니다.
      --------------------------------------------------------------------- */
   var SAMPLE = {
+    rangeLabel: "전체 기간",
     totalUsers: 5820,
     todayUsers: 128,
     todayDeltaPct: 12,          // 어제 대비 %
@@ -182,6 +191,27 @@
     input.value = "";
     input.focus();
   }
+  /* 기간 버튼 */
+  document.getElementById("rangePicker").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-range]");
+    if (!b || b.dataset.range === currentRange) return;
+    currentRange = b.dataset.range;
+    try { localStorage.setItem(RANGE_KEY, currentRange); } catch (e2) {}
+    markRange();
+    render();
+  });
+
+  /* 눌린 버튼 표시 + 패널 부제의 기간 문구 */
+  function markRange() {
+    var picker = document.getElementById("rangePicker");
+    [].forEach.call(picker.querySelectorAll("button"), function (b) {
+      b.classList.toggle("on", b.dataset.range === currentRange);
+    });
+    [].forEach.call(document.querySelectorAll(".rng"), function (el) {
+      el.textContent = RANGE_LABELS[currentRange];
+    });
+  }
+
   document.getElementById("logout").addEventListener("click", lockUp);
   document.getElementById("refresh").addEventListener("click", render);
 
@@ -191,7 +221,10 @@
   async function loadMetrics() {
     if (!API_ENDPOINT) return { data: SAMPLE, live: false };
     try {
-      var res = await fetch(API_ENDPOINT, { credentials: "omit" });
+      // 주소에 이미 ? 가 있을 수도 있으니 구분자를 골라 붙인다
+      var sep = API_ENDPOINT.indexOf("?") >= 0 ? "&" : "?";
+      var res = await fetch(API_ENDPOINT + sep + "range=" + encodeURIComponent(currentRange),
+                            { credentials: "omit" });
       if (!res.ok) throw new Error("HTTP " + res.status);
       return { data: await res.json(), live: true };
     } catch (e) {
@@ -290,7 +323,11 @@
   }
 
   async function render() {
+    markRange();
+    var grid = document.querySelector(".grid");
+    grid.classList.add("loading");
     var out = await loadMetrics();
+    grid.classList.remove("loading");
     var d = out.data;
 
     // 샘플일 때만 배너
@@ -303,6 +340,11 @@
     }
 
     // KPI
+    if (d.rangeLabel) {
+      [].forEach.call(document.querySelectorAll(".rng"), function (el) {
+        el.textContent = d.rangeLabel;
+      });
+    }
     $("kpiTotal").textContent = num(d.totalUsers || 0);
     $("kpiToday").textContent = num(d.todayUsers);
     $("kpiTodayDelta").innerHTML = delta(d.todayDeltaPct);
