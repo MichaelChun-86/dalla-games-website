@@ -42,11 +42,27 @@
 
     video.src = src;
 
-    // 자동재생은 muted + playsinline 이 있어야 허용된다(HTML 에 지정해 둠).
-    // 그래도 막히는 환경이면 조용히 넘어가고 poster 가 남는다.
-    var played = video.play();
-    if (played && played.catch) {
-      played.catch(function () {});
+    video.loop = true;               // 속성으로도 걸려 있지만 확실히 해 둔다
+
+    /* 항상 재생 상태를 유지한다.
+       브라우저는 여러 이유로 영상을 멈춘다 — 탭을 숨겼다 돌아오거나,
+       절전 모드에 들어가거나, 뒤로가기로 캐시된 페이지가 복원될 때.
+       loop 속성만으로는 "한 번 멈춘 뒤" 다시 살아나지 않으므로,
+       멈추면 다시 트는 감시를 붙인다. */
+    function keepPlaying() {
+      if (document.hidden) return;   // 안 보이는 동안은 굳이 되살리지 않는다
+      if (!video.paused) return;
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
     }
+
+    video.addEventListener("pause", keepPlaying);
+    video.addEventListener("ended", keepPlaying);        // loop 이 어긋난 경우 대비
+    video.addEventListener("stalled", keepPlaying);
+    document.addEventListener("visibilitychange", keepPlaying);
+    window.addEventListener("pageshow", keepPlaying);    // 뒤로가기 복귀
+    window.addEventListener("focus", keepPlaying);
+
+    keepPlaying();
   }
 })();

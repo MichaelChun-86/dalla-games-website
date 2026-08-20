@@ -407,7 +407,8 @@ label,
   margin-bottom: 8px;
   font-size: clamp(10px, 1.05vw, 13px);
   letter-spacing: 0.34em;
-  text-transform: uppercase;
+  /* 예전엔 text-transform: uppercase 로 강제했지만, 전부 대문자면
+     읽는 속도가 떨어져서 뺐다. 대소문자는 문구 자체에 담는다(i18n.js). */
   white-space: nowrap;
   color: var(--mint);
   /* 배경 키비주얼 위에 얹히는 글자라 퍼지는 글로우만으로는 묻힌다.
@@ -439,7 +440,6 @@ label,
   margin: 0 0 -30px;
   font-size: clamp(11px, 1.08vw, 14px);
   letter-spacing: 0.14em;
-  text-transform: uppercase;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.92);
   /* 아이브로우와 같은 방식의 또렷한 드롭 쉐도우 (흰 글자라 한 단계 더 진하게) */
@@ -1120,6 +1120,18 @@ label,
     /* 키비주얼 자체에 하단 검정 페이드가 있어 오버레이는 아주 약하게만 */
     background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.30) 100%);
   }
+  /* 로고 위 두 줄은 어떤 폭에서도 한 줄을 유지한다.
+     가장 긴 영문 훅("Growth and Safety Are Never the Same Choice")이
+     자간을 포함해 약 27em 이라, 화면 폭에서 좌우 여백을 뺀 값을 27 로 나눠
+     그 안에 들어오는 크기를 고른다. 한국어·일본어·중국어는 이보다 짧아 여유가 있다. */
+  .hero-hook {
+    white-space: nowrap;
+    font-size: min(13px, calc((100vw - 56px) / 27));
+  }
+  .hero-eyebrow {
+    font-size: min(11px, calc((100vw - 56px) / 24));
+  }
+
   .hero-title-wrap { width: 90%; }
   .hero-coming { font-size: 18px; letter-spacing: 2px; margin-top: 14px; }
   /* 위시리스트 + 스팀 버튼: 좁은 폭에서도 한 줄을 유지하도록 각각 축소 */

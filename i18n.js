@@ -23,16 +23,17 @@
 
   var T = {
     /* ---- 히어로 (4개 언어 모두 번역) ---- */
-    /* 로고 위 장르 한 줄 / 로고 아래 훅 한 줄. 영문은 전부 대문자로 쓴다. */
+    /* 로고 위 장르 한 줄 / 로고 아래 훅 한 줄.
+       영문은 대소문자를 섞어 쓴다 — 전부 대문자면 읽는 속도가 떨어진다. */
     "hero.genre": {
       ko: "하드코어 로그라이크 디펜스",
-      en: "HARDCORE ROGUELIKE DEFENSE",
-      zh: "硬核 ROGUELIKE 塔防",
+      en: "Hardcore Roguelike Defense",
+      zh: "硬核 Roguelike 塔防",
       ja: "ハードコア・ローグライク・ディフェンス"
     },
     "hero.hook": {
       ko: "성장과 안전은 결코 같은 선택이 될 수 없다",
-      en: "GROWTH AND SAFETY ARE NEVER THE SAME CHOICE",
+      en: "Growth and Safety Are Never the Same Choice",
       zh: "成长与安全，绝不可能是同一个选择",
       ja: "成長と安全は、決して同じ選択にはなり得ない"
     },
