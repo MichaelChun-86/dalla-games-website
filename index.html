@@ -33,30 +33,32 @@
   <meta name="twitter:description" content="Hardcore Roguelike Defense. Wishlist AeonFall on Steam." />
   <meta name="twitter:image" content="https://dallagames.com/images/og-image.jpg?v=20260804" />
 
-  <link rel="stylesheet" href="style.css" />
+  <!-- css/js 뒤의 ?v= 는 캐시 무효화용 버전. 파일을 고치면 이 숫자를 함께 올린다.
+       (안 올리면 방문자 브라우저가 최대 10분간 옛 파일을 그대로 쓴다) -->
+  <link rel="stylesheet" href="style.css?v=1" />
 
   <!-- 히어로 특수효과: 스캐너 스윕 리빌 (기존 코드와 분리된 추가 파일)
        JS는 head에서 동기 로드 — 첫 페인트 전에 스캔 커버를 씌워 깜빡임(FOUC)을 막는다. -->
-  <link rel="stylesheet" href="hero-fx.css" />
-  <script src="hero-fx.js"></script>
+  <link rel="stylesheet" href="hero-fx.css?v=1" />
+  <script src="hero-fx.js?v=1"></script>
 
   <!-- 히어로 배경 영상 레이어 -->
-  <link rel="stylesheet" href="hero-bg-swap.css" />
+  <link rel="stylesheet" href="hero-bg-swap.css?v=1" />
 
   <!-- 마우스 커서 잔상(트레일) 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="cursor-trail.css" />
+  <link rel="stylesheet" href="cursor-trail.css?v=1" />
 
   <!-- 다국어(로컬라이제이션) 국기 버튼 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="i18n.css" />
+  <link rel="stylesheet" href="i18n.css?v=1" />
 
   <!-- 추가 섹션(THE LOOP / FAQ) + 하단 소음 HUD 스타일 -->
-  <link rel="stylesheet" href="enhancements.css" />
+  <link rel="stylesheet" href="enhancements.css?v=1" />
 
   <!-- 방문자 분석(GA4) + 스팀 위시리스트 클릭 추적.
        head 에 두는 이유: 아주 짧게 머물다 나가는 방문도 집계되게 하기 위함.
        내부에서 gtag 를 async 로 불러오므로 렌더링은 막지 않는다.
        측정 ID 를 넣기 전까지는 아무 것도 하지 않는다 → analytics.js 상단 참고. -->
-  <script src="analytics.js"></script>
+  <script src="analytics.js?v=1"></script>
 </head>
 <body>
 
@@ -433,16 +435,16 @@
     </p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=1"></script>
   <!-- 합성 사운드 효과 (타이핑/CRT/스팀 버튼) — 기존 코드와 분리된 추가 파일 -->
-  <script src="sfx.js"></script>
+  <script src="sfx.js?v=1"></script>
   <!-- 마우스 커서 잔상(트레일) — 기존 코드와 분리된 추가 파일 -->
-  <script src="cursor-trail.js"></script>
+  <script src="cursor-trail.js?v=1"></script>
   <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
-  <script src="i18n.js"></script>
+  <script src="i18n.js?v=1"></script>
   <!-- 소음 HUD + THE LOOP 소음 막대 — 기존 코드와 분리된 추가 파일 -->
-  <script src="noise-hud.js"></script>
+  <script src="noise-hud.js?v=1"></script>
   <!-- 히어로 배경 영상: 데스크톱에서만 내려받아 재생 -->
-  <script src="hero-video.js"></script>
+  <script src="hero-video.js?v=1"></script>
 </body>
 </html>
