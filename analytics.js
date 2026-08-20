@@ -149,13 +149,29 @@
     var marks = [25, 50, 75, 100];
     var hit = {};                    // 이미 보낸 지점
     var ticking = false;
+    var started = false;
 
     function measure() {
       ticking = false;
       var doc = document.documentElement;
       var total = doc.scrollHeight - window.innerHeight;
-      // 스크롤할 것이 없는 짧은 화면은 100% 로 친다
-      var pct = total <= 0 ? 100 : (window.scrollY / total) * 100;
+
+      /* 아직 잴 수 없는 상태면 아무것도 보내지 않는다.
+         이 파일은 <head> 에서 실행되므로, 예전에는 <body> 가 만들어지기 전에
+         높이를 재고 "스크롤할 게 없다 → 100%" 로 판단해 네 단계를 한꺼번에
+         쏴 버렸다. 그래서 25/50/75/100 이 전부 같은 숫자로 나왔다. */
+      if (!document.body) return;
+
+      var pct;
+      if (total > 0) {
+        pct = (window.scrollY / total) * 100;
+      } else if (started) {
+        /* 페이지가 다 그려진 뒤에도 스크롤할 것이 없다면
+           화면 하나로 끝나는 문서다 — 그때만 끝까지 본 것으로 친다. */
+        pct = 100;
+      } else {
+        return;                      // 아직 레이아웃 전 — 판단 보류
+      }
 
       for (var i = 0; i < marks.length; i++) {
         var m = marks[i];
@@ -164,7 +180,10 @@
           gtag("event", "scroll_" + m, { language: lang() });
         }
       }
-      if (hit[100]) window.removeEventListener("scroll", onScroll);
+      if (hit[100]) {
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onScroll);
+      }
     }
 
     function onScroll() {
@@ -173,8 +192,17 @@
       window.requestAnimationFrame(measure);
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    measure();                       // 열자마자 이미 보이는 만큼 먼저 집계
+    /* 문서가 완전히 그려진 뒤부터 잰다. 이미지·폰트가 자리를 잡아야
+       문서 높이가 실제 값이 되고, 그래야 비율이 맞는다. */
+    function begin() {
+      started = true;
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+      measure();                     // 열자마자 이미 보이는 만큼 먼저 집계
+    }
+
+    if (document.readyState === "complete") begin();
+    else window.addEventListener("load", begin);
   })();
 
 })();

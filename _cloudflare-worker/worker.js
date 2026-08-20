@@ -396,11 +396,16 @@ const VISITOR_NAMES = {
 };
 
 /* 스크롤 깊이는 이벤트 이름을 나눠 심었다(scroll_25 …).
-   GA4 에 맞춤 측정기준을 추가로 등록하지 않아도 되기 때문. */
+   GA4 에 맞춤 측정기준을 추가로 등록하지 않아도 되기 때문.
+
+   ※ 이 이벤트들은 "누적"이다. 끝까지 본 사람은 25·50·75 도 전부 지나므로
+     네 개가 다 기록된다. 그대로 보여주면 아래로 갈수록 숫자가 작아지는
+     깔때기가 되어 "어디서 멈췄는지"를 알 수 없다.
+     그래서 아래에서 뺄셈으로 "그 구간에서 멈춘 사람"만 남긴다. */
 const SCROLL_STEPS = [
-  { key: "scroll_25",  name: "25% 이상" },
-  { key: "scroll_50",  name: "50% 이상" },
-  { key: "scroll_75",  name: "75% 이상" },
+  { key: "scroll_25",  name: "25~49%" },
+  { key: "scroll_50",  name: "50~74%" },
+  { key: "scroll_75",  name: "75~99%" },
   { key: "scroll_100", name: "끝까지" }
 ];
 
@@ -570,12 +575,21 @@ async function buildMetrics(env, token, range) {
       users: (toRows(visitors).find(r => r.key === key) || {}).value || 0
     })),
 
-    /* 스크롤은 25 → 끝까지 순서를 고정한다. 깔때기라 순서가 뒤집히면 못 읽는다 */
-    scrolls: SCROLL_STEPS.map(step => ({
-      name: step.name,
-      key: step.key,
-      count: (toRows(scrolls).find(r => r.key === step.key) || {}).value || 0
-    })),
+    /* 누적 수치를 구간별로 쪼갠다.
+         25~49% = scroll_25 에서 scroll_50 을 뺀 값 = 25 는 넘었지만 50 은 못 넘은 사람
+         끝까지 = scroll_100 그대로
+       음수가 나올 일은 없지만(누적이라 항상 내림차순), 집계 시점 차이로
+       어긋날 수 있어 0 아래로는 내려가지 않게 막는다. */
+    scrolls: (() => {
+      const rows = toRows(scrolls);
+      const at = k => (rows.find(r => r.key === k) || {}).value || 0;
+      const cum = SCROLL_STEPS.map(s => at(s.key));
+      return SCROLL_STEPS.map((s, i) => ({
+        name: s.name,
+        key: s.key,
+        count: Math.max(0, cum[i] - (cum[i + 1] || 0))
+      }));
+    })(),
 
     placements: Object.keys(PLACEMENT_NAMES).map(key => ({
       name: PLACEMENT_NAMES[key],

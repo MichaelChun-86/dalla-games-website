@@ -85,10 +85,10 @@
       { name: "재방문", key: "returning", users: 137 }
     ],
     scrolls: [
-      { name: "25% 이상", key: "scroll_25",  count: 690 },
-      { name: "50% 이상", key: "scroll_50",  count: 471 },
-      { name: "75% 이상", key: "scroll_75",  count: 302 },
-      { name: "끝까지",   key: "scroll_100", count: 188 }
+      { name: "25~49%", key: "scroll_25",  count: 219 },
+      { name: "50~74%", key: "scroll_50",  count: 169 },
+      { name: "75~99%", key: "scroll_75",  count: 114 },
+      { name: "끝까지", key: "scroll_100", count: 188 }
     ],
     placements: [
       { name: "히어로 버튼",   key: "hero",   count: 51 },
@@ -98,8 +98,16 @@
     ]
   };
 
-  /* 도넛/막대에 쓰는 네온 계열 색 (진한 그린 → 옅은 그린) */
-  var PALETTE = ["#08e178", "#2bff97", "#00b45f", "#5affb4", "#0d7d47"];
+  /* 유입 경로 도넛·표에 쓰는 색.
+     전에는 전부 초록 계열이라 조각끼리 구분이 안 됐다.
+     색상환에서 서로 멀리 떨어진 다섯 색으로 바꿨다(검정 배경에서 다 밝게 보이는 것들). */
+  var PALETTE = [
+    "#08e178",   // 네온 그린 (브랜드 색)
+    "#38bdf8",   // 하늘
+    "#a78bfa",   // 보라
+    "#f472b6",   // 분홍
+    "#fbbf24"    // 노랑
+  ];
 
   /* ---------------------------------------------------------------------
      PIN 인증
