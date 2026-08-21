@@ -35,30 +35,30 @@
 
   <!-- css/js 뒤의 ?v= 는 캐시 무효화용 버전. 파일을 고치면 이 숫자를 함께 올린다.
        (안 올리면 방문자 브라우저가 최대 10분간 옛 파일을 그대로 쓴다) -->
-  <link rel="stylesheet" href="style.css?v=9" />
+  <link rel="stylesheet" href="style.css?v=10" />
 
   <!-- 히어로 특수효과: 스캐너 스윕 리빌 (기존 코드와 분리된 추가 파일)
        JS는 head에서 동기 로드 — 첫 페인트 전에 스캔 커버를 씌워 깜빡임(FOUC)을 막는다. -->
-  <link rel="stylesheet" href="hero-fx.css?v=9" />
-  <script src="hero-fx.js?v=9"></script>
+  <link rel="stylesheet" href="hero-fx.css?v=10" />
+  <script src="hero-fx.js?v=10"></script>
 
   <!-- 히어로 배경 영상 레이어 -->
-  <link rel="stylesheet" href="hero-bg-swap.css?v=9" />
+  <link rel="stylesheet" href="hero-bg-swap.css?v=10" />
 
   <!-- 마우스 커서 잔상(트레일) 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="cursor-trail.css?v=9" />
+  <link rel="stylesheet" href="cursor-trail.css?v=10" />
 
   <!-- 다국어(로컬라이제이션) 국기 버튼 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="i18n.css?v=9" />
+  <link rel="stylesheet" href="i18n.css?v=10" />
 
   <!-- 추가 섹션(THE LOOP / FAQ) + 하단 소음 HUD 스타일 -->
-  <link rel="stylesheet" href="enhancements.css?v=9" />
+  <link rel="stylesheet" href="enhancements.css?v=10" />
 
   <!-- 방문자 분석(GA4) + 스팀 위시리스트 클릭 추적.
        head 에 두는 이유: 아주 짧게 머물다 나가는 방문도 집계되게 하기 위함.
        내부에서 gtag 를 async 로 불러오므로 렌더링은 막지 않는다.
        측정 ID 를 넣기 전까지는 아무 것도 하지 않는다 → analytics.js 상단 참고. -->
-  <script src="analytics.js?v=9"></script>
+  <script src="analytics.js?v=10"></script>
 </head>
 <body>
 
@@ -130,18 +130,21 @@
     <section class="hero" id="home">
       <!-- 배경 영상 (데스크톱 전용).
            고정 헤더 아래에서 시작하고, 위 절반이 잘리지 않도록 상단 기준으로 맞춘다.
-           poster 는 영상이 뜨기 전 빈 검은 화면을 막는 대체 이미지.
+           poster 는 일부러 두지 않는다 — 아래 설명 참고.
            모바일은 세로 키비주얼(이미지)을 그대로 쓴다 — 데이터 부담 때문. -->
       <div class="hero-bg-swap" aria-hidden="true">
         <!-- src 대신 data-src: hero-video.js 가 화면 폭에 맞는 쪽만 골라 넣는다.
              (src 를 둘 다 걸어두면 안 쓰는 영상까지 내려받는다)
              데스크톱 16:9 / 모바일 3:4 세로 전용본 -->
+        <!-- poster 를 쓰지 않는 이유:
+             영상 프레임이 준비되기 전까지 브라우저가 poster 를 대신 그리는데,
+             스캔 커버가 걷히는 순간 그 정지 이미지가 잠깐 스쳐 지나간다.
+             검은 화면 → 스캔라인 → 영상 순서를 깨끗하게 유지하려고 뺐다.
+             영상을 못 받는 경우의 대비는 hero-video.js 의 error 처리에 있다. -->
         <video
           class="hero-bg-video"
           data-src="video/hero-loop.mp4"
           data-src-mobile="video/hero-loop_m.mp4"
-          poster="images/hero-bg_A01.webp"
-          data-poster-mobile="images/hero-bg-mobile.webp"
           muted loop playsinline
           preload="auto"></video>
         <!-- 영상 위 검정 반투명: 위에 얹히는 로고·문구 가독성 확보 -->
@@ -507,16 +510,16 @@
     </p>
   </footer>
 
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
   <!-- 합성 사운드 효과 (타이핑/CRT/스팀 버튼) — 기존 코드와 분리된 추가 파일 -->
-  <script src="sfx.js?v=9"></script>
+  <script src="sfx.js?v=10"></script>
   <!-- 마우스 커서 잔상(트레일) — 기존 코드와 분리된 추가 파일 -->
-  <script src="cursor-trail.js?v=9"></script>
+  <script src="cursor-trail.js?v=10"></script>
   <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
-  <script src="i18n.js?v=9"></script>
+  <script src="i18n.js?v=10"></script>
   <!-- 소음 HUD + THE LOOP 소음 막대 — 기존 코드와 분리된 추가 파일 -->
-  <script src="noise-hud.js?v=9"></script>
+  <script src="noise-hud.js?v=10"></script>
   <!-- 히어로 배경 영상: 데스크톱에서만 내려받아 재생 -->
-  <script src="hero-video.js?v=9"></script>
+  <script src="hero-video.js?v=10"></script>
 </body>
 </html>

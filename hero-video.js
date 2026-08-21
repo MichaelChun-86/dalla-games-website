@@ -34,11 +34,17 @@
       : video.getAttribute("data-src");
     if (!src) return;
 
-    // 포스터도 화면 방향에 맞는 것으로 — 가로 이미지가 세로 화면에서 잘려 보이지 않게
-    var mobilePoster = video.getAttribute("data-poster-mobile");
-    if (isMobile && mobilePoster) {
-      video.setAttribute("poster", mobilePoster);
-    }
+    /* 영상을 끝내 못 받는 경우에만 예전 키비주얼을 배경으로 깐다.
+       평소에는 어떤 이미지도 쓰지 않아 검은 화면 → 스캔라인 → 영상 으로 넘어간다.
+       (poster 를 두면 프레임이 준비되기 전 그 정지컷이 잠깐 스쳐 지나간다) */
+    video.addEventListener("error", function () {
+      var swap = video.parentNode;
+      if (!swap) return;
+      swap.style.backgroundImage =
+        "url('" + (isMobile ? "images/hero-bg-mobile.webp" : "images/hero-bg_A01.webp") + "')";
+      swap.style.backgroundSize = "cover";
+      swap.style.backgroundPosition = "center top";
+    });
 
     video.src = src;
 
