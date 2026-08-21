@@ -15,7 +15,7 @@
   <link rel="icon" type="image/png" href="../images/favicon.png" />
   <!-- ?v= 는 캐시 무효화용. 이 폴더의 파일을 고칠 때마다 숫자를 올려야
        브라우저가 옛 파일과 새 파일을 섞어 쓰는 사고를 막을 수 있다. -->
-  <link rel="stylesheet" href="admin.css?v=12" />
+  <link rel="stylesheet" href="admin.css?v=13" />
 </head>
 <body>
 
@@ -174,12 +174,20 @@
       </section>
     </div>
 
+    <!-- 검수용 방문을 집계에서 빼는 스위치.
+         사이트와 같은 도메인이라 저장소를 공유해, 여기서 켜면 사이트에도 적용된다. -->
+    <label class="notrack" for="notrackToggle">
+      <input type="checkbox" id="notrackToggle" />
+      <span class="notrack-box" aria-hidden="true"></span>
+      <span class="notrack-text">이 브라우저의 방문은 집계에서 제외</span>
+    </label>
+
     <footer class="foot">
       <a href="https://analytics.google.com/" target="_blank" rel="noopener">GA4 원본 보고서 열기 →</a>
       <span>G-T5S20FRH38</span>
     </footer>
   </div>
 
-  <script src="admin.js?v=12"></script>
+  <script src="admin.js?v=13"></script>
 </body>
 </html>

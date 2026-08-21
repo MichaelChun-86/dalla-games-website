@@ -57,7 +57,27 @@
     host === "[::1]" ||
     /^192\.168\./.test(host);      // 같은 공유기 안의 다른 기기로 테스트할 때
 
-  if (!MEASUREMENT_ID || isLocal) return;   // ID 미설정이거나 로컬이면 통째로 비활성
+  /* ---------- 이 브라우저를 집계에서 빼기 ----------
+     주소 뒤에 ?notrack=1 을 붙여 한 번 들어오면 그 기기는 계속 제외된다.
+     해제는 ?notrack=0. 관리자 대시보드 맨 아래 체크박스로도 켜고 끌 수 있다.
+
+     제외되면 gtag 를 아예 불러오지 않는다 — 구글로 나가는 요청 자체가 없다.
+     저장소는 도메인 단위라 대시보드에서 켜도 사이트에 그대로 적용된다.
+
+     주의: 브라우저 저장소를 지우거나 시크릿 창을 쓰면 다시 잡힌다.
+     검수용 기기마다 한 번씩 열어 두면 된다. */
+  var NOTRACK_KEY = "dalla-notrack";
+  try {
+    var wants = new URLSearchParams(location.search).get("notrack");
+    if (wants === "1") localStorage.setItem(NOTRACK_KEY, "1");
+    else if (wants === "0") localStorage.removeItem(NOTRACK_KEY);
+  } catch (e) {}
+
+  var excluded = false;
+  try { excluded = localStorage.getItem(NOTRACK_KEY) === "1"; } catch (e) {}
+
+  // ID 미설정 / 로컬 / 제외 지정 → 통째로 비활성
+  if (!MEASUREMENT_ID || isLocal || excluded) return;
 
   /* ---------- GA4 기본 스니펫 ---------- */
   window.dataLayer = window.dataLayer || [];

@@ -220,6 +220,19 @@
     });
   }
 
+  /* ---------- 집계 제외 스위치 ----------
+     analytics.js 가 보는 것과 같은 열쇠를 쓴다. 도메인이 같아 저장소를 공유하므로
+     여기서 켜면 본 사이트 방문도 그때부터 집계되지 않는다. */
+  var NOTRACK_KEY = "dalla-notrack";
+  var notrack = document.getElementById("notrackToggle");
+  try { notrack.checked = localStorage.getItem(NOTRACK_KEY) === "1"; } catch (e) {}
+  notrack.addEventListener("change", function () {
+    try {
+      if (notrack.checked) localStorage.setItem(NOTRACK_KEY, "1");
+      else localStorage.removeItem(NOTRACK_KEY);
+    } catch (e2) {}
+  });
+
   document.getElementById("logout").addEventListener("click", lockUp);
   document.getElementById("refresh").addEventListener("click", render);
 
