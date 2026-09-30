@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 검색엔진에 "이 사이트에서 색인할 주소"를 알려주는 목록.
+     한 페이지짜리 사이트라 주소는 하나다. 관리자 페이지는 일부러 넣지 않는다.
+     사이트 내용을 크게 바꾸면 lastmod 날짜를 함께 바꿔 준다. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://dallagames.com/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

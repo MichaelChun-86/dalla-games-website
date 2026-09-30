@@ -332,10 +332,15 @@ label,
 
 /* 로고 래퍼: 크기(반응형)는 래퍼가 갖고, 안의 이미지는 100%로 채운다.
    스윕 하이라이트는 이 래퍼의 ::after 로 로고 위에 얹는다. */
+/* 로고 래퍼는 페이지의 대표 제목(h1)이다 — 검색엔진이 이 페이지의 주제를 여기서 읽는다.
+   h1 의 기본 여백·글자 크기가 로고 배치를 흔들지 않도록 전부 되돌린다. */
 .hero-title-wrap {
   position: relative;
   display: inline-block;
   width: min(620px, 86%);
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
   line-height: 0;           /* 이미지 아래 여백 제거 */
 }
 
