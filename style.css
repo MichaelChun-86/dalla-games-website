@@ -726,7 +726,7 @@ label,
   padding: 0;
   border: 0;
   /* 썸네일: 트레일러 전용 이미지 (OUR GAMES 키아트와 분리) */
-  background: url("images/youtube.webp") center / cover no-repeat;
+  background: url("images/youtube.webp?v=2") center / cover no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
