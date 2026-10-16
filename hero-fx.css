@@ -134,5 +134,5 @@ body.fx-scan-done .scroll-down {
   opacity: 1;
   transition: opacity 0.6s ease calc(var(--hs-stagger) * 4);
 }
-/* Wishlist 펄스는 페이드인이 끝난 뒤에 다시 시작(등장 중 깜빡임 방지) */
-body.fx-scan-done .hero-subtitle { animation-delay: 1.2s; }
+/* Wishlist 블러 교체는 페이드인이 끝난 뒤에 시작(등장 중 깜빡임 방지) */
+body.fx-scan-done .hero-subtitle-glow { animation-delay: 1.2s; }

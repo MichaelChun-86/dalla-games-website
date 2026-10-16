@@ -482,24 +482,31 @@ label,
   margin-top: 10px;
 }
 
+/* Wishlist Now 래퍼: 크기(반응형)는 래퍼가 갖고, 안의 두 이미지는 같은 자리에 겹친다. */
 .hero-subtitle {
+  position: relative;
+  display: block;
   width: min(210px, 42%);
-  height: auto;
   flex: none;               /* 좁은 폭에서 한쪽만 찌그러지지 않게 */
-  /* 사이즈는 그대로 두고 밝기/글로우만 은은하게 깜빡여 클릭 유도 */
-  animation: wishlist-pulse 2.4s ease-in-out infinite;
+  line-height: 0;           /* 이미지 아래 여백 제거 */
+}
+.hero-subtitle img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* 블러 버전은 기본 글자 바로 위에 정확히 겹쳐 놓는다 (두 원본은 캔버스 크기가 같다). */
+.hero-subtitle-glow {
+  position: absolute;
+  inset: 0;
+  /* 기본 글자는 항상 또렷하게 두고, 블러 버전만 나타났다 사라지며 "교체"되는 느낌을 낸다.
+     주기 2.4초 그대로 — 빛 번짐(0%) → 또렷한 기본 글자(50%) → 빛 번짐(100%). */
+  animation: wishlist-glow 2.4s ease-in-out infinite;
 }
 
-/* Wishlist Now 은은한 펄스 (opacity + 네온 글로우, 크기 변화 없음) */
-@keyframes wishlist-pulse {
-  0%, 100% {
-    opacity: 1;
-    filter: drop-shadow(0 0 6px rgba(43, 255, 151, 0.55));
-  }
-  50% {
-    opacity: 0.55;
-    filter: drop-shadow(0 0 2px rgba(43, 255, 151, 0.25));
-  }
+@keyframes wishlist-glow {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
 }
 
 /* 스팀 버튼: 이미지를 배경으로 두고 호버 시 교체 */
