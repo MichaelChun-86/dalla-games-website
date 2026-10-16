@@ -53,3 +53,7 @@ skills-lock.json
 # OS
 Thumbs.db
 .DS_Store
+
+# 새 BI·키아트 고화질 원본 (사이트는 여기서 만든 logo-aeonfall.webp / game-art.webp 만 사용)
+images/Title_A09_Ingame_BI_Web.png
+images/Title_26_10.png
