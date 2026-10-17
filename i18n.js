@@ -20,6 +20,8 @@
 
   var LANGS = ["ko", "en", "zh", "ja"];
   var STORE_KEY = "aeon-lang";
+  // 언어 드롭다운 버튼에 보여 줄 이름 (각 언어를 그 언어로 적는다)
+  var LANG_NAMES = { ko: "한국어", en: "English", zh: "中文", ja: "日本語" };
 
   var T = {
     /* ---- 히어로 (4개 언어 모두 번역) ---- */
@@ -51,12 +53,12 @@
       ja: "Epic Games のサポートにより、AeonFall の開発を加速しています。"
     },
 
-    /* ---- 히어로 트레일러 파사드 위 문구 ---- */
-    "video.watch": {
-      ko: "트레일러 영상 보기",
-      en: "WATCH TRAILER",
-      zh: "观看预告片",
-      ja: "トレーラーを見る"
+    /* ---- 히어로 트레일러 아래 캡션 제목 (앞의 "TRAILER" 라벨은 항상 영어) ---- */
+    "video.title": {
+      ko: "공식 게임플레이 트레일러",
+      en: "Official Gameplay Trailer",
+      zh: "官方实机演示预告片",
+      ja: "公式ゲームプレイトレーラー"
     },
 
     /* ---- OUR GAMES ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
@@ -298,11 +300,15 @@
     // <html lang> 갱신(접근성/폰트 폴백/CSS 훅 — i18n.css 의 CJK 폰트 보정이 이 값을 참조)
     document.documentElement.setAttribute("lang", lang);
 
-    // 선택된 국기 강조
+    // 드롭다운: 버튼에 현재 언어 이름을 쓰고, 목록에서 현재 언어를 강조한다
+    document.querySelectorAll(".lang-current").forEach(function (el) {
+      el.textContent = LANG_NAMES[lang];
+    });
     document.querySelectorAll(".lang-btn").forEach(function (b) {
       var on = b.getAttribute("data-lang") === lang;
       b.classList.toggle("active", on);
-      b.setAttribute("aria-pressed", on ? "true" : "false");
+      if (on) b.setAttribute("aria-current", "true");
+      else b.removeAttribute("aria-current");
     });
 
     try { localStorage.setItem(STORE_KEY, lang); } catch (e) {}
@@ -317,10 +323,49 @@
     return "en";
   }
 
+  /* ---- 언어 드롭다운 열고 닫기 ----
+     - 버튼을 누르면 목록이 열리고, 다시 누르거나 바깥을 누르거나 Esc 를 누르면 닫힌다.
+     - 헤더에 드롭다운이 2개(데스크톱 메뉴 / 모바일 헤더) 있어서 전부 같은 방식으로 붙인다. */
+  function setMenuOpen(menu, open) {
+    var toggle = menu.querySelector(".lang-toggle");
+    var list = menu.querySelector(".lang-list");
+    if (!toggle || !list) return;
+    list.hidden = !open;
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  function closeAllMenus(except) {
+    document.querySelectorAll("[data-lang-menu]").forEach(function (m) {
+      if (m !== except) setMenuOpen(m, false);
+    });
+  }
+  function initMenus() {
+    document.querySelectorAll("[data-lang-menu]").forEach(function (menu) {
+      var toggle = menu.querySelector(".lang-toggle");
+      if (!toggle) return;
+      toggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var willOpen = toggle.getAttribute("aria-expanded") !== "true";
+        closeAllMenus(menu);
+        setMenuOpen(menu, willOpen);
+      });
+    });
+    // 목록 바깥을 누르면 닫는다
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest || !e.target.closest("[data-lang-menu]")) closeAllMenus(null);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeAllMenus(null);
+    });
+  }
+
   function init() {
     captureOriginals();
+    initMenus();
     document.querySelectorAll(".lang-btn").forEach(function (b) {
-      b.addEventListener("click", function () { apply(b.getAttribute("data-lang")); });
+      b.addEventListener("click", function () {
+        apply(b.getAttribute("data-lang"));
+        closeAllMenus(null);   // 고르면 목록을 닫는다
+      });
     });
     apply(initialLang());
   }

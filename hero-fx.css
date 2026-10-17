@@ -89,7 +89,8 @@ html.fx-scan-wait .hero-title-wrap, body.fx-scanning .hero-title-wrap,
 html.fx-scan-wait .hero-coming,     body.fx-scanning .hero-coming,
 html.fx-scan-wait .hero-subtitle,   body.fx-scanning .hero-subtitle,
 html.fx-scan-wait .steam-btn,       body.fx-scanning .steam-btn,
-html.fx-scan-wait .hero-video,      body.fx-scanning .hero-video {
+html.fx-scan-wait .hero-video,      body.fx-scanning .hero-video,
+html.fx-scan-wait .trailer-cap,     body.fx-scanning .trailer-cap {
   opacity: 0;
   transform: translateY(14px);
   transition: none;
@@ -108,7 +109,8 @@ body.fx-scan-done .hero-title-wrap,
 body.fx-scan-done .hero-coming,
 body.fx-scan-done .hero-subtitle,
 body.fx-scan-done .steam-btn,
-body.fx-scan-done .hero-video {
+body.fx-scan-done .hero-video,
+body.fx-scan-done .trailer-cap {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -129,7 +131,15 @@ body.fx-scan-done .hero-coming     { transition-delay: calc(var(--hs-stagger) * 
 /* Wishlist 와 스팀 버튼은 한 줄에 나란히 놓이므로 같은 시점에 함께 등장한다 */
 body.fx-scan-done .hero-subtitle,
 body.fx-scan-done .steam-btn       { transition-delay: calc(var(--hs-stagger) * 2); }
-body.fx-scan-done .hero-video      { transition-delay: calc(var(--hs-stagger) * 3); }
+body.fx-scan-done .hero-video,
+body.fx-scan-done .trailer-cap     { transition-delay: calc(var(--hs-stagger) * 3); }
+/* 스팀 버튼은 등장(opacity·transform)만 늦게 시작하고, 호버 색 전환은 지연 없이 바로 반응한다.
+   (transition-delay 를 하나만 쓰면 호버 색도 그만큼 늦게 바뀌므로 속성별로 나눠 적는다) */
+body.fx-scan-done .steam-btn {
+  transition: opacity 0.6s ease calc(var(--hs-stagger) * 2),
+              transform 0.6s ease calc(var(--hs-stagger) * 2),
+              color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
 body.fx-scan-done .scroll-down {
   opacity: 1;
   transition: opacity 0.6s ease calc(var(--hs-stagger) * 4);

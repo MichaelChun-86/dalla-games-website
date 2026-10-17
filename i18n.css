@@ -1,66 +1,109 @@
 /* =========================================================================
-   언어 전환 국기 버튼 (메뉴 우측)
+   언어 선택 드롭다운 (헤더 우측 상단)
+   - 지구본 아이콘 + 현재 언어 이름 + 화살표. 누르면 아래로 목록이 펼쳐진다.
+   - 데스크톱: 메뉴(nav) 맨 끝 / 모바일: 헤더 바 안, 햄버거 버튼 앞(.lang-menu-corner).
+   - 열고 닫기·언어 전환은 i18n.js 가 맡는다. 강조색은 사이트 네온 그린.
    ========================================================================= */
-.lang-switch {
+.lang-menu {
+  position: relative;           /* 목록(.lang-list)을 버튼 바로 아래에 띄우는 기준 */
   display: flex;
   align-items: center;
-  gap: 8px;
   padding-left: 18px;
   border-left: 1px solid rgba(255, 255, 255, 0.14);   /* 메뉴와 구분선 */
 }
 
-.lang-btn {
-  display: inline-flex;
-  padding: 0;
-  margin: 0;
+/* 닫혀 있을 때 보이는 버튼: 지구본 + 언어 이름 + 화살표 */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 4px;
   border: 0;
   background: none;
-  line-height: 0;
-  opacity: 0.5;                 /* 비선택 국기는 흐리게 */
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  cursor: url('images/Cursor_Hover1_32.png') 0 0, pointer;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color 0.2s ease;
 }
-.lang-btn img {
-  width: 26px;
-  height: auto;
-  display: block;
-  border-radius: 3px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+.lang-toggle:hover,
+.lang-toggle:focus-visible,
+.lang-toggle[aria-expanded="true"] {
+  color: var(--mint-bright);
+  outline: none;
+}
+.lang-toggle svg { flex: none; display: block; }
+/* 목록이 열리면 화살표가 위를 향한다 */
+.lang-caret { transition: transform 0.2s ease; }
+.lang-toggle[aria-expanded="true"] .lang-caret { transform: rotate(180deg); }
+
+/* 펼쳐지는 목록. 화면 오른쪽 끝에 붙어 있으므로 오른쪽 기준으로 연다(밖으로 안 넘친다). */
+.lang-list {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 1200;
+  min-width: 168px;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: rgba(0, 0, 0, 0.96);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  animation: lang-list-in 0.15s ease;
+}
+.lang-list[hidden] { display: none; }
+@keyframes lang-list-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 목록의 각 언어 */
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  text-align: left;
+  white-space: nowrap;
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 .lang-btn:hover,
 .lang-btn:focus-visible {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  color: var(--mint-bright);
+  background: rgba(255, 255, 255, 0.08);
   outline: none;
 }
-/* 현재 선택된 언어 국기: 또렷 + 민트 링 */
-.lang-btn.active {
-  opacity: 1;
-}
-.lang-btn.active img {
-  box-shadow: 0 0 0 2px var(--mint), 0 0 8px rgba(8, 225, 120, 0.55);
+/* 지금 선택된 언어: 그린 글자 + 오른쪽 끝 작은 사각형 표시 */
+.lang-btn.active { color: var(--mint-bright); }
+.lang-btn.active::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-left: auto;
+  background: var(--mint-bright);
 }
 
-/* ---- 모바일 전용 국기 그룹(.lang-switch-corner): 헤더 바 안, 햄버거 버튼 앞 ---- */
-.lang-switch-corner {
-  display: none;   /* 데스크톱에선 숨김(메뉴 안 .lang-switch 사용) */
-  gap: 8px;
-  /* 헤더 안에 들어가므로 메뉴용 구분선/여백은 쓰지 않는다 */
-  padding-left: 0;
+/* ---- 모바일 전용 드롭다운(.lang-menu-corner): 헤더 바 안, 햄버거 버튼 앞 ---- */
+.lang-menu-corner {
+  display: none;       /* 데스크톱에선 숨김(메뉴 끝의 드롭다운 사용) */
+  padding-left: 0;     /* 헤더 안이라 메뉴용 구분선/여백은 쓰지 않는다 */
   border-left: 0;
   margin-left: auto;   /* 로고와 떨어져 햄버거 버튼 쪽에 붙는다 */
-  margin-right: 30px;  /* 햄버거 버튼과의 간격 (넓혀서 오조작 방지) */
+  margin-right: 22px;  /* 햄버거 버튼과의 간격 (오조작 방지) */
 }
-.lang-switch-corner .lang-btn img { width: 22px; }
 
 @media (max-width: 768px) {
-  /* 메뉴(햄버거) 안 국기는 숨기고, 헤더 바의 국기만 사용 */
-  .nav .lang-switch {
-    display: none;
-  }
-  .lang-switch-corner {
-    display: flex;
-  }
+  /* 메뉴(햄버거) 안 드롭다운은 숨기고, 헤더 바의 드롭다운만 사용 */
+  .nav .lang-menu { display: none; }
+  .lang-menu-corner { display: flex; }
 }
 
 /* =========================================================================
@@ -98,7 +141,9 @@ html[lang="zh"] .section-title {
    일본어 Coming 문구는 가나 없이 한자+숫자뿐이라 중국어와 동일한 폰트 스택을
    그대로 써도 문제없어, 두 언어 모두 같은 폰트로 통일했다(사용자 요청). */
 html[lang="zh"] .hero-coming,
-html[lang="ja"] .hero-coming {
+html[lang="ja"] .hero-coming,
+html[lang="zh"] .trailer-cap-title,
+html[lang="ja"] .trailer-cap-title {
   font-family: "esamanru", "PingFang SC", "Microsoft YaHei", "微软雅黑",
                "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans SC", sans-serif;
 }

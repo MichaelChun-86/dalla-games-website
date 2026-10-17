@@ -230,30 +230,30 @@
 
   <!-- css/js 뒤의 ?v= 는 캐시 무효화용 버전. 파일을 고치면 이 숫자를 함께 올린다.
        (안 올리면 방문자 브라우저가 최대 10분간 옛 파일을 그대로 쓴다) -->
-  <link rel="stylesheet" href="style.css?v=18" />
+  <link rel="stylesheet" href="style.css?v=19" />
 
   <!-- 히어로 특수효과: 스캐너 스윕 리빌 (기존 코드와 분리된 추가 파일)
        JS는 head에서 동기 로드 — 첫 페인트 전에 스캔 커버를 씌워 깜빡임(FOUC)을 막는다. -->
-  <link rel="stylesheet" href="hero-fx.css?v=18" />
-  <script src="hero-fx.js?v=18"></script>
+  <link rel="stylesheet" href="hero-fx.css?v=19" />
+  <script src="hero-fx.js?v=19"></script>
 
   <!-- 히어로 배경 영상 레이어 -->
-  <link rel="stylesheet" href="hero-bg-swap.css?v=18" />
+  <link rel="stylesheet" href="hero-bg-swap.css?v=19" />
 
   <!-- 마우스 커서 잔상(트레일) 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="cursor-trail.css?v=18" />
+  <link rel="stylesheet" href="cursor-trail.css?v=19" />
 
   <!-- 다국어(로컬라이제이션) 국기 버튼 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="i18n.css?v=18" />
+  <link rel="stylesheet" href="i18n.css?v=19" />
 
   <!-- 추가 섹션(THE LOOP / FAQ) + 하단 소음 HUD 스타일 -->
-  <link rel="stylesheet" href="enhancements.css?v=18" />
+  <link rel="stylesheet" href="enhancements.css?v=19" />
 
   <!-- 방문자 분석(GA4) + 스팀 위시리스트 클릭 추적.
        head 에 두는 이유: 아주 짧게 머물다 나가는 방문도 집계되게 하기 위함.
        내부에서 gtag 를 async 로 불러오므로 렌더링은 막지 않는다.
        측정 ID 를 넣기 전까지는 아무 것도 하지 않는다 → analytics.js 상단 참고. -->
-  <script src="analytics.js?v=18"></script>
+  <script src="analytics.js?v=19"></script>
 </head>
 <body>
 
@@ -268,14 +268,21 @@
         <img src="images/logo-dalla-hover.webp" alt="" aria-hidden="true" class="brand-logo brand-logo-hover" />
       </a>
 
-      <!-- 모바일 전용 언어 전환 국기: 헤더 바 안, 햄버거 버튼 바로 앞에 배치
-           (데스크톱에선 숨기고 메뉴 안의 .lang-switch 를 쓴다.
-            버튼 동작은 i18n.js 가 .lang-btn 전체를 대상으로 하므로 추가 스크립트 불필요) -->
-      <div class="lang-switch lang-switch-corner" role="group" aria-label="Language / 언어">
-        <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어"><img src="images/flag-kr.svg" alt="한국어" /></button>
-        <button type="button" class="lang-btn" data-lang="en" aria-label="English"><img src="images/flag-en.svg" alt="English" /></button>
-        <button type="button" class="lang-btn" data-lang="zh" aria-label="中文"><img src="images/flag-cn.svg" alt="中文" /></button>
-        <button type="button" class="lang-btn" data-lang="ja" aria-label="日本語"><img src="images/flag-jp.svg" alt="日本語" /></button>
+      <!-- 모바일 전용 언어 선택: 헤더 바 안, 햄버거 버튼 바로 앞에 둔다.
+           (데스크톱에선 숨기고 메뉴 끝의 같은 드롭다운을 쓴다.
+            열고 닫기·언어 전환은 i18n.js 가 [data-lang-menu] 전체에 붙인다) -->
+      <div class="lang-menu lang-menu-corner" data-lang-menu>
+        <button type="button" class="lang-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Language / 언어">
+          <svg class="lang-globe" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          <span class="lang-current">English</span>
+          <svg class="lang-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <ul class="lang-list" hidden>
+          <li><button type="button" class="lang-btn" data-lang="ko" lang="ko">한국어</button></li>
+          <li><button type="button" class="lang-btn" data-lang="en" lang="en">English</button></li>
+          <li><button type="button" class="lang-btn" data-lang="zh" lang="zh">中文</button></li>
+          <li><button type="button" class="lang-btn" data-lang="ja" lang="ja">日本語</button></li>
+        </ul>
       </div>
 
       <!-- 모바일 햄버거 버튼 -->
@@ -308,12 +315,19 @@
           </a>
         </div>
 
-        <!-- 언어 전환 국기 (클릭 시 지정 영역만 로컬라이징, i18n.js) -->
-        <div class="lang-switch" role="group" aria-label="Language / 언어">
-          <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어"><img src="images/flag-kr.svg" alt="한국어" /></button>
-          <button type="button" class="lang-btn" data-lang="en" aria-label="English"><img src="images/flag-en.svg" alt="English" /></button>
-          <button type="button" class="lang-btn" data-lang="zh" aria-label="中文"><img src="images/flag-cn.svg" alt="中文" /></button>
-          <button type="button" class="lang-btn" data-lang="ja" aria-label="日本語"><img src="images/flag-jp.svg" alt="日本語" /></button>
+        <!-- 언어 선택 드롭다운: 지구본 + 현재 언어 + 화살표. 누르면 목록이 펼쳐진다 (i18n.js) -->
+        <div class="lang-menu" data-lang-menu>
+          <button type="button" class="lang-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Language / 언어">
+            <svg class="lang-globe" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            <span class="lang-current">English</span>
+            <svg class="lang-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <ul class="lang-list" hidden>
+            <li><button type="button" class="lang-btn" data-lang="ko" lang="ko">한국어</button></li>
+            <li><button type="button" class="lang-btn" data-lang="en" lang="en">English</button></li>
+            <li><button type="button" class="lang-btn" data-lang="zh" lang="zh">中文</button></li>
+            <li><button type="button" class="lang-btn" data-lang="ja" lang="ja">日本語</button></li>
+          </ul>
         </div>
       </nav>
     </div>
@@ -374,11 +388,15 @@
             <img src="images/wishlist-text-blur.webp?v=1" alt="" aria-hidden="true" class="hero-subtitle-glow" />
           </span>
 
-          <!-- 스팀 위시리스트 버튼: 기본 → 호버 시 노란 이미지로 교체 -->
+          <!-- 스팀 위시리스트 버튼: 반투명 박스 + 흰 테두리 + 스팀 아이콘 + STEAM.
+               마우스를 올리면 테두리·아이콘·글자가 네온 그린으로 바뀐다 (이미지 없이 CSS) -->
           <a class="steam-btn"
              href="https://store.steampowered.com/app/4582730/THE_AEON_FALL/"
              target="_blank" rel="noopener"
-             aria-label="Wishlist on Steam"></a>
+             aria-label="Wishlist on Steam">
+            <svg class="steam-btn-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658a3.4 3.4 0 0 1 1.912-.59q.094.001.188.006l2.861-4.142V8.91a4.53 4.53 0 0 1 4.524-4.524c2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911l.004.159a3.39 3.39 0 0 1-3.39 3.396a3.41 3.41 0 0 1-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0M7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25a2.551 2.551 0 0 0 3.337-3.324a2.547 2.547 0 0 0-3.255-1.413l1.523.63a1.878 1.878 0 0 1-1.445 3.467zm11.415-9.303a3.02 3.02 0 0 0-3.015-3.015a3.015 3.015 0 1 0 3.015 3.015m-5.273-.005a2.264 2.264 0 1 1 4.531 0a2.267 2.267 0 0 1-2.266 2.265a2.264 2.264 0 0 1-2.265-2.265"/></svg>
+            <span class="steam-btn-text">STEAM</span>
+          </a>
         </div>
 
         <!-- 트레일러 영상: 스팀 버튼 바로 아래 (기존 OUR GAMES 에 있던 것을 이동)
@@ -387,8 +405,10 @@
              보이게 하고, 클릭하면 그때 유튜브를 로드해 자동재생한다(script.js 참고). -->
         <div class="hero-video">
           <button type="button" class="video-facade" id="videoFacade" aria-label="Play trailer">
-            <span class="vf-play"></span>
-            <span class="vf-label" data-i18n="video.watch">WATCH TRAILER</span>
+            <!-- 재생 버튼: 흰 테두리 사각형 + 흰 삼각형 -->
+            <span class="vf-play" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" focusable="false"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+            </span>
           </button>
           <iframe
             id="trailerFrame"
@@ -397,6 +417,12 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </div>
+        <!-- 트레일러 캡션: 영어 라벨(TRAILER, 항상 영어) + 선택한 언어의 제목 + 재생 시간 -->
+        <p class="trailer-cap">
+          <span class="trailer-cap-kicker">TRAILER</span>
+          <span class="trailer-cap-title" data-i18n="video.title">Official Gameplay Trailer</span>
+          <span class="trailer-cap-dur">1:59</span>
+        </p>
       </div>
 
       <!-- Epic MegaGrant 배지 + 제목 + 문구 (반투명 박스) -->
@@ -710,16 +736,16 @@
     </p>
   </footer>
 
-  <script src="script.js?v=18"></script>
+  <script src="script.js?v=19"></script>
   <!-- 합성 사운드 효과 (타이핑/CRT/스팀 버튼) — 기존 코드와 분리된 추가 파일 -->
-  <script src="sfx.js?v=18"></script>
+  <script src="sfx.js?v=19"></script>
   <!-- 마우스 커서 잔상(트레일) — 기존 코드와 분리된 추가 파일 -->
-  <script src="cursor-trail.js?v=18"></script>
+  <script src="cursor-trail.js?v=19"></script>
   <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
-  <script src="i18n.js?v=18"></script>
+  <script src="i18n.js?v=19"></script>
   <!-- 소음 HUD + THE LOOP 소음 막대 — 기존 코드와 분리된 추가 파일 -->
-  <script src="noise-hud.js?v=18"></script>
+  <script src="noise-hud.js?v=19"></script>
   <!-- 히어로 배경 영상: 데스크톱에서만 내려받아 재생 -->
-  <script src="hero-video.js?v=18"></script>
+  <script src="hero-video.js?v=19"></script>
 </body>
 </html>

@@ -509,24 +509,33 @@ label,
   50%      { opacity: 0; }
 }
 
-/* 스팀 버튼: 이미지를 배경으로 두고 호버 시 교체 */
+/* 스팀 버튼: 반투명 박스 + 흰 테두리 + 스팀 아이콘 + STEAM (이미지 없이 CSS).
+   마우스를 올리면 테두리·아이콘·글자가 네온 그린으로 바뀐다.
+   (색 전환 속도는 hero-fx.css 의 등장 transition 과 함께 적혀 있다) */
 .steam-btn {
-  display: block;
-  margin: 0;                      /* 한 줄 배치라 세로 보정 여백이 필요 없다 */
+  display: flex;
+  align-items: center;
+  gap: 10px;
   flex: none;                     /* 좁은 폭에서 한쪽만 찌그러지지 않게 */
-  width: min(186px, 38%);
-  aspect-ratio: 338 / 143;        /* 새 스팀버튼 원본 비율 */
-  background-image: url("images/btn-steam.webp");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: transform 0.15s ease;
+  height: 42px;
+  margin: 0;                      /* 한 줄 배치라 세로 보정 여백이 필요 없다 */
+  padding: 8px 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--text);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
+.steam-btn-icon { flex: none; display: block; }
 .steam-btn:hover,
 .steam-btn:focus-visible {
-  /* 마우스 올리면 노란색 버튼 이미지로 교체 */
-  background-image: url("images/btn-steam-hover.webp");
-  transform: translateY(-2px);
+  color: var(--mint-bright);
+  border-color: var(--mint-bright);
+  background: rgba(8, 225, 120, 0.1);
+  outline: none;
 }
 
 /* Epic MegaGrant: 배지 + 제목 + 문구 (반투명 블랙 박스, 히어로 우측 하단) */
@@ -700,11 +709,9 @@ label,
   width: min(540px, 100%);        /* 원래 크기 유지 — 줄이면 PC에서 화질이 뭉갠다 */
   margin: 22px auto 0;            /* 스팀 버튼과의 간격 */
   aspect-ratio: 16 / 9;
-  border: 1px solid rgba(8, 225, 120, 0.3);
-  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.5);    /* 흰색 아웃라인 */
   overflow: hidden;
   background: #000;
-  box-shadow: 0 0 26px rgba(8, 225, 120, 0.14);  /* 그린 글로우 */
 }
 .hero-video iframe {
   width: 100%;
@@ -728,10 +735,8 @@ label,
   /* 썸네일: 트레일러 전용 이미지 (OUR GAMES 키아트와 분리) */
   background: url("images/youtube.webp?v=3") center / cover no-repeat;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
 }
 /* 포스터 위 어두운 막: 호버하면 살짝 걷혀 반응감을 준다 */
 .video-facade::before {
@@ -745,37 +750,55 @@ label,
 .video-facade:focus-visible::before {
   background: rgba(0, 0, 0, 0.16);
 }
-/* 재생 버튼: 민트 링 + 삼각형 */
+/* 재생 버튼: 흰 테두리 사각형 + 흰 삼각형 (반투명 검정 바탕) */
 .vf-play {
-  position: relative;
-  width: 54px;
-  height: 54px;
-  border: 2px solid var(--mint);
-  border-radius: 50%;
-  box-shadow: 0 0 18px rgba(8, 225, 120, 0.45);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;              /* 어두운 막(::before) 위로 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border: 2px solid var(--text);
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--text);
+  transition: background-color 0.2s ease;
 }
-.vf-play::after {
-  content: "";
-  position: absolute;
-  left: 55%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border-style: solid;
-  border-width: 9px 0 9px 15px;
-  border-color: transparent transparent transparent var(--mint);
-}
+.vf-play svg { display: block; }
 .video-facade:hover .vf-play,
 .video-facade:focus-visible .vf-play {
-  transform: scale(1.08);
-  box-shadow: 0 0 26px rgba(43, 255, 151, 0.65);
+  background: rgba(0, 0, 0, 0.75);
 }
-.vf-label {
+
+/* 트레일러 아래 캡션: TRAILER(영어, 그린) · 제목(선택 언어) · 재생 시간 */
+.trailer-cap {
   position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  width: min(540px, 100%);        /* 영상 폭과 같게 */
+  margin: 0 auto;
+  padding: 14px 2px 0;
+  text-align: left;
+}
+.trailer-cap-kicker {
+  flex: none;
+  color: var(--mint-bright);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+}
+.trailer-cap-title {
   color: var(--text);
-  font-size: 12px;
-  letter-spacing: 2.5px;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.trailer-cap-dur {
+  flex: none;
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
 }
 /* 재생 시작 후: 파사드 제거 */
 .video-facade.hidden { display: none; }
@@ -1152,11 +1175,14 @@ label,
   /* 위시리스트 + 스팀 버튼: 좁은 폭에서도 한 줄을 유지하도록 각각 축소 */
   .hero-cta-row { gap: 12px; margin-top: 6px; }
   .hero-subtitle { width: min(150px, 44%); }
-  .steam-btn { width: min(132px, 38%); }
+  .steam-btn { height: 38px; padding: 6px 12px; gap: 8px; font-size: 13px; }
+  .steam-btn-icon { width: 20px; height: 20px; }
 
   /* 트레일러 영상: 모바일에선 아래 Epic 박스와 같은 폭으로 키움
      (둘 다 히어로 좌우 패딩 안쪽을 꽉 채워 폭이 정확히 맞는다) */
   .hero-video { width: 100%; margin-top: 18px; }
+  .trailer-cap { width: 100%; gap: 10px; padding-top: 10px; }
+  .trailer-cap-title { font-size: 15px; }
 
   /* Epic 박스: 트레일러 영상 아래로 흐름(가로 박스 유지). */
   .epic-megagrant {
@@ -1264,7 +1290,7 @@ label,
   /* 한 줄 배치라 스팀 버튼과 나눠 쓸 만큼만 차지한다 */
   .hero-cta-row { gap: 10px; }
   .hero-subtitle { width: min(140px, 46%); }
-  .steam-btn { width: min(120px, 40%); }
+  .steam-btn { height: 36px; padding: 6px 10px; font-size: 12px; }
   .brand-logo { height: 22px; }
   /* Epic 박스: 가로 배치 유지(시안), 좁은 화면에선 살짝 축소 */
   .epic-megagrant { gap: 12px; padding: 12px 14px; }
