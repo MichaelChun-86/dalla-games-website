@@ -1048,10 +1048,36 @@ label,
    ========================================================= */
 .site-footer {
   background: #000;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 48px 24px 40px;
+  border-top: 2px solid rgba(255, 255, 255, 0.15);
+  padding: 72px 24px 40px;
   text-align: center;
 }
+
+/* 게임 정보표: 왼쪽 라벨(흐리게) / 오른쪽 값, 줄마다 2px 구분선 */
+.footer-specs {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 48px;
+  border-top: 2px solid rgba(255, 255, 255, 0.15);
+  text-align: left;
+}
+.footer-specs dt,
+.footer-specs dd {
+  margin: 0;
+  padding: 14px 0;
+  font-size: 14px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+.footer-specs dt {
+  padding-right: 32px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.footer-specs dd { color: var(--text); }
+.footer-specs a { color: var(--text); transition: color 0.2s ease; }
+.footer-specs a:hover { color: var(--mint-bright); }
 .footer-social {
   display: flex;
   justify-content: center;
@@ -1176,6 +1202,11 @@ label,
   .nav.open { transform: translateX(0); } /* 열림 */
 
   .nav-link { font-size: 20px; }
+
+  /* 푸터 정보표: 좁은 화면에선 글자와 간격을 줄인다 */
+  .footer-specs { margin-bottom: 40px; }
+  .footer-specs dt, .footer-specs dd { padding: 12px 0; font-size: 13px; }
+  .footer-specs dt { padding-right: 18px; }
 
   /* 상시 스팀 버튼: 메뉴(햄버거) 안 것은 숨기고, 헤더 바의 아이콘 버튼을 쓴다 */
   .nav .header-steam { display: none; }

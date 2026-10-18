@@ -213,11 +213,29 @@
       ja: "<span class=\"accent\">ページ上部のトレーラー</span>でご覧いただけます。ゲームプレイ映像は<span class=\"accent\">公式 YouTube</span> で継続的に共有していく予定です。"
     },
     "faq.contact": {
-      ko: '취재·사업 문의: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
-      en: 'Press or business enquiries: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
-      zh: '媒体与商务咨询：<a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
-      ja: '取材・ビジネスのお問い合わせ: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>'
+      ko: '문의: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
+      en: 'Contact: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
+      zh: '联系我们：<a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
+      ja: 'お問い合わせ: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>'
     },
+
+    /* ---- 푸터 게임 정보표 (라벨 / 값) ---- */
+    "spec.release":   { ko: "출시", en: "Release", zh: "发售", ja: "発売" },
+    "spec.release.v": {
+      ko: "2027 · Steam 앞서 해보기", en: "2027 · Steam Early Access",
+      zh: "2027 · Steam 抢先体验", ja: "2027 · Steam 早期アクセス"
+    },
+    "spec.genre":     { ko: "장르", en: "Genre", zh: "类型", ja: "ジャンル" },
+    "spec.genre.v": {
+      ko: "하드코어 로그라이크 디펜스", en: "Hardcore Roguelike Defense",
+      zh: "硬核 Roguelike 塔防", ja: "ハードコア・ローグライク・ディフェンス"
+    },
+    "spec.platform":  { ko: "플랫폼", en: "Platform", zh: "平台", ja: "プラットフォーム" },
+    "spec.langs":     { ko: "지원 언어", en: "Languages", zh: "支持语言", ja: "対応言語" },
+    "spec.langs.v":   { ko: "영어, 한국어", en: "English, Korean", zh: "英语、韩语", ja: "英語、韓国語" },
+    "spec.engine":    { ko: "엔진", en: "Engine", zh: "引擎", ja: "エンジン" },
+    "spec.dev":       { ko: "개발", en: "Developer", zh: "开发", ja: "開発" },
+    "spec.contact":   { ko: "문의", en: "Contact", zh: "联系", ja: "お問い合わせ" },
 
     /* ---- 하단 HUD ---- 상태 문구(CALM/RISING/HUNTED)는 영문 고정 ---- */
     /* 헤더 상시 스팀 버튼 문구 */
