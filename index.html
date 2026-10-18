@@ -236,7 +236,6 @@
        JS는 head에서 동기 로드 — 첫 페인트 전에 스캔 커버를 씌워 깜빡임(FOUC)을 막는다. -->
   <link rel="stylesheet" href="hero-fx.css?v=19" />
   <script src="hero-fx.js?v=19"></script>
-
   <!-- 히어로 배경 영상 레이어 -->
   <link rel="stylesheet" href="hero-bg-swap.css?v=19" />
 
@@ -285,6 +284,11 @@
         </ul>
       </div>
 
+      <!-- 모바일 전용 상시 스팀 버튼: 좁은 헤더라 아이콘만 둔다 (데스크톱은 메뉴 끝의 것을 쓴다) -->
+      <a class="header-steam header-steam-corner" href="https://store.steampowered.com/app/4582730/THE_AEON_FALL/" target="_blank" rel="noopener" aria-label="Wishlist on Steam">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658a3.4 3.4 0 0 1 1.912-.59q.094.001.188.006l2.861-4.142V8.91a4.53 4.53 0 0 1 4.524-4.524c2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911l.004.159a3.39 3.39 0 0 1-3.39 3.396a3.41 3.41 0 0 1-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0M7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25a2.551 2.551 0 0 0 3.337-3.324a2.547 2.547 0 0 0-3.255-1.413l1.523.63a1.878 1.878 0 0 1-1.445 3.467zm11.415-9.303a3.02 3.02 0 0 0-3.015-3.015a3.015 3.015 0 1 0 3.015 3.015m-5.273-.005a2.264 2.264 0 1 1 4.531 0a2.267 2.267 0 0 1-2.266 2.265a2.264 2.264 0 0 1-2.265-2.265"/></svg>
+      </a>
+
       <!-- 모바일 햄버거 버튼 -->
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
         <span></span>
@@ -329,6 +333,13 @@
             <li><button type="button" class="lang-btn" data-lang="ja" lang="ja">日本語</button></li>
           </ul>
         </div>
+
+        <!-- 상시 스팀 위시리스트 버튼: 어느 위치로 스크롤해도 헤더에 늘 보인다
+             (예전 하단 소음 게이지 바의 위시리스트 버튼을 대신한다). 히어로 스팀 버튼과 같은 스타일. -->
+        <a class="header-steam" href="https://store.steampowered.com/app/4582730/THE_AEON_FALL/" target="_blank" rel="noopener" aria-label="Wishlist on Steam">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658a3.4 3.4 0 0 1 1.912-.59q.094.001.188.006l2.861-4.142V8.91a4.53 4.53 0 0 1 4.524-4.524c2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911l.004.159a3.39 3.39 0 0 1-3.39 3.396a3.41 3.41 0 0 1-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0M7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25a2.551 2.551 0 0 0 3.337-3.324a2.547 2.547 0 0 0-3.255-1.413l1.523.63a1.878 1.878 0 0 1-1.445 3.467zm11.415-9.303a3.02 3.02 0 0 0-3.015-3.015a3.015 3.015 0 1 0 3.015 3.015m-5.273-.005a2.264 2.264 0 1 1 4.531 0a2.267 2.267 0 0 1-2.266 2.265a2.264 2.264 0 0 1-2.265-2.265"/></svg>
+          <span data-i18n="header.wishlist">Wishlist on Steam</span>
+        </a>
       </nav>
     </div>
   </header>
@@ -696,25 +707,6 @@
 
   </main>
 
-  <!-- ===================== 하단 HUD 바 =====================
-       게임 HUD 문법을 그대로 쓴 고정 바. 왼쪽은 현재 소음 수치,
-       오른쪽은 위시리스트 버튼. 히어로를 지나면 올라온다.
-       소음 값은 noise-hud.js 가 방문자의 행동(스크롤·호버·클릭)으로 올리고,
-       가만히 있으면 다시 내려간다. -->
-  <div class="hud-bar" id="hudBar" aria-hidden="true">
-    <div class="hud-noise">
-      <span class="hud-label">NOISE</span>
-      <span class="hud-meter"><span class="hud-meter-fill" id="hudMeterFill"></span></span>
-      <!-- 상태 문구(CALM / RISING / HUNTED)는 noise-hud.js 가 바꾼다.
-           터미널 HUD 라벨과 마찬가지로 모든 언어에서 영문 그대로 둔다. -->
-      <span class="hud-state" id="hudState">CALM</span>
-    </div>
-    <a class="hud-cta"
-       href="https://store.steampowered.com/app/4582730/THE_AEON_FALL/"
-       target="_blank" rel="noopener"
-       data-i18n="hud.cta">Wishlist on Steam</a>
-  </div>
-
   <!-- ===================== 푸터 ===================== -->
   <footer class="site-footer" id="contact">
     <div class="footer-social">
@@ -745,8 +737,7 @@
   <script src="cursor-trail.js?v=19"></script>
   <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
   <script src="i18n.js?v=19"></script>
-  <!-- 소음 HUD + THE LOOP 소음 막대 — 기존 코드와 분리된 추가 파일 -->
-  <script src="noise-hud.js?v=19"></script>
+
   <!-- 히어로 배경 영상: 데스크톱에서만 내려받아 재생 -->
   <script src="hero-video.js?v=19"></script>
 </body>

@@ -226,7 +226,8 @@
     },
 
     /* ---- 하단 HUD ---- 상태 문구(CALM/RISING/HUNTED)는 영문 고정 ---- */
-    "hud.cta": {
+    /* 헤더 상시 스팀 버튼 문구 */
+    "header.wishlist": {
       ko: "스팀 위시리스트", en: "Wishlist on Steam",
       zh: "加入 Steam 愿望单", ja: "Steam でウィッシュリスト"
     },

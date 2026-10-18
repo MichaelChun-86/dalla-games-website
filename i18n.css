@@ -97,7 +97,7 @@
   padding-left: 0;     /* 헤더 안이라 메뉴용 구분선/여백은 쓰지 않는다 */
   border-left: 0;
   margin-left: auto;   /* 로고와 떨어져 햄버거 버튼 쪽에 붙는다 */
-  margin-right: 22px;  /* 햄버거 버튼과의 간격 (오조작 방지) */
+  margin-right: 10px;  /* 오른쪽 스팀 아이콘 버튼과의 간격 */
 }
 
 @media (max-width: 768px) {
