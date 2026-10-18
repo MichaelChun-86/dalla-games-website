@@ -55,13 +55,14 @@
   /* ---------- 1-2. 헤더: 히어로를 지났는지 ----------
      히어로 위에서는 바 배경과 가운데 CI 를 숨기고, 히어로를 어느 정도 내려가면
      .is-past 를 붙여 나타나게 한다 (레퍼런스 사이트 방식).
-     기준: Wishlist Now·스팀 버튼 줄이 헤더 밑으로 완전히 가려졌을 때
-     (히어로가 30% 쯤 남았을 때다). 그 줄이 없으면 히어로 끝을 기준으로 한다. */
+     기준: AEONFALL 로고가 헤더 밑으로 완전히 들어갔을 때 (2026-10-19 — 그 전 기준인
+     Wishlist 줄은 너무 늦어서, 로고 위에 언어 버튼이 겹쳐 보이는 구간이 있었다).
+     로고가 없으면 히어로 끝을 기준으로 한다. */
   (function () {
     var header = document.getElementById("siteHeader");
     var hero = document.querySelector(".hero");
     if (!header || !hero) return;
-    var mark = document.querySelector(".hero-cta-row") || hero;
+    var mark = document.querySelector(".hero-title-wrap") || hero;
     function update() {
       var past = mark.getBoundingClientRect().bottom <= header.offsetHeight;
       header.classList.toggle("is-past", past);
