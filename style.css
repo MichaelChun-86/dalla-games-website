@@ -105,7 +105,7 @@ a {
    그래서 32×32 로 줄인 cursor-*.png 를 쓴다(원본 35px 파일은 images/Old 에 보존).
    잔상 크기(.ct-ghost, cursor-trail.css)도 이 값과 같이 맞춰야 한다. */
 html {
-  cursor: url('images/cursor-normal.png') 0 0, auto;
+  cursor: url('images/cursor-normal.png?v=3') 0 0, auto;
 }
 
 /* 클릭 가능한 요소 위: 호버 커서 1번 프레임이 기본.
@@ -120,7 +120,7 @@ button,
 label,
 [role="button"],
 [onclick] {
-  cursor: url('images/cursor-hover.png') 0 0, pointer;
+  cursor: url('images/cursor-hover.png?v=3') 0 0, pointer;
 }
 
 /* 공통 유틸 */
@@ -302,7 +302,7 @@ label,
   margin-right: -7px;          /* 넓힌 여백만큼 바깥으로 — 선 그림 위치는 그대로 */
   background: none;
   border: none;
-  cursor: url('images/cursor-hover.png') 0 0, pointer;
+  cursor: url('images/cursor-hover.png?v=3') 0 0, pointer;
 }
 .nav-toggle span {
   display: block;

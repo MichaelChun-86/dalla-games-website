@@ -30,7 +30,7 @@
   position: absolute;
   width: 32px;
   height: 32px;
-  background-image: url("images/cursor-normal.png");
+  background-image: url("images/cursor-normal.png?v=3");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   opacity: 0;            /* 평소엔 안 보임 — .on 이 붙는 순간만 나타남 */
@@ -60,13 +60,13 @@ html.cur-alt label,
 html.cur-alt [role="button"],
 html.cur-alt [onclick],
 html.cur-alt .video-facade {
-  cursor: url("images/cursor-normal.png") 0 0, pointer;
+  cursor: url("images/cursor-normal.png?v=3") 0 0, pointer;
 }
 
 /* FAQ 질문 위에서는 깜박이지 않고 커서 하나로 고정한다.
    읽는 동안 계속 올려 두는 자리라, 130ms 마다 그림이 바뀌면 눈에 거슬린다. */
 html.cur-alt .faq-q,
 .faq-q {
-  cursor: url("images/cursor-hover.png") 0 0, pointer;
+  cursor: url("images/cursor-hover.png?v=3") 0 0, pointer;
 }
 
