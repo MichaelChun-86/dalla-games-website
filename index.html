@@ -245,8 +245,10 @@
   <!-- 다국어(로컬라이제이션) 국기 버튼 스타일 — 스크립트는 body 끝에서 로드 -->
   <link rel="stylesheet" href="i18n.css?v=19" />
 
-  <!-- 추가 섹션(THE LOOP / FAQ) + 하단 소음 HUD 스타일 -->
+  <!-- 추가 섹션(FAQ) 스타일 -->
   <link rel="stylesheet" href="enhancements.css?v=19" />
+  <!-- 쿠키 동의 배너 + 푸터 법적 링크 스타일 -->
+  <link rel="stylesheet" href="consent.css?v=19" />
 
   <!-- 방문자 분석(GA4) + 스팀 위시리스트 클릭 추적.
        head 에 두는 이유: 아주 짧게 머물다 나가는 방문도 집계되게 하기 위함.
@@ -752,11 +754,31 @@
       </a>
     </div>
 
+    <!-- 개인정보처리방침 / 쿠키 설정(누르면 동의 배너가 다시 뜬다 — consent.js) -->
+    <nav class="footer-legal" aria-label="Legal">
+      <a href="privacy.html" data-i18n="legal.privacy">Privacy Policy</a>
+      <button type="button" data-cc-open data-i18n="legal.cookies">Cookie Settings</button>
+    </nav>
+
     <!-- 카피라이트: © 글자만 노토산스(.copy-symbol)로 처리 -->
     <p class="copyright">
       AeonFall&trade; <span class="copy-symbol">&copy;</span> 2026 DALLA GAMES INC. ALL RIGHTS RESERVED.
     </p>
   </footer>
+
+  <!-- ===================== 쿠키 동의 배너 =====================
+       고르기 전까지 화면 아래에 뜬다. "모두 허용"을 고른 경우에만 방문 통계(GA4)를 켠다.
+       두 버튼은 같은 모양 — 어느 쪽으로도 유도하지 않는다. (consent.js / consent.css) -->
+  <section class="cc-bar" id="ccBar" aria-labelledby="ccTitle" hidden>
+    <div class="cc-bar-text">
+      <h2 class="cc-bar-title" id="ccTitle" data-i18n="cc.title">We use cookies</h2>
+      <p data-i18n-html="cc.text">With your consent, we use Google Analytics cookies to see how visitors use this site. You can change your choice anytime under &ldquo;Cookie Settings&rdquo; at the bottom of the page.<a href="privacy.html">Privacy Policy</a></p>
+    </div>
+    <div class="cc-actions">
+      <button type="button" class="cc-btn" data-cc="denied" data-i18n="cc.reject">Necessary Only</button>
+      <button type="button" class="cc-btn" data-cc="granted" data-i18n="cc.accept">Accept All</button>
+    </div>
+  </section>
 
   <script src="script.js?v=19"></script>
   <!-- 합성 사운드 효과 (타이핑/CRT/스팀 버튼) — 기존 코드와 분리된 추가 파일 -->
@@ -766,6 +788,8 @@
   <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
   <script src="i18n.js?v=19"></script>
 
+  <!-- 쿠키 동의 배너 -->
+  <script src="consent.js?v=19"></script>
   <!-- 히어로 배경 영상: 데스크톱에서만 내려받아 재생 -->
   <script src="hero-video.js?v=19"></script>
 </body>

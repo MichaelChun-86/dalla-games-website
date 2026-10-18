@@ -1,0 +1,108 @@
+/* =========================================================================
+   쿠키 동의 배너 + 푸터 법적 링크 (레퍼런스 사이트 형식)
+   - 화면 맨 아래에 붙는 띠. 두 버튼은 같은 크기·같은 모양으로 둬서
+     어느 한쪽으로 유도하지 않는다(동의를 강요하지 않는다는 원칙).
+   - 각진 모서리 + 2px 반투명 흰 선은 사이트 공통 규칙.
+   ========================================================================= */
+.cc-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1100;                       /* 헤더(1000) 위 */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 32px;
+  padding: 20px clamp(16px, 3vw, 40px);
+  background: rgba(0, 0, 0, 0.96);
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  animation: cc-rise 0.4s ease both;
+}
+.cc-bar[hidden] { display: none; }
+@keyframes cc-rise {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.cc-bar-text {
+  display: flex;
+  flex: 1 1 520px;
+  flex-direction: column;
+  gap: 6px;
+}
+.cc-bar-title {
+  margin: 0;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 500;                    /* 이사만루 미디움 */
+}
+.cc-bar p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.7;
+  word-break: keep-all;          /* 한국어가 단어 중간에서 끊기지 않게 */
+}
+.cc-bar p a {
+  margin-left: 6px;
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cc-bar p a:hover { color: var(--mint-bright); }
+
+.cc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.cc-btn {
+  min-width: 140px;
+  height: 48px;
+  padding: 0 20px;
+  border: 2px solid var(--text);
+  background: var(--text);
+  color: #000;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.cc-btn:hover,
+.cc-btn:focus-visible {
+  background: var(--mint-bright);
+  border-color: var(--mint-bright);
+  outline: none;
+}
+
+/* ---- 푸터: 개인정보처리방침 / 쿠키 설정 ---- */
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+.footer-legal a,
+.footer-legal button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-dim);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.footer-legal a:hover,
+.footer-legal button:hover { color: var(--mint-bright); }
+
+@media (max-width: 640px) {
+  .cc-bar { padding: 16px; gap: 12px; }
+  .cc-bar p { font-size: 13px; }
+  .cc-actions { width: 100%; }
+  .cc-btn { flex: 1 1 0; min-width: 0; height: 44px; font-size: 14px; }
+}

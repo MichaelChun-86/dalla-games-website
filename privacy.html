@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy – Dalla Games</title>
+  <meta name="description" content="How the Dalla Games website (dallagames.com) uses cookies, analytics and your contact details." />
+  <link rel="canonical" href="https://dallagames.com/privacy.html" />
+  <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+
+  <!-- 폰트·색상 변수·커스텀 커서는 본 사이트 스타일을 그대로 쓴다 -->
+  <link rel="stylesheet" href="style.css?v=19" />
+  <link rel="stylesheet" href="consent.css?v=19" />
+  <style>
+    /* ---- 이 페이지 전용: 읽기 편한 문서 레이아웃 ---- */
+    .doc {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+    }
+    .doc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+    }
+    .doc-top img { height: 30px; width: auto; }
+    .doc-back { color: var(--text-dim); font-size: 14px; }
+    .doc-back:hover { color: var(--mint-bright); }
+
+    /* 언어 전환: English / 한국어 */
+    .doc-langs { display: flex; gap: 10px; margin: 32px 0 8px; }
+    .doc-langs button {
+      height: 40px;
+      padding: 0 16px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      background: rgba(0, 0, 0, 0.5);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+    }
+    .doc-langs button[aria-pressed="true"],
+    .doc-langs button:hover { color: var(--mint-bright); border-color: var(--mint-bright); }
+
+    .doc-kicker {
+      display: block;
+      margin-top: 40px;
+      color: var(--mint-bright);
+      font-size: 13px;
+      letter-spacing: 0.4em;
+    }
+    .doc h1 { margin: 14px 0 8px; font-size: clamp(26px, 4vw, 38px); font-weight: 500; line-height: 1.3; }
+    .doc .doc-date { color: var(--text-dim); font-size: 14px; }
+    .doc h2 {
+      margin: 44px 0 12px;
+      padding-top: 24px;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      font-size: 19px;
+      font-weight: 500;
+    }
+    .doc p, .doc li, .doc td { font-size: 15px; line-height: 1.85; color: var(--text); word-break: keep-all; }
+    .doc p + p { margin-top: 12px; }
+    .doc ul { margin: 10px 0 0 20px; }
+    .doc li + li { margin-top: 6px; }
+    .doc a { color: var(--mint-bright); text-decoration: underline; text-underline-offset: 3px; }
+    .doc code { font-family: Consolas, monospace; font-size: 14px; color: var(--text); }
+    .doc table { width: 100%; margin-top: 12px; border-collapse: collapse; font-size: 14px; }
+    .doc th, .doc td {
+      padding: 10px 12px 10px 0;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    .doc th { color: var(--text-dim); font-weight: 300; white-space: nowrap; }
+    .doc-cookie-btn {
+      margin-top: 14px;
+      height: 44px;
+      padding: 0 18px;
+      border: 2px solid var(--text);
+      background: var(--text);
+      color: #000;
+      font-family: inherit;
+      font-size: 14px;
+    }
+    .doc-cookie-btn:hover { background: var(--mint-bright); border-color: var(--mint-bright); }
+    [hidden] { display: none !important; }
+    @media (max-width: 640px) {
+      .doc { padding-top: 32px; }
+      .doc p, .doc li { font-size: 14px; }
+      .doc th, .doc td { display: block; padding-right: 0; }
+      .doc th { border-bottom: 0; padding-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="doc">
+    <div class="doc-top">
+      <a href="./" aria-label="Dalla Games home"><img src="images/logo-dalla.webp" alt="Dalla Games" /></a>
+      <a class="doc-back" href="./">&larr; dallagames.com</a>
+    </div>
+
+    <!-- 언어 전환: 사이트에서 한국어를 골랐거나 주소가 #ko 면 한국어부터 보여 준다 -->
+    <div class="doc-langs" role="group" aria-label="Language">
+      <button type="button" data-doc-lang="en" aria-pressed="true">English</button>
+      <button type="button" data-doc-lang="ko" aria-pressed="false">한국어</button>
+    </div>
+
+    <!-- ===================== English ===================== -->
+    <article lang="en" data-doc="en">
+      <span class="doc-kicker">PRIVACY POLICY</span>
+      <h1>Privacy Policy</h1>
+      <p class="doc-date">Effective 18 October 2026</p>
+
+      <h2>Who we are</h2>
+      <p>This website, <a href="https://dallagames.com/">dallagames.com</a>, is run by Dalla Games Inc., the developer of AeonFall. If you have any question about this policy or your data, write to <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>.</p>
+
+      <h2>What we collect, and why</h2>
+      <table>
+        <tr><th>Visit statistics</th><td><strong>Only if you choose &ldquo;Accept All&rdquo;.</strong> We use Google Analytics 4 to count visits and see which pages and buttons are used: pages viewed, the site that sent you here, approximate country and city, device and browser type, and actions on this page (for example pressing a Steam button, playing the trailer, changing the language, opening an FAQ answer, how far you scroll). Google Analytics 4 does not log or store IP addresses. We use this only to improve the site and our announcements.</td></tr>
+        <tr><th>Your choices</th><td>Your language and your cookie choice are saved in your own browser (local storage) so the site remembers them. They are not sent to us.</td></tr>
+        <tr><th>Email</th><td>If you email us, we use your address and message only to reply to you.</td></tr>
+      </table>
+      <p>We do not sell personal data, and we do not use advertising cookies.</p>
+
+      <h2>Cookies</h2>
+      <table>
+        <tr><th><code>_ga</code>, <code>_ga_&lt;ID&gt;</code></th><td>Google Analytics. Set only after you accept. Distinguishes one visitor from another. Expires after up to 2 years.</td></tr>
+        <tr><th><code>dalla-consent</code></th><td>Local storage. Remembers whether you accepted. Necessary.</td></tr>
+        <tr><th><code>aeon-lang</code></th><td>Local storage. Remembers the language you chose. Necessary.</td></tr>
+      </table>
+      <p>You can change your choice at any time. Choosing &ldquo;Necessary Only&rdquo; stops the statistics and deletes the Google Analytics cookies from this site.</p>
+      <button type="button" class="doc-cookie-btn" data-cc-open>Cookie Settings</button>
+
+      <h2>Other services on the page</h2>
+      <ul>
+        <li><strong>YouTube</strong> &mdash; the trailer is loaded from youtube-nocookie.com only when you press play. From then on YouTube&rsquo;s own privacy policy applies.</li>
+        <li><strong>Steam</strong> &mdash; Steam buttons take you to Valve&rsquo;s store, where Valve&rsquo;s privacy policy applies.</li>
+        <li><strong>Hosting</strong> &mdash; the site is served by GitHub Pages. Like any web server, GitHub may keep technical logs (such as IP addresses) for security.</li>
+      </ul>
+
+      <h2>Where the data goes, and how long we keep it</h2>
+      <p>Visit statistics are processed by Google LLC, including on servers in the United States. Statistics data is kept for no longer than 14 months and is then deleted automatically. Emails are kept only as long as needed to deal with your enquiry.</p>
+
+      <h2>Your rights</h2>
+      <p>You can withdraw consent at any time with &ldquo;Cookie Settings&rdquo;. You can also ask us to tell you what we hold about you, or to correct or delete it, by emailing <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>. If you are in the EU/UK you may also complain to your local data protection authority.</p>
+
+      <h2>Changes</h2>
+      <p>If this policy changes, we will update it on this page and change the date at the top.</p>
+    </article>
+
+    <!-- ===================== 한국어 ===================== -->
+    <article lang="ko" data-doc="ko" hidden>
+      <span class="doc-kicker">PRIVACY POLICY</span>
+      <h1>개인정보처리방침</h1>
+      <p class="doc-date">시행일: 2026년 10월 18일</p>
+
+      <h2>운영자</h2>
+      <p>이 웹사이트(<a href="https://dallagames.com/">dallagames.com</a>)는 AeonFall 개발사인 달라게임즈(Dalla Games Inc.)가 운영합니다. 개인정보와 관련한 문의는 <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a> 으로 보내 주세요.</p>
+
+      <h2>수집하는 정보와 목적</h2>
+      <table>
+        <tr><th>방문 통계</th><td><strong>‘모두 허용’을 고른 경우에만</strong> Google Analytics 4 로 방문 통계를 수집합니다. 본 페이지, 유입 경로(어느 사이트에서 왔는지), 대략적인 국가·도시, 기기·브라우저 종류, 페이지 안의 행동(스팀 버튼 클릭, 트레일러 재생, 언어 변경, FAQ 열람, 스크롤 깊이 등)이 해당됩니다. Google Analytics 4 는 IP 주소를 기록·저장하지 않습니다. 사이트와 소식 안내를 개선하는 데만 사용합니다.</td></tr>
+        <tr><th>선택 기록</th><td>고른 언어와 쿠키 동의 여부는 방문자의 브라우저(로컬 저장소)에만 저장되며, 저희에게 전송되지 않습니다.</td></tr>
+        <tr><th>이메일 문의</th><td>메일을 보내 주시면 답장을 위해서만 주소와 내용을 사용합니다.</td></tr>
+      </table>
+      <p>개인정보를 판매하지 않으며, 광고용 쿠키를 사용하지 않습니다.</p>
+
+      <h2>쿠키</h2>
+      <table>
+        <tr><th><code>_ga</code>, <code>_ga_&lt;ID&gt;</code></th><td>Google Analytics. 동의한 뒤에만 저장됩니다. 방문자를 서로 구분하는 용도이며 최대 2년 뒤 만료됩니다.</td></tr>
+        <tr><th><code>dalla-consent</code></th><td>로컬 저장소. 동의 여부를 기억합니다. 필수.</td></tr>
+        <tr><th><code>aeon-lang</code></th><td>로컬 저장소. 고른 언어를 기억합니다. 필수.</td></tr>
+      </table>
+      <p>선택은 언제든 바꿀 수 있습니다. ‘필수만 허용’을 고르면 방문 통계 수집이 멈추고, 이 사이트의 Google Analytics 쿠키가 삭제됩니다.</p>
+      <button type="button" class="doc-cookie-btn" data-cc-open>쿠키 설정</button>
+
+      <h2>페이지 안의 외부 서비스</h2>
+      <ul>
+        <li><strong>YouTube</strong> &mdash; 트레일러는 재생 버튼을 누를 때에만 youtube-nocookie.com 에서 불러옵니다. 그때부터는 YouTube 의 개인정보처리방침이 적용됩니다.</li>
+        <li><strong>Steam</strong> &mdash; 스팀 버튼을 누르면 Valve 의 스토어로 이동하며, Valve 의 개인정보처리방침이 적용됩니다.</li>
+        <li><strong>호스팅</strong> &mdash; 이 사이트는 GitHub Pages 에서 제공됩니다. 일반적인 웹 서버처럼 GitHub 가 보안을 위해 기술 로그(IP 주소 등)를 남길 수 있습니다.</li>
+      </ul>
+
+      <h2>국외 이전 및 보유 기간</h2>
+      <p>방문 통계는 Google LLC(미국)가 처리하며, 미국 등 국외 서버에 저장될 수 있습니다. 통계 데이터는 최대 14개월 보관 후 자동 삭제됩니다. 이메일은 문의 처리에 필요한 기간 동안만 보관합니다.</p>
+
+      <h2>이용자의 권리</h2>
+      <p>‘쿠키 설정’에서 언제든 동의를 철회할 수 있습니다. 저희가 가진 정보의 열람·정정·삭제를 원하시면 <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a> 으로 요청해 주세요.</p>
+
+      <h2>개인정보 보호책임자</h2>
+      <p>달라게임즈(Dalla Games Inc.) &middot; <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a></p>
+
+      <h2>변경</h2>
+      <p>이 방침이 바뀌면 이 페이지에 반영하고 맨 위 시행일을 고칩니다.</p>
+    </article>
+  </main>
+
+  <!-- 쿠키 동의 배너 (본 페이지와 같은 것 — "쿠키 설정" 버튼으로 연다) -->
+  <section class="cc-bar" id="ccBar" aria-labelledby="ccTitle" hidden>
+    <div class="cc-bar-text">
+      <h2 class="cc-bar-title" id="ccTitle">We use cookies · 쿠키 사용 안내</h2>
+      <p>With your consent, we use Google Analytics cookies to see how visitors use this site. / 방문 통계를 위해, 동의하신 경우에만 Google Analytics 쿠키를 사용합니다.</p>
+    </div>
+    <div class="cc-actions">
+      <button type="button" class="cc-btn" data-cc="denied">Necessary Only · 필수만 허용</button>
+      <button type="button" class="cc-btn" data-cc="granted">Accept All · 모두 허용</button>
+    </div>
+  </section>
+
+  <script>
+    /* 영어 / 한국어 전환.
+       처음 보여 줄 언어: 주소가 #ko 이거나, 사이트에서 한국어를 골라 둔 경우 한국어. */
+    (function () {
+      var buttons = document.querySelectorAll("[data-doc-lang]");
+      function show(lang) {
+        document.querySelectorAll("[data-doc]").forEach(function (a) {
+          a.hidden = a.getAttribute("data-doc") !== lang;
+        });
+        buttons.forEach(function (b) {
+          b.setAttribute("aria-pressed", b.getAttribute("data-doc-lang") === lang ? "true" : "false");
+        });
+        document.documentElement.lang = lang;
+      }
+      buttons.forEach(function (b) {
+        b.addEventListener("click", function () { show(b.getAttribute("data-doc-lang")); });
+      });
+      var saved = null;
+      try { saved = localStorage.getItem("aeon-lang"); } catch (e) {}
+      show(location.hash === "#ko" || saved === "ko" ? "ko" : "en");
+    })();
+  </script>
+  <!-- 이 페이지에서는 통계를 켜지 않는다(analytics.js 없음). 쿠키 설정 변경만 가능하다.
+       본 페이지로 돌아가면 analytics.js 가 바뀐 선택을 읽는다. -->
+  <script src="consent.js?v=19"></script>
+</body>
+</html>

@@ -38,6 +38,10 @@
          placement 처럼 파라미터별로 나눠 보려면 [관리 > 맞춤 정의] 에서
          "맞춤 측정기준"으로 한 번 등록해 주면 된다.
 
+   [쿠키 동의]
+     쿠키 배너에서 "모두 허용"을 고른 방문자만 집계한다(consent.js 참고).
+     고르지 않았거나 "필수만 허용"이면 GA4 를 아예 불러오지 않는다.
+
    [로컬 테스트는 집계에서 제외]
      localhost / 127.0.0.1 / file:// 에서는 전송하지 않는다.
      실제 방문 통계에 개발 중 클릭이 섞이지 않게 하기 위함.
@@ -79,168 +83,208 @@
   // ID 미설정 / 로컬 / 제외 지정 → 통째로 비활성
   if (!MEASUREMENT_ID || isLocal || excluded) return;
 
-  /* ---------- GA4 기본 스니펫 ---------- */
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { window.dataLayer.push(arguments); }
-  window.gtag = gtag;
+  /* ---------- 쿠키 동의 확인 ----------
+     방문자가 쿠키 배너에서 "모두 허용"을 고른 경우에만 GA4 를 불러온다.
+     consent.js 가 선택을 localStorage "dalla-consent" 에 남기고
+     "dalla:consent" 이벤트로 알려 준다.
+       · 아직 안 골랐거나 "필수만 허용" → 아무것도 보내지 않는다(구글로 나가는 요청도 없음)
+       · 나중에 "모두 허용" → 그 순간부터 시작
+       · 허용했다가 "필수만 허용"으로 바꾸면 → 수집을 멈추고 GA 쿠키(_ga…)를 지운다 */
+  var CONSENT_KEY = "dalla-consent";
+  var started = false;
 
-  gtag("js", new Date());
-  gtag("config", MEASUREMENT_ID);
+  function consent() {
+    try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
+  }
 
-  var s = document.createElement("script");
-  s.async = true;                  // 렌더링을 막지 않는다
-  s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(MEASUREMENT_ID);
-  document.head.appendChild(s);
+  // 철회: 남은 페이지 동안 수집을 멈춘다. (GA 쿠키 삭제는 consent.js 가 한다)
+  function revoke() {
+    if (!started) return;
+    window.gtag("consent", "update", { analytics_storage: "denied" });
+  }
 
-  /* 현재 언어: i18n.js 가 언어를 바꿀 때 <html lang> 도 함께 갱신한다 */
-  function lang() { return document.documentElement.lang || "en"; }
+  window.addEventListener("dalla:consent", function () {
+    if (consent() === "granted") startAnalytics();
+    else revoke();
+  });
+  if (consent() === "granted") startAnalytics();
 
-  /* ---------- 스팀 위시리스트 클릭 ----------
-     버튼마다 data 속성을 다는 대신, 이미 있는 클래스로 위치를 알아낸다
-     (HTML 은 건드리지 않는다). 새 버튼이 생기면 아래 표에 한 줄만 추가. */
-  var PLACEMENTS = [
-    [".steam-btn", "hero"],        // 히어로 스팀 버튼
-    [".header-steam", "header"],   // 헤더 상시 버튼 (데스크톱 문구형 / 모바일 아이콘형)
-    [".nav-social", "menu"],       // 모바일 메뉴 안
-    [".site-footer", "footer"]     // 페이지 맨 아래
-  ];
-
-  function placementOf(el) {
-    for (var i = 0; i < PLACEMENTS.length; i++) {
-      if (el.closest(PLACEMENTS[i][0])) return PLACEMENTS[i][1];
+  function startAnalytics() {
+    // 철회했다가 다시 허용한 경우: 이미 불러온 GA 를 다시 켜기만 한다
+    if (started) {
+      window.gtag("consent", "update", { analytics_storage: "granted" });
+      return;
     }
-    return "other";
-  }
+    started = true;
 
-  /* 클릭을 문서 전체에서 한 번만 듣는다(버튼마다 리스너를 달지 않음).
-     스팀 링크는 모두 target="_blank" 라 현재 페이지가 유지되므로
-     전송이 중간에 끊길 걱정이 없다. */
-  document.addEventListener("click", function (e) {
-    var a = e.target.closest && e.target.closest('a[href*="store.steampowered.com"]');
-    if (!a) return;
+    /* ---------- GA4 기본 스니펫 ---------- */
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = gtag;
 
-    gtag("event", "wishlist_click", {
-      placement: placementOf(a),
-      language: lang(),
-      link_url: a.href
-    });
-  });
+    gtag("js", new Date());
+    gtag("config", MEASUREMENT_ID);
 
-  /* ---------- 트레일러 재생 ---------- */
-  document.addEventListener("click", function (ev) {
-    if (!ev.target.closest || !ev.target.closest(".video-facade")) return;
-    gtag("event", "trailer_play", { language: lang() });
-  });
+    var s = document.createElement("script");
+    s.async = true;                  // 렌더링을 막지 않는다
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(MEASUREMENT_ID);
+    document.head.appendChild(s);
 
-  /* ---------- 언어 변경 ----------
-     capture 단계로 듣는다. i18n.js 의 핸들러는 버튼 자신에 달려 있어
-     bubble 단계보다 먼저 실행되고, 그 안에서 <html lang> 을 새 언어로
-     바꿔 버린다. bubble 로 들으면 바뀐 뒤라 from 과 to 가 항상 같아져
-     이벤트가 하나도 안 나간다. capture 로 먼저 잡아야 바뀌기 전 값을 읽는다. */
-  document.addEventListener("click", function (ev) {
-    var b = ev.target.closest && ev.target.closest(".lang-btn");
-    if (!b) return;
-    var to = b.getAttribute("data-lang");
-    if (!to || to === lang()) return;      // 같은 언어를 다시 누른 건 세지 않는다
-    gtag("event", "language_change", { from: lang(), to: to });
-  }, true);
+    /* 현재 언어: i18n.js 가 언어를 바꿀 때 <html lang> 도 함께 갱신한다 */
+    function lang() { return document.documentElement.lang || "en"; }
 
-  /* ---------- FAQ 질문 펼침 ----------
-     어떤 질문을 실제로 눌러보는지. 방문자가 무엇을 궁금해하는지가 남는다.
-     같은 질문을 접었다 다시 펴도 한 번만 센다 — 여닫기를 반복하면
-     관심도가 아니라 만지작거린 횟수가 되어 버린다. */
-  var faqOpened = {};
-  document.addEventListener("click", function (ev2) {
-    var b = ev2.target.closest && ev2.target.closest(".faq-q");
-    if (!b) return;
-    /* 모바일은 처음부터 펼쳐져 있어 "열었다"가 성립하지 않는다 */
-    if (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) return;
-    // script.js 가 클래스를 토글하기 전이므로, 지금 닫혀 있으면 곧 열린다
-    var willOpen = !b.closest(".faq-item").classList.contains("is-open");
-    var id = b.getAttribute("data-faq");
-    if (!willOpen || !id || faqOpened[id]) return;
-    faqOpened[id] = true;
-    gtag("event", "faq_open", { question: id, language: lang() });
-  }, true);
+    /* ---------- 스팀 위시리스트 클릭 ----------
+       버튼마다 data 속성을 다는 대신, 이미 있는 클래스로 위치를 알아낸다
+       (HTML 은 건드리지 않는다). 새 버튼이 생기면 아래 표에 한 줄만 추가. */
+    var PLACEMENTS = [
+      [".steam-btn", "hero"],        // 히어로 스팀 버튼
+      [".header-steam", "header"],   // 헤더 상시 버튼 (데스크톱 문구형 / 모바일 아이콘형)
+      [".nav-social", "menu"],       // 모바일 메뉴 안
+      [".site-footer", "footer"]     // 페이지 맨 아래
+    ];
 
-  /* ---------- FAQ 열람 ----------
-     FAQ 는 접었다 펴는 구조가 아니라 늘 펼쳐져 있으므로,
-     "열었다"가 아니라 "실제로 화면에 보였다"를 센다.
-     한 번 보면 관측을 끊어, 오르내려도 세션당 1회만 보낸다. */
-  var faqEl = document.querySelector(".faq");
-  if (faqEl && "IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) return;
-      io.disconnect();
-      gtag("event", "faq_view", { language: lang() });
-    }, { threshold: 0.25 });
-    io.observe(faqEl);
-  }
-
-
-  /* ---------- 스크롤 깊이 ----------
-     방문자가 페이지를 어디까지 내려봤는지. 25/50/75/100% 지점을 지날 때
-     한 번씩만 보낸다. 어디서 이탈하는지 깔때기로 볼 수 있다.
-     스크롤은 초당 수십 번 발생하므로 requestAnimationFrame 으로 묶어
-     프레임당 한 번만 계산한다(스크롤이 버벅이지 않게). */
-  (function trackScrollDepth() {
-    var marks = [25, 50, 75, 100];
-    var hit = {};                    // 이미 보낸 지점
-    var ticking = false;
-    var started = false;
-
-    function measure() {
-      ticking = false;
-      var doc = document.documentElement;
-      var total = doc.scrollHeight - window.innerHeight;
-
-      /* 아직 잴 수 없는 상태면 아무것도 보내지 않는다.
-         이 파일은 <head> 에서 실행되므로, 예전에는 <body> 가 만들어지기 전에
-         높이를 재고 "스크롤할 게 없다 → 100%" 로 판단해 네 단계를 한꺼번에
-         쏴 버렸다. 그래서 25/50/75/100 이 전부 같은 숫자로 나왔다. */
-      if (!document.body) return;
-
-      var pct;
-      if (total > 0) {
-        pct = (window.scrollY / total) * 100;
-      } else if (started) {
-        /* 페이지가 다 그려진 뒤에도 스크롤할 것이 없다면
-           화면 하나로 끝나는 문서다 — 그때만 끝까지 본 것으로 친다. */
-        pct = 100;
-      } else {
-        return;                      // 아직 레이아웃 전 — 판단 보류
+    function placementOf(el) {
+      for (var i = 0; i < PLACEMENTS.length; i++) {
+        if (el.closest(PLACEMENTS[i][0])) return PLACEMENTS[i][1];
       }
+      return "other";
+    }
 
-      for (var i = 0; i < marks.length; i++) {
-        var m = marks[i];
-        if (pct >= m && !hit[m]) {
-          hit[m] = true;
-          gtag("event", "scroll_" + m, { language: lang() });
+    /* 클릭을 문서 전체에서 한 번만 듣는다(버튼마다 리스너를 달지 않음).
+       스팀 링크는 모두 target="_blank" 라 현재 페이지가 유지되므로
+       전송이 중간에 끊길 걱정이 없다. */
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest('a[href*="store.steampowered.com"]');
+      if (!a) return;
+
+      gtag("event", "wishlist_click", {
+        placement: placementOf(a),
+        language: lang(),
+        link_url: a.href
+      });
+    });
+
+    /* ---------- 트레일러 재생 ---------- */
+    document.addEventListener("click", function (ev) {
+      if (!ev.target.closest || !ev.target.closest(".video-facade")) return;
+      gtag("event", "trailer_play", { language: lang() });
+    });
+
+    /* ---------- 언어 변경 ----------
+       capture 단계로 듣는다. i18n.js 의 핸들러는 버튼 자신에 달려 있어
+       bubble 단계보다 먼저 실행되고, 그 안에서 <html lang> 을 새 언어로
+       바꿔 버린다. bubble 로 들으면 바뀐 뒤라 from 과 to 가 항상 같아져
+       이벤트가 하나도 안 나간다. capture 로 먼저 잡아야 바뀌기 전 값을 읽는다. */
+    document.addEventListener("click", function (ev) {
+      var b = ev.target.closest && ev.target.closest(".lang-btn");
+      if (!b) return;
+      var to = b.getAttribute("data-lang");
+      if (!to || to === lang()) return;      // 같은 언어를 다시 누른 건 세지 않는다
+      gtag("event", "language_change", { from: lang(), to: to });
+    }, true);
+
+    /* ---------- FAQ 질문 펼침 ----------
+       어떤 질문을 실제로 눌러보는지. 방문자가 무엇을 궁금해하는지가 남는다.
+       같은 질문을 접었다 다시 펴도 한 번만 센다 — 여닫기를 반복하면
+       관심도가 아니라 만지작거린 횟수가 되어 버린다. */
+    var faqOpened = {};
+    document.addEventListener("click", function (ev2) {
+      var b = ev2.target.closest && ev2.target.closest(".faq-q");
+      if (!b) return;
+      /* 모바일은 처음부터 펼쳐져 있어 "열었다"가 성립하지 않는다 */
+      if (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) return;
+      // script.js 가 클래스를 토글하기 전이므로, 지금 닫혀 있으면 곧 열린다
+      var willOpen = !b.closest(".faq-item").classList.contains("is-open");
+      var id = b.getAttribute("data-faq");
+      if (!willOpen || !id || faqOpened[id]) return;
+      faqOpened[id] = true;
+      gtag("event", "faq_open", { question: id, language: lang() });
+    }, true);
+
+    /* ---------- FAQ 열람 ----------
+       FAQ 는 접었다 펴는 구조가 아니라 늘 펼쳐져 있으므로,
+       "열었다"가 아니라 "실제로 화면에 보였다"를 센다.
+       한 번 보면 관측을 끊어, 오르내려도 세션당 1회만 보낸다. */
+    /* 이 파일은 <head> 에서 실행되므로 그 시점엔 .faq 가 아직 없다.
+       예전엔 그래서 faq_view 가 한 번도 나가지 않았다 → 문서가 다 만들어진 뒤에 찾는다. */
+    function watchFaq() {
+      var faqEl = document.querySelector(".faq");
+      if (!faqEl || !("IntersectionObserver" in window)) return;
+      var io = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        io.disconnect();
+        gtag("event", "faq_view", { language: lang() });
+      }, { threshold: 0.25 });
+      io.observe(faqEl);
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", watchFaq);
+    else watchFaq();
+
+
+    /* ---------- 스크롤 깊이 ----------
+       방문자가 페이지를 어디까지 내려봤는지. 25/50/75/100% 지점을 지날 때
+       한 번씩만 보낸다. 어디서 이탈하는지 깔때기로 볼 수 있다.
+       스크롤은 초당 수십 번 발생하므로 requestAnimationFrame 으로 묶어
+       프레임당 한 번만 계산한다(스크롤이 버벅이지 않게). */
+    (function trackScrollDepth() {
+      var marks = [25, 50, 75, 100];
+      var hit = {};                    // 이미 보낸 지점
+      var ticking = false;
+      var started = false;
+
+      function measure() {
+        ticking = false;
+        var doc = document.documentElement;
+        var total = doc.scrollHeight - window.innerHeight;
+
+        /* 아직 잴 수 없는 상태면 아무것도 보내지 않는다.
+           이 파일은 <head> 에서 실행되므로, 예전에는 <body> 가 만들어지기 전에
+           높이를 재고 "스크롤할 게 없다 → 100%" 로 판단해 네 단계를 한꺼번에
+           쏴 버렸다. 그래서 25/50/75/100 이 전부 같은 숫자로 나왔다. */
+        if (!document.body) return;
+
+        var pct;
+        if (total > 0) {
+          pct = (window.scrollY / total) * 100;
+        } else if (started) {
+          /* 페이지가 다 그려진 뒤에도 스크롤할 것이 없다면
+             화면 하나로 끝나는 문서다 — 그때만 끝까지 본 것으로 친다. */
+          pct = 100;
+        } else {
+          return;                      // 아직 레이아웃 전 — 판단 보류
+        }
+
+        for (var i = 0; i < marks.length; i++) {
+          var m = marks[i];
+          if (pct >= m && !hit[m]) {
+            hit[m] = true;
+            gtag("event", "scroll_" + m, { language: lang() });
+          }
+        }
+        if (hit[100]) {
+          window.removeEventListener("scroll", onScroll);
+          window.removeEventListener("resize", onScroll);
         }
       }
-      if (hit[100]) {
-        window.removeEventListener("scroll", onScroll);
-        window.removeEventListener("resize", onScroll);
+
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(measure);
       }
-    }
 
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(measure);
-    }
+      /* 문서가 완전히 그려진 뒤부터 잰다. 이미지·폰트가 자리를 잡아야
+         문서 높이가 실제 값이 되고, 그래야 비율이 맞는다. */
+      function begin() {
+        started = true;
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        measure();                     // 열자마자 이미 보이는 만큼 먼저 집계
+      }
 
-    /* 문서가 완전히 그려진 뒤부터 잰다. 이미지·폰트가 자리를 잡아야
-       문서 높이가 실제 값이 되고, 그래야 비율이 맞는다. */
-    function begin() {
-      started = true;
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll, { passive: true });
-      measure();                     // 열자마자 이미 보이는 만큼 먼저 집계
-    }
-
-    if (document.readyState === "complete") begin();
-    else window.addEventListener("load", begin);
-  })();
+      if (document.readyState === "complete") begin();
+      else window.addEventListener("load", begin);
+    })();
+  }
 
 })();
