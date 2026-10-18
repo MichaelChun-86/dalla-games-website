@@ -117,7 +117,7 @@
    ▶ 제목에 들어가는 한자는 모두 이 규칙으로 통일한다.
      새 제목이 생기면 아래 셀렉터 목록에 그 요소를 추가할 것.
      - CJK 전용(또는 숫자만) 제목  → CJK-우선 스택(전체를 두툼하게)
-       예: .hero-coming(2027…), .section-title(OUR GAMES/ABOUT US 번역)
+       예: .hero-coming(2027…), .sec-title(섹션 제목 번역)
      - 라틴 워드마크 + 한자 혼합 제목 → 이사만루-우선 스택(라틴은 이사만루 유지,
        뒤따르는 한자만 두툼한 CJK 폰트로) 예: .epic-title(Epic MegaGrant 受賞…)
 
@@ -128,8 +128,8 @@
          "Meiryo","Source Han Sans JP","Noto Sans JP", sans-serif
    ========================================================================= */
 
-/* 중국어(간체) — 섹션 제목(OUR GAMES/ABOUT US): 통째로 두툼한 고딕 */
-html[lang="zh"] .section-title {
+/* 중국어(간체) — 섹션 제목(.sec-title): 통째로 두툼한 고딕 */
+html[lang="zh"] .sec-title {
   font-family: "Microsoft YaHei", "微软雅黑", "PingFang SC",
                "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans SC", sans-serif;
   font-weight: 700;
@@ -154,8 +154,8 @@ html[lang="zh"] .epic-title {
   font-weight: 700;
 }
 
-/* 일본어 — 섹션 제목(OUR GAMES/ABOUT US): 한자(私)와 かな를 같은 폰트/굵기로 통일 */
-html[lang="ja"] .section-title {
+/* 일본어 — 섹션 제목(.sec-title): 한자(私)와 かな를 같은 폰트/굵기로 통일 */
+html[lang="ja"] .sec-title {
   font-family: "Yu Gothic", "YuGothic", "Hiragino Kaku Gothic ProN",
                "Hiragino Sans", "Meiryo", "Source Han Sans JP", "Noto Sans JP", sans-serif;
   font-weight: 700;

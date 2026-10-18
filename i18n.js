@@ -11,7 +11,7 @@
    - 게임 프로젝트명은 모든 언어에서 항상 "AeonFall"(로고 이미지 자체는 제외).
    - data-i18n     : textContent 교체
      data-i18n-html: innerHTML 교체(accent 강조 span 포함)
-   - 특정 언어에 번역이 없는 키(예: 한국어의 games.title/about.title)는 페이지에
+   - 특정 언어에 번역이 없는 키(예: 한국어의 about.subtitle)는 페이지에
      원래 쓰여 있던 원문(영문)으로 되돌아간다. 그래서 언어를 오갔다가 돌아와도
      이전 언어가 어색하게 남지 않는다.
    ========================================================================= */
@@ -62,11 +62,6 @@
     },
 
     /* ---- OUR GAMES ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
-    "games.title": {
-      en: 'OUR <span class="accent">GAME</span>',
-      zh: '我们的<span class="accent">游戏</span>',
-      ja: '私たちの<span class="accent">ゲーム</span>'
-    },
     "games.subtitle": {
       ko: "AeonFall – 하드코어 로그라이크 디펜스",
       en: "AeonFall – Hardcore Roguelike Defense",
@@ -103,7 +98,6 @@
     },
 
     /* ---- FAQ ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
-    "faq.title": { en: "FAQ", zh: "常见<span class=\"accent\">问题</span>", ja: "よくある<span class=\"accent\">質問</span>" },
     "faq.subtitle": {
       ko: "지금 확실히 말씀드릴 수 있는 것들",
       en: "What we can tell you right now",
@@ -233,10 +227,6 @@
     },
 
     /* ---- ABOUT US ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
-    "about.title": {
-      en: 'ABOUT <span class="accent">US</span>',
-      zh: '关于<span class="accent">我们</span>', ja: '<span class="accent">私たち</span>について'
-    },
     "about.subtitle": {
       en: "Dalla Games Inc.", zh: "Dalla Games Inc.", ja: "Dalla Games Inc."
     },
@@ -272,7 +262,7 @@
   };
 
   // 각 대상 요소의 "원래(영문) 내용"을 최초 1회 저장해 둔다.
-  // 특정 언어에 번역이 없을 때(예: ko 의 games.title/about.title) 이 원문으로 되돌아간다.
+  // 특정 언어에 번역이 없을 때(예: ko 의 about.subtitle) 이 원문으로 되돌아간다.
   var ORIG_TEXT = new WeakMap();
   var ORIG_HTML = new WeakMap();
   function captureOriginals() {
