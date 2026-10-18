@@ -146,3 +146,7 @@ body.fx-scan-done .scroll-down {
 }
 /* Wishlist 블러 교체는 페이드인이 끝난 뒤에 시작(등장 중 깜빡임 방지) */
 body.fx-scan-done .hero-subtitle-glow { animation-delay: 1.2s; }
+/* 스팀 버튼 시선 유도(테두리 점등·빛 스윕)도 등장이 끝난 뒤, 같은 시점에 시작 */
+body.fx-scan-done .steam-btn,
+body.fx-scan-done .steam-btn::after { animation-delay: 1.2s; }
+html.fx-scan-wait .steam-btn::after, body.fx-scanning .steam-btn::after { animation: none; }
