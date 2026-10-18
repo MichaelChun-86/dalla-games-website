@@ -47,8 +47,8 @@
   --sweep-angle: 105deg;    /* 하이라이트 기울기(사선 각도). */
   /* 하이라이트 색 — R,G,B 값만 적는다.
      로고가 거의 순수한 네온 그린이라, 같은 그린 빛은 스크린 합성으로 겹쳐도 티가 안 난다.
-     그래서 아주 옅은 민트빛 흰색으로 둔다 (#ebfff2). */
-  --sweep-color: 235, 255, 242;
+     흰색(#ebfff2)은 너무 하얘서, 더 밝고 채도를 낮춘 네온 그린으로 둔다 (#bcffd6). */
+  --sweep-color: 188, 255, 214;
 
   /* ---- 히어로 하단 문구 블록이 차지하는 높이 ----
      스크롤 화살표와 Epic 배지를 이 값 위로 올려 문구를 가리지 않게 한다. */
@@ -370,6 +370,9 @@ label,
   top: 77px;
   width: 100%;
   max-width: 600px;
+  /* 히어로 로고 폭. 로고 크기와 위 문구 간격(.hero-hook 의 음수 마진)이 모두 이 값에서 나온다.
+     % 는 이 묶음(.hero-content) 폭 기준이라, 두 곳 모두 같은 길이로 계산된다. */
+  --logo-w: min(493px, 68%);   /* 2026-10-18: 10% 확대 (직전 min(448px, 62%)) */
   margin: 0 auto 0 6%;     /* 좌측 영역에 모음 */
   display: flex;
   flex-direction: column;
@@ -384,7 +387,7 @@ label,
 .hero-title-wrap {
   position: relative;
   display: inline-block;
-  width: min(448px, 62%);     /* 2026-10-18: 두 번에 걸쳐 15%씩 축소 (처음 min(620px, 86%)) */
+  width: var(--logo-w);       /* 크기는 .hero-content 의 --logo-w 에서 정한다 */
   margin: 0;
   font-size: inherit;
   font-weight: inherit;
@@ -486,9 +489,10 @@ label,
 .hero-hook {
   position: relative;
   z-index: 3;
-  /* 로고 이미지 위쪽에 투명 여백이 34% 들어 있어, 마진을 0으로 둬도
-     글자와 82px 이나 벌어진다. 음수 마진으로 그만큼 끌어올려 균형을 맞춘다. */
-  margin: 0 0 -30px;
+  /* 로고 이미지 위쪽에 투명 여백(캔버스 높이의 약 36% = 로고 폭의 11.6%)이 있다.
+     그 여백만큼 끌어올리고 14px 만 띄운다. 고정값(-30px)으로 두면 로고가 작은
+     모바일에서 여백보다 더 당겨져 문구가 글자에 붙었다 → 로고 폭에 비례하게 계산. */
+  margin: 0 0 calc(var(--logo-w) * -0.116 + 14px);
   font-size: clamp(11px, 1.08vw, 14px);
   letter-spacing: 0.14em;
   line-height: 1.5;
@@ -1141,7 +1145,9 @@ label,
   opacity: 0.7;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
-.social-link img { width: 100%; height: 100%; }
+.social-link img,
+.social-link svg { width: 100%; height: 100%; display: block; }
+.social-link svg { color: #fff; }   /* 메일 아이콘(선 그림)은 흰색 */
 .social-link:hover {
   opacity: 1;
   transform: translateY(-2px);
@@ -1337,7 +1343,7 @@ label,
     font-size: min(11px, calc((100vw - 56px) / 26.5));
   }
 
-  .hero-title-wrap { width: 65%; }   /* 15%씩 두 번 축소 (처음 90%) */
+  .hero-content { --logo-w: 71.5%; }   /* 10% 확대 (직전 65%) */
   .hero-coming { font-size: 12px; letter-spacing: 1.5px; margin-top: 12px; }   /* 약 35% 축소 (이전 18px) */
   /* 위시리스트 + 스팀 버튼: 좁은 폭에서도 한 줄을 유지하도록 각각 축소 */
   .hero-cta-row { gap: 12px; margin-top: 6px; }
@@ -1454,7 +1460,7 @@ label,
 
 /* 아주 작은 화면 (420px 이하) 미세 조정 */
 @media (max-width: 420px) {
-  .hero-title-wrap { width: 70%; }   /* 15%씩 두 번 축소 (처음 96%) */
+  .hero-content { --logo-w: 77%; }     /* 10% 확대 (직전 70%) */
   /* 한 줄 배치라 스팀 버튼과 나눠 쓸 만큼만 차지한다 */
   .hero-cta-row { gap: 10px; }
   .hero-subtitle { width: min(140px, 46%); }
