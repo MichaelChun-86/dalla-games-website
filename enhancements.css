@@ -141,17 +141,6 @@
   padding-bottom: 20px;
 }
 
-.faq-contact {
-  margin-top: 40px;
-  text-align: center;
-  font-size: 13.5px;
-  color: var(--text-dim);
-}
-.faq-contact a {
-  color: var(--mint);
-  border-bottom: 1px solid rgba(8, 225, 120, 0.4);
-}
-.faq-contact a:hover { color: var(--mint-bright); }
 
 /* =========================================================================
    반응형
@@ -175,6 +164,6 @@
   .faq-mark { width: 11px; height: 11px; }
   .faq-mark::before { width: 11px; }
   .faq-mark::after { height: 11px; }
-  .faq-contact { font-size: 12px; }
+
 }
 

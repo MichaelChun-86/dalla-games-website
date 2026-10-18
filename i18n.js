@@ -212,12 +212,6 @@
       zh: "<span class=\"accent\">页面顶部的预告片</span>中即可看到。我们也计划通过<span class=\"accent\">官方 YouTube</span> 持续分享游玩影像。",
       ja: "<span class=\"accent\">ページ上部のトレーラー</span>でご覧いただけます。ゲームプレイ映像は<span class=\"accent\">公式 YouTube</span> で継続的に共有していく予定です。"
     },
-    "faq.contact": {
-      ko: '문의: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
-      en: 'Contact: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
-      zh: '联系我们：<a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>',
-      ja: 'お問い合わせ: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>'
-    },
 
     /* ---- 푸터 법적 링크 ---- */
     "legal.privacy": { ko: "개인정보처리방침", en: "Privacy Policy", zh: "隐私政策", ja: "プライバシーポリシー" },
@@ -225,9 +219,11 @@
 
     /* ---- 푸터 게임 정보표 (라벨 / 값) ---- */
     "spec.release":   { ko: "출시", en: "Release", zh: "发售", ja: "発売" },
+    /* 출시 시기: 얼리액세스라는 말은 여기선 쓰지 않는다(첫인상에서 "미완성"으로 읽힐 수 있어서).
+       자세한 출시 방식은 FAQ(faq.a7)에 그대로 적혀 있다. */
     "spec.release.v": {
-      ko: "2027 · Steam 앞서 해보기", en: "2027 · Steam Early Access",
-      zh: "2027 · Steam 抢先体验", ja: "2027 · Steam 早期アクセス"
+      ko: "2027년 하반기 출시 예정", en: "Second half of 2027",
+      zh: "预计 2027 年下半年发售", ja: "2027年下半期 発売予定"
     },
     "spec.genre":     { ko: "장르", en: "Genre", zh: "类型", ja: "ジャンル" },
     "spec.genre.v": {

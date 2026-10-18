@@ -707,10 +707,6 @@
           </div>
         </dl>
 
-        <p class="faq-contact" data-i18n-html="faq.contact">
-          Contact:
-          <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>
-        </p>
       </div>
     </section>
 
@@ -722,7 +718,7 @@
          라벨과 일부 값은 선택한 언어로 바뀐다. 엔진·개발사·플랫폼 이름과 메일 주소는 그대로. -->
     <dl class="footer-specs">
       <dt data-i18n="spec.release">Release</dt>
-      <dd data-i18n="spec.release.v">2027 · Steam Early Access</dd>
+      <dd data-i18n="spec.release.v">Second half of 2027</dd>
       <dt data-i18n="spec.genre">Genre</dt>
       <dd data-i18n="spec.genre.v">Hardcore Roguelike Defense</dd>
       <dt data-i18n="spec.platform">Platform</dt>
@@ -733,22 +729,18 @@
       <dd>Unreal Engine 5</dd>
       <dt data-i18n="spec.dev">Developer</dt>
       <dd>Dalla Games Inc.</dd>
-      <dt data-i18n="spec.contact">Contact</dt>
-      <dd><a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a></dd>
     </dl>
 
-    <div class="footer-social">
-      <!-- 이메일 -->
-      <a href="mailto:dalla.gamedev@gmail.com" class="social-link" aria-label="Email">
-        <img src="images/envelope.svg" alt="Email" />
+    <!-- 회사 CI + 문의 메일 (레퍼런스 사이트 푸터 형식).
+         CI 를 흰색 단색으로 바꾸려면 style.css 의 .footer-ci img 에 있는 filter 줄의 주석을 푼다. -->
+    <div class="footer-meta">
+      <a href="#home" class="footer-ci" aria-label="Dalla Games home">
+        <img src="images/logo-dalla.webp" alt="Dalla Games" />
       </a>
-      <!-- 유튜브 -->
-      <a href="https://www.youtube.com/watch?v=hbOC0TWPv0c" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
-        <img src="images/youtube.svg" alt="YouTube" />
-      </a>
-      <!-- 스팀 -->
-      <a href="https://store.steampowered.com/app/4582730/THE_AEON_FALL/" target="_blank" rel="noopener" class="social-link" aria-label="Steam">
-        <img src="images/steam.svg" alt="Steam" />
+      <a href="mailto:dalla.gamedev@gmail.com" class="footer-mail">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4"/><path d="m22 7-10 6L2 7"/></svg>
+        <span data-i18n="spec.contact">Contact</span>
+        <span>dalla.gamedev@gmail.com</span>
       </a>
     </div>
 

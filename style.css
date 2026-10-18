@@ -1095,12 +1095,35 @@ label,
   transition: color 0.2s ease;
 }
 .footer-legal a:hover { color: var(--mint-bright); }
-.footer-social {
+/* 회사 CI + 문의 메일: 가로 한 줄, 좁으면 두 줄로 접힌다 */
+.footer-meta {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 26px;
-  margin-bottom: 24px;
+  align-items: center;
+  gap: 20px 40px;
+  margin-bottom: 36px;
 }
+.footer-ci img {
+  height: 32px;
+  width: auto;
+  /* filter: brightness(0) invert(1); */   /* ← 이 줄의 주석을 풀면 CI 가 완전한 흰색이 된다 */
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+.footer-ci:hover img { opacity: 1; }
+.footer-mail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+.footer-mail svg { flex: none; display: block; }
+.footer-mail:hover { color: var(--mint-bright); }
+
+/* 소셜 아이콘(모바일 메뉴 안에서 쓴다) */
 .social-link {
   width: 26px;
   height: 26px;
