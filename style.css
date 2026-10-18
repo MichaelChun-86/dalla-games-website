@@ -1358,6 +1358,9 @@ html.menu-open { overflow: hidden; }
   .hero-video { width: 85%; margin-top: 18px; }
   .trailer-cap { width: 85%; gap: 10px; padding-top: 10px; }
   .trailer-cap-title { font-size: 14px; }   /* 모바일: 한 줄에 들어가게 조금 작게 (넘치면 다음 줄) */
+  /* 재생 버튼: 작은 썸네일을 덜 가리도록 축소 (PC 76px → 48px, 삼각형 26px → 18px) */
+  .vf-play { width: 48px; height: 48px; }
+  .vf-play svg { width: 18px; height: 18px; }
 
   /* Epic 박스: 트레일러 영상 아래로 흐름(가로 박스 유지). */
   .epic-megagrant {
