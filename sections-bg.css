@@ -1,0 +1,93 @@
+/* =========================================================================
+   섹션 배경 — 인게임 팝업 홀로그램 (2026-10-18 시험 적용)
+   - 히어로 아래 섹션(OUR GAME / ABOUT US / FAQ)이 단순 검정이라 밋밋해서,
+     게임 안 팝업창에 쓰는 와이어프레임 이미지를 네온 그린으로 칠해 양옆에 깐다.
+   - 이미지: images/holo-*.webp (원본은 images/Popup_*.png, 무채색)
+   - 층 순서: ::before = 홀로그램 그림  →  ::after = 스캔라인 + 위아래 검정 페이드
+              → .section-inner(글자·이미지) 가 맨 위
+   - 이 기능을 빼려면 index.html 에서 이 파일을 불러오는 한 줄만 지우면 된다.
+   ========================================================================= */
+
+.games,
+.about,
+.faq {
+  position: relative;
+  overflow: hidden;          /* 화면 밖으로 걸친 그림이 가로 스크롤을 만들지 않게 */
+  isolation: isolate;        /* 배경 층(z-index)이 섹션 안에서만 쌓이게 */
+}
+
+/* 글자·이미지는 배경 층 위 */
+.games > .section-inner,
+.about > .section-inner,
+.faq > .section-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* ① 홀로그램 그림 (섹션마다 두 장, 콘텐츠를 피해 양옆에 반쯤 걸친다) */
+.games::before,
+.about::before,
+.faq::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  opacity: 0.3;              /* 글자를 방해하지 않을 만큼만 */
+}
+/* OUR GAME: 타이탄(오른쪽) + 본부(왼쪽 아래) */
+.games::before {
+  background-image: url("images/holo-titan.webp"), url("images/holo-hq.webp");
+  background-position: right -9% top 10%, left -6% bottom 2%;   /* 타이탄은 특징 글자와 덜 겹치게 오른쪽으로 더 뺀다 */
+  background-size: auto 76%, auto 48%;
+}
+/* ABOUT US: 우주인(왼쪽) + 드론(오른쪽 위) */
+.about::before {
+  background-image: url("images/holo-pc.webp"), url("images/holo-drone.webp");
+  background-position: left 2% center, right -3% top 12%;
+  background-size: auto 86%, auto 40%;
+}
+/* FAQ: 스트라이더(오른쪽) + 테크(왼쪽 아래) */
+.faq::before {
+  background-image: url("images/holo-strider.webp"), url("images/holo-tech.webp");
+  background-position: right -2% center, left -6% bottom 4%;
+  background-size: auto 72%, auto 44%;
+}
+
+/* ② 스캔라인 + 위아래 검정 페이드 (섹션 경계가 끊겨 보이지 않게) + 가운데 은은한 그린 빛 */
+.games::after,
+.about::after,
+.faq::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 16%, rgba(0, 0, 0, 0) 84%, #000 100%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.45) 0 1px, rgba(0, 0, 0, 0) 1px 3px),
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(8, 225, 120, 0.06), rgba(8, 225, 120, 0) 70%);
+}
+
+/* ---- 모바일: 글자가 화면 폭을 다 쓰므로 그림은 한 장만, 더 옅게 ---- */
+@media (max-width: 768px) {
+  .games::before,
+  .about::before,
+  .faq::before { opacity: 0.18; }
+  .games::before {
+    background-image: url("images/holo-titan.webp");
+    background-position: right -30% top 4%;
+    background-size: auto 46%;
+  }
+  .about::before {
+    background-image: url("images/holo-pc.webp");
+    background-position: left -18% top 6%;
+    background-size: auto 60%;
+  }
+  .faq::before {
+    background-image: url("images/holo-strider.webp");
+    background-position: right -30% top 2%;
+    background-size: auto 34%;
+  }
+}
