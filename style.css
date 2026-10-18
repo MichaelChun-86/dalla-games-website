@@ -802,11 +802,11 @@ html.menu-open { overflow: hidden; }
   position: relative;    /* 배경 라인 레이어(::before) 기준 */
   overflow: hidden;      /* 라인이 섹션 밖으로 새지 않게 */
 }
+/* 이미지를 한 줄 전체 폭으로 크게, 4가지 특징은 그 아래 한 줄에 */
 .games-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 48px;
-  align-items: center;
 }
 /* 이미지 틀(테두리/모서리)은 래퍼가 갖고 overflow:hidden 으로 고정,
    내부 이미지만 hover 시 확대되어 틀 밖으로 삐져나오지 않는다. */
@@ -825,8 +825,8 @@ html.menu-open { overflow: hidden; }
 }
 .games-features {
   display: grid;
-  grid-template-columns: 1fr 1fr;   /* 4개를 2x2로 */
-  gap: 32px 28px;
+  grid-template-columns: repeat(4, 1fr);   /* PC: 4개를 한 줄로 */
+  gap: 32px 36px;
 }
 .feature { min-width: 0; }          /* 그리드 자식 넘침 방지 */
 .feature-title {
@@ -880,7 +880,7 @@ html.menu-open { overflow: hidden; }
 .vf-thumb {
   position: absolute;
   inset: 0;
-  background: url("images/youtube.webp?v=3") center / cover no-repeat;
+  background: url("images/youtube.webp?v=4") center / cover no-repeat;
   transition: transform 0.4s ease;     /* OUR GAME 이미지와 같은 속도 */
 }
 .video-facade:hover .vf-thumb,
@@ -912,15 +912,18 @@ html.menu-open { overflow: hidden; }
   border: 2px solid var(--text);
   background: rgba(0, 0, 0, 0.55);
   color: var(--text);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 .vf-play svg { display: block; }
+/* 호버: 테두리·삼각형은 네온 그린, 바탕은 옅은 그린 틴트 */
 .video-facade:hover .vf-play,
 .video-facade:focus-visible .vf-play {
-  background: rgba(0, 0, 0, 0.75);
+  border-color: var(--mint-bright);
+  color: var(--mint-bright);
+  background: rgba(8, 225, 120, 0.18);
 }
 
-/* 트레일러 아래 캡션: TRAILER(영어, 그린) · 제목(선택 언어) · 재생 시간 */
+/* 트레일러 아래 캡션: TRAILER(영어, 그린) · 제목(선택 언어) */
 .trailer-cap {
   position: relative;
   z-index: 1;
@@ -939,17 +942,12 @@ html.menu-open { overflow: hidden; }
   letter-spacing: 0.24em;
 }
 .trailer-cap-title {
+  min-width: 0;
   color: var(--text);
   font-size: 18px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.trailer-cap-dur {
-  flex: none;
-  margin-left: auto;
-  color: rgba(255, 255, 255, 0.55);
-  font-size: 13px;
+  /* 말줄임(…)으로 자르지 않는다. 폭이 모자라면 낱말 단위로 다음 줄로 넘어간다 */
+  word-break: keep-all;
+  line-height: 1.35;
 }
 /* 재생 시작 후: 파사드 제거 */
 .video-facade.hidden { display: none; }
@@ -1183,7 +1181,7 @@ html.menu-open { overflow: hidden; }
   opacity: 0.9;
   transition: opacity 0.2s ease;
 }
-.footer-ci:hover img { opacity: 1; }
+.footer-ci { line-height: 0; }
 .footer-mail {
   display: flex;
   align-items: center;
@@ -1226,10 +1224,8 @@ html.menu-open { overflow: hidden; }
    반응형 — 태블릿 (1024px 이하)
    ========================================================= */
 @media (max-width: 1024px) {
-  .games-grid {
-    grid-template-columns: 1fr;     /* 이미지 위, 특징 아래 */
-    gap: 36px;
-  }
+  .games-grid { gap: 36px; }
+  .games-features { grid-template-columns: 1fr 1fr; }   /* 태블릿: 2×2 */
   .epic-megagrant {
     right: 3%;
     max-width: 380px;
@@ -1361,7 +1357,7 @@ html.menu-open { overflow: hidden; }
   /* 로고가 줄어든 만큼 영상·캡션·Epic 박스도 같은 폭(85%)으로 맞춘다 */
   .hero-video { width: 85%; margin-top: 18px; }
   .trailer-cap { width: 85%; gap: 10px; padding-top: 10px; }
-  .trailer-cap-title { font-size: 15px; }
+  .trailer-cap-title { font-size: 14px; }   /* 모바일: 한 줄에 들어가게 조금 작게 (넘치면 다음 줄) */
 
   /* Epic 박스: 트레일러 영상 아래로 흐름(가로 박스 유지). */
   .epic-megagrant {
