@@ -1,0 +1,33 @@
+/* =========================================================================
+   섹션 높이 + 스크롤 스냅 (2026-10-18 시험 적용, PC 전용)
+   - 각 섹션(OUR GAME / ABOUT US / FAQ)이 화면 한 장 높이를 확보하고 내용은 세로 가운데.
+   - 스크롤을 멈춘 곳이 섹션 경계 "근처"일 때만 그 섹션 시작으로 부드럽게 맞춘다
+     (proximity). 억지로 끌어당기는 mandatory 가 아니라, 긴 FAQ 도 자유롭게 읽힌다.
+   - 모바일은 섹션이 원래 화면보다 길어 스냅이 오히려 거슬리므로 넣지 않는다.
+   - 이 기능을 빼려면 index.html 에서 이 파일을 불러오는 한 줄만 지우면 된다.
+   ========================================================================= */
+@media (min-width: 769px) {
+  html { scroll-snap-type: y proximity; }
+
+  .hero,
+  .games,
+  .about,
+  .faq { scroll-snap-align: start; }
+  .site-footer { scroll-snap-align: end; }
+
+  /* 화면 한 장(고정 헤더 높이를 뺀 만큼) + 내용 세로 가운데 */
+  .games,
+  .about,
+  .faq {
+    min-height: calc(100vh - var(--header-h));
+    display: flex;
+    align-items: center;
+  }
+  .games > .section-inner,
+  .about > .section-inner,
+  .faq > .section-inner {
+    width: 100%;
+    padding-top: 96px;       /* 높이를 화면 기준으로 잡았으니 위아래 여백은 조금 줄인다 (기본 150px) */
+    padding-bottom: 96px;
+  }
+}
