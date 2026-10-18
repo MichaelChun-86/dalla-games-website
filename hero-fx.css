@@ -73,6 +73,17 @@ body.fx-scanning .hero-scan {
   /* 중심선 아래(아직 검은 커버 위)로 퍼지는 빛 */
   box-shadow: 0 3px 22px rgba(43, 255, 151, 0.5);
 }
+/* 잔광 위에 촘촘한 검정 가로선(1px, 3px 간격)을 곱해 뭉개진 빛을 선명한 결로 만든다.
+   중심선(맨 아래 2px) 바로 위에는 어두운 틈을 둬 핵이 또렷이 분리돼 보이게 한다. */
+.hs-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: multiply;
+  background:
+    linear-gradient(to top, transparent 0 2px, rgba(0, 0, 0, 0.85) 2px 4px, transparent 4px 100%),
+    repeating-linear-gradient(to top, transparent 0 2px, rgba(0, 0, 0, 0.55) 2px 3px);
+}
 
 /* ----- 오프닝 녹색 필터: 스캔 동안 영상이 어두운 녹색 모노톤으로 보인다 -----
    - 영상은 흑백(grayscale)으로, 그 위 .hero-tint 가 녹색을 곱해(multiply) 입힌다.
@@ -176,6 +187,7 @@ html.fx-scan-wait .steam-btn::after, body.fx-scanning .steam-btn::after { animat
 }
 .hero-title-ghost.is-r { filter: hue-rotate(230deg) saturate(1.6) brightness(1.1); }   /* 그린 → 레드 */
 .hero-title-ghost.is-g { filter: brightness(1.6) saturate(1.2); }                      /* 더 밝은 그린 */
+.hero-title-ghost.is-s { filter: brightness(1.25); mix-blend-mode: normal; }           /* 얇은 띠 조각(자잘한 어긋남) */
 
 /* 글리치 모드에선 로고가 스캔선과 함께 나타나지 않고, 스캔이 끝나 색이 돌아오는 순간
    마지막으로 "탁" 붙는다 (hero-fx.js 가 그때 .fx-in 을 붙인다). 그 전까지는 숨김. */
@@ -184,6 +196,7 @@ html.fx-glitch .hero-title-wrap.fx-in { transition: none; }
 html.fx-glitch .hero-title-wrap.fx-in .hero-title { animation: logo-glitch-main 0.9s steps(1, end) both; }
 html.fx-glitch .hero-title-wrap.fx-in .is-r       { animation: logo-glitch-r    0.9s steps(1, end) both; }
 html.fx-glitch .hero-title-wrap.fx-in .is-g       { animation: logo-glitch-g    0.9s steps(1, end) both; }
+html.fx-glitch .hero-title-wrap.fx-in .is-s       { animation: logo-glitch-s    0.9s steps(1, end) both; }
 
 /* 본체: 처음엔 하얗게 번쩍, 이어서 일부 띠만 보이며 크게 좌우로 튀다가 45% 지점에 온전해진다.
    60%·72% 에 짧게 한 번씩 더 튄다. (어긋남 폭 ±18px — 멀리서도 보이게) */
@@ -232,5 +245,69 @@ html.fx-glitch .hero-title-wrap.fx-in .is-g       { animation: logo-glitch-g    
   64%  { opacity: 0; }
   72%  { opacity: 0.7; transform: translateX(9px);   clip-path: inset(12% 0 62% 0); }
   75%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* =========================================================================
+   상시 글리치 — 오프닝이 끝난 뒤, 히어로가 보이는 동안 5~11초 간격으로 0.3초짜리
+   작은 글리치가 로고에 틈틈이 들어간다 (hero-fx.js 가 .glitch-hit 을 잠깐 붙인다).
+   .glitch-done: 등장 글리치가 끝났다는 표시 — 등장 애니메이션을 떼어 두어야
+   히트가 끝나고 돌아올 때 등장 글리치가 처음부터 다시 재생되지 않는다.
+   ========================================================================= */
+html .hero-title-wrap.glitch-done .hero-title,
+html .hero-title-wrap.glitch-done .hero-title-ghost { animation: none; }
+html .hero-title-wrap.glitch-done.glitch-hit .hero-title { animation: logo-hit-main 0.3s steps(1, end) both; }
+html .hero-title-wrap.glitch-done.glitch-hit .is-r       { animation: logo-hit-r    0.3s steps(1, end) both; }
+html .hero-title-wrap.glitch-done.glitch-hit .is-g       { animation: logo-hit-g    0.3s steps(1, end) both; }
+html .hero-title-wrap.glitch-done.glitch-hit .is-s       { animation: logo-hit-s    0.3s steps(1, end) both; }
+
+@keyframes logo-hit-main {
+  0%   { transform: translateX(-6px); clip-path: inset(0 0 55% 0); }
+  25%  { transform: translateX(5px);  clip-path: inset(30% 0 20% 0); }
+  50%  { transform: translateX(-3px); clip-path: inset(0 0 40% 0); opacity: 0.8; }
+  75%  { transform: translateX(2px);  clip-path: inset(60% 0 0 0);  opacity: 1; }
+  100% { transform: translateX(0);    clip-path: inset(0); }
+}
+@keyframes logo-hit-r {
+  0%   { opacity: 0.9; transform: translateX(10px);  clip-path: inset(45% 0 0 0); }
+  25%  { opacity: 0.9; transform: translateX(-9px);  clip-path: inset(0 0 70% 0); }
+  50%  { opacity: 0.9; transform: translateX(8px);   clip-path: inset(40% 0 25% 0); }
+  75%  { opacity: 0.8; transform: translateX(-6px);  clip-path: inset(0 0 60% 0); }
+  100% { opacity: 0; }
+}
+@keyframes logo-hit-g {
+  0%   { opacity: 0.9; transform: translateX(-11px); clip-path: inset(20% 0 40% 0); }
+  25%  { opacity: 0.9; transform: translateX(9px);   clip-path: inset(70% 0 0 0); }
+  50%  { opacity: 0.9; transform: translateX(-7px);  clip-path: inset(0 0 65% 0); }
+  75%  { opacity: 0.8; transform: translateX(6px);   clip-path: inset(35% 0 30% 0); }
+  100% { opacity: 0; }
+}
+
+/* 얇은 띠 조각 키프레임 — 띠 위치는 스크립트로 생성한 고정값 */
+@keyframes logo-glitch-s {
+  0% { opacity: 1; transform: translateX(0px); clip-path: polygon(0 22%, 100% 22%, 100% 25%, 0 25%, 0 38%, 100% 38%, 100% 40%, 0 40%, 0 47%, 100% 47%, 100% 48%, 0 48%, 0 52%, 100% 52%, 100% 53%, 0 53%, 0 72%, 100% 72%, 100% 76%, 0 76%, 0 81%, 100% 81%, 100% 84%, 0 84%); }
+  4% { opacity: 1; transform: translateX(-5px); clip-path: polygon(0 11%, 100% 11%, 100% 14%, 0 14%, 0 16%, 100% 16%, 100% 17%, 0 17%, 0 46%, 100% 46%, 100% 48%, 0 48%, 0 52%, 100% 52%, 100% 55%, 0 55%, 0 62%, 100% 62%, 100% 64%, 0 64%, 0 86%, 100% 86%, 100% 91%, 0 91%); }
+  8% { opacity: 1; transform: translateX(5px); clip-path: polygon(0 17%, 100% 17%, 100% 20%, 0 20%, 0 21%, 100% 21%, 100% 24%, 0 24%, 0 26%, 100% 26%, 100% 28%, 0 28%, 0 30%, 100% 30%, 100% 32%, 0 32%, 0 51%, 100% 51%, 100% 55%, 0 55%, 0 91%, 100% 91%, 100% 94%, 0 94%); }
+  12% { opacity: 1; transform: translateX(3px); clip-path: polygon(0 7%, 100% 7%, 100% 12%, 0 12%, 0 22%, 100% 22%, 100% 27%, 0 27%, 0 32%, 100% 32%, 100% 34%, 0 34%, 0 43%, 100% 43%, 100% 45%, 0 45%, 0 55%, 100% 55%, 100% 58%, 0 58%, 0 70%, 100% 70%, 100% 74%, 0 74%); }
+  16% { opacity: 1; transform: translateX(-4px); clip-path: polygon(0 8%, 100% 8%, 100% 9%, 0 9%, 0 21%, 100% 21%, 100% 24%, 0 24%, 0 30%, 100% 30%, 100% 33%, 0 33%, 0 38%, 100% 38%, 100% 42%, 0 42%, 0 46%, 100% 46%, 100% 49%, 0 49%, 0 60%, 100% 60%, 100% 65%, 0 65%); }
+  20% { opacity: 1; transform: translateX(4px); clip-path: polygon(0 24%, 100% 24%, 100% 26%, 0 26%, 0 25%, 100% 25%, 100% 29%, 0 29%, 0 41%, 100% 41%, 100% 44%, 0 44%, 0 68%, 100% 68%, 100% 70%, 0 70%, 0 79%, 100% 79%, 100% 84%, 0 84%, 0 85%, 100% 85%, 100% 89%, 0 89%); }
+  24% { opacity: 1; transform: translateX(3px); clip-path: polygon(0 2%, 100% 2%, 100% 4%, 0 4%, 0 33%, 100% 33%, 100% 35%, 0 35%, 0 36%, 100% 36%, 100% 40%, 0 40%, 0 59%, 100% 59%, 100% 62%, 0 62%, 0 68%, 100% 68%, 100% 70%, 0 70%, 0 88%, 100% 88%, 100% 89%, 0 89%); }
+  28% { opacity: 1; transform: translateX(-2px); clip-path: polygon(0 8%, 100% 8%, 100% 13%, 0 13%, 0 12%, 100% 12%, 100% 16%, 0 16%, 0 42%, 100% 42%, 100% 46%, 0 46%, 0 54%, 100% 54%, 100% 57%, 0 57%, 0 54%, 100% 54%, 100% 57%, 0 57%, 0 82%, 100% 82%, 100% 84%, 0 84%); }
+  32% { opacity: 1; transform: translateX(-6px); clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%, 0 3%, 100% 3%, 100% 4%, 0 4%, 0 14%, 100% 14%, 100% 18%, 0 18%, 0 64%, 100% 64%, 100% 68%, 0 68%, 0 76%, 100% 76%, 100% 78%, 0 78%, 0 80%, 100% 80%, 100% 82%, 0 82%); }
+  36% { opacity: 1; transform: translateX(4px); clip-path: polygon(0 6%, 100% 6%, 100% 8%, 0 8%, 0 21%, 100% 21%, 100% 23%, 0 23%, 0 26%, 100% 26%, 100% 29%, 0 29%, 0 45%, 100% 45%, 100% 46%, 0 46%, 0 73%, 100% 73%, 100% 75%, 0 75%, 0 78%, 100% 78%, 100% 80%, 0 80%); }
+  40% { opacity: 1; transform: translateX(-4px); clip-path: polygon(0 0%, 100% 0%, 100% 3%, 0 3%, 0 8%, 100% 8%, 100% 11%, 0 11%, 0 10%, 100% 10%, 100% 13%, 0 13%, 0 38%, 100% 38%, 100% 39%, 0 39%, 0 68%, 100% 68%, 100% 70%, 0 70%, 0 70%, 100% 70%, 100% 73%, 0 73%); }
+  44% { opacity: 1; transform: translateX(5px); clip-path: polygon(0 3%, 100% 3%, 100% 6%, 0 6%, 0 7%, 100% 7%, 100% 12%, 0 12%, 0 8%, 100% 8%, 100% 9%, 0 9%, 0 17%, 100% 17%, 100% 19%, 0 19%, 0 25%, 100% 25%, 100% 27%, 0 27%, 0 66%, 100% 66%, 100% 70%, 0 70%); }
+  45% { opacity: 0; }
+  60% { opacity: 1; transform: translateX(-1px); clip-path: polygon(0 35%, 100% 35%, 100% 38%, 0 38%, 0 39%, 100% 39%, 100% 40%, 0 40%, 0 83%, 100% 83%, 100% 86%, 0 86%, 0 83%, 100% 83%, 100% 87%, 0 87%); }
+  64% { opacity: 0; }
+  72% { opacity: 1; transform: translateX(0px); clip-path: polygon(0 42%, 100% 42%, 100% 47%, 0 47%, 0 46%, 100% 46%, 100% 50%, 0 50%, 0 82%, 100% 82%, 100% 85%, 0 85%, 0 83%, 100% 83%, 100% 87%, 0 87%); }
+  75% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes logo-hit-s {
+  0% { opacity: 1; transform: translateX(3px); clip-path: polygon(0 7%, 100% 7%, 100% 12%, 0 12%, 0 76%, 100% 76%, 100% 79%, 0 79%, 0 84%, 100% 84%, 100% 87%, 0 87%, 0 91%, 100% 91%, 100% 95%, 0 95%); }
+  25% { opacity: 1; transform: translateX(1px); clip-path: polygon(0 46%, 100% 46%, 100% 49%, 0 49%, 0 60%, 100% 60%, 100% 63%, 0 63%, 0 69%, 100% 69%, 100% 73%, 0 73%, 0 81%, 100% 81%, 100% 85%, 0 85%); }
+  50% { opacity: 1; transform: translateX(-4px); clip-path: polygon(0 14%, 100% 14%, 100% 18%, 0 18%, 0 16%, 100% 16%, 100% 18%, 0 18%, 0 34%, 100% 34%, 100% 37%, 0 37%, 0 91%, 100% 91%, 100% 95%, 0 95%); }
+  75% { opacity: 1; transform: translateX(0px); clip-path: polygon(0 3%, 100% 3%, 100% 6%, 0 6%, 0 17%, 100% 17%, 100% 21%, 0 21%, 0 29%, 100% 29%, 100% 30%, 0 30%, 0 88%, 100% 88%, 100% 91%, 0 91%); }
   100% { opacity: 0; }
 }

@@ -157,6 +157,8 @@
       root.classList.remove("fx-scan-wait");    // 커버 제거
       /* 글리치 모드: 색이 돌아오기 시작하고 잠깐 뒤, 로고가 글리치로 마지막에 붙는다 */
       if (logo) window.setTimeout(function () { logo.classList.add("fx-in"); }, 160);
+      /* 등장이 끝나면(최대 0.9초 + 여유) 상시 글리치 시작 */
+      window.setTimeout(startAmbientGlitch, 1300);
       try { sessionStorage.setItem(SEEN_KEY, "1"); } catch (e) {}
     }
 
@@ -164,5 +166,40 @@
     /* 안전장치: 어떤 이유로든 프레임이 돌지 않으면(탭이 다시 숨겨지는 등)
        예정 시간의 두 배가 지난 뒤 그냥 끝낸다 — 검은 화면에 갇히지 않게 */
     window.setTimeout(finish, duration * 2 + 500);
+  }
+
+  /* ---------- 상시 글리치 ----------
+     오프닝이 끝난 뒤, 로고가 화면에 보이고 탭이 활성일 때만 5~11초 간격으로
+     0.3초짜리 작은 글리치(.glitch-hit)를 넣는다. 30% 확률로 0.5초 뒤 한 번 더. */
+  var AMBIENT = { min: 5000, max: 11000, hit: 300, doubleChance: 0.3 };
+  var ambientOn = false;
+  function startAmbientGlitch() {
+    if (ambientOn) return;
+    ambientOn = true;
+    var wrap = document.querySelector(".hero-title-wrap");
+    if (!wrap) return;
+    wrap.classList.add("glitch-done");     // 등장 애니메이션을 떼어 둔다(히트 뒤 재생 방지)
+
+    function hit() {
+      wrap.classList.remove("glitch-hit");
+      void wrap.offsetWidth;               // 클래스를 뗐다 붙여야 애니메이션이 다시 돈다
+      wrap.classList.add("glitch-hit");
+      window.setTimeout(function () { wrap.classList.remove("glitch-hit"); }, AMBIENT.hit);
+    }
+    function visible() {
+      if (document.hidden) return false;
+      var r = wrap.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    }
+    function schedule(delay) {
+      window.setTimeout(function () {
+        if (visible()) {
+          hit();
+          if (Math.random() < AMBIENT.doubleChance) window.setTimeout(hit, 500);
+        }
+        schedule(AMBIENT.min + Math.random() * (AMBIENT.max - AMBIENT.min));
+      }, delay);
+    }
+    schedule(2500);   // 첫 히트는 2.5초 뒤
   }
 })();
