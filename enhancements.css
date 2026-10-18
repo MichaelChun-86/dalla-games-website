@@ -23,9 +23,9 @@
 }
 .faq-item {
   padding: 0;                /* 여백은 질문 버튼이 갖는다 — 그래야 그 만큼이 클릭 영역 */
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 2px solid rgba(255, 255, 255, 0.15);
 }
-.faq-item:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.faq-item:last-child { border-bottom: 2px solid rgba(255, 255, 255, 0.15); }
 
 /* ---------- 아코디언 ----------
    질문만 늘어놓고 누르면 답이 펼쳐진다. 첫 항목은 열어 둔 채 시작해서,
@@ -56,7 +56,6 @@
   color: #fff;
   background: none;
   border: 0;
-  border-radius: 6px;
   /* 여기서 그냥 pointer 를 쓰면 안 된다.
      이 파일이 cursor-trail.css 보다 나중에 로드돼 커스텀 커서를 덮어쓰는데,
      우선순위가 더 높은 html.cur-alt .faq-q 규칙은 살아남는다.
