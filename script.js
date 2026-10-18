@@ -53,15 +53,17 @@
   }
 
   /* ---------- 1-2. 헤더: 히어로를 지났는지 ----------
-     히어로 위에서는 바 배경과 가운데 CI 를 숨기고, 히어로 아래로 내려가면
-     .is-past 를 붙여 나타나게 한다 (레퍼런스 사이트 방식). */
+     히어로 위에서는 바 배경과 가운데 CI 를 숨기고, 히어로를 어느 정도 내려가면
+     .is-past 를 붙여 나타나게 한다 (레퍼런스 사이트 방식).
+     기준: Wishlist Now·스팀 버튼 줄이 헤더 밑으로 완전히 가려졌을 때
+     (히어로가 30% 쯤 남았을 때다). 그 줄이 없으면 히어로 끝을 기준으로 한다. */
   (function () {
     var header = document.getElementById("siteHeader");
     var hero = document.querySelector(".hero");
     if (!header || !hero) return;
+    var mark = document.querySelector(".hero-cta-row") || hero;
     function update() {
-      // 히어로 아랫변이 헤더 아랫변보다 위로 올라가면 "지났다"
-      var past = hero.getBoundingClientRect().bottom <= header.offsetHeight;
+      var past = mark.getBoundingClientRect().bottom <= header.offsetHeight;
       header.classList.toggle("is-past", past);
     }
     window.addEventListener("scroll", update, { passive: true });

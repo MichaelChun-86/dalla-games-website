@@ -47,8 +47,8 @@
   --sweep-angle: 105deg;    /* 하이라이트 기울기(사선 각도). */
   /* 하이라이트 색 — R,G,B 값만 적는다.
      로고가 거의 순수한 네온 그린이라, 같은 그린 빛은 스크린 합성으로 겹쳐도 티가 안 난다.
-     흰색(#ebfff2)은 너무 하얘서, 더 밝고 채도를 낮춘 네온 그린으로 둔다 (#bcffd6). */
-  --sweep-color: 188, 255, 214;
+     흰색(#ebfff2)·#bcffd6 은 하얗게 보여서, 로고보다 밝되 그린이 분명한 #96ffc3 로 둔다. */
+  --sweep-color: 150, 255, 195;
 
   /* ---- 히어로 하단 문구 블록이 차지하는 높이 ----
      스크롤 화살표와 Epic 배지를 이 값 위로 올려 문구를 가리지 않게 한다. */
@@ -211,6 +211,9 @@ label,
 .header-inner {
   position: relative;          /* 가운데 CI 를 절대 위치로 놓는 기준 */
   height: 100%;
+  /* 큰 모니터(전체화면)에서 좌우 버튼이 화면 끝에 붙어 멀어지지 않게 폭을 묶는다 */
+  max-width: 1520px;
+  margin: 0 auto;
   padding: 0 clamp(16px, 3vw, 40px);
   display: flex;
   align-items: center;
@@ -258,7 +261,7 @@ label,
 .header-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 22px;
   margin-left: auto;
 }
 
@@ -292,9 +295,11 @@ label,
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px;
-  height: 22px;
-  padding: 0;
+  /* 눌리는 영역은 44×44 로 넉넉하게, 선 그림(30×22)은 그 안 가운데 */
+  width: 44px;
+  height: 44px;
+  padding: 11px 7px;
+  margin-right: -7px;          /* 넓힌 여백만큼 바깥으로 — 선 그림 위치는 그대로 */
   background: none;
   border: none;
   cursor: url('images/Cursor_Hover1_32.png') 0 0, pointer;
@@ -304,32 +309,16 @@ label,
   width: 100%;
   height: 3px;
   background: var(--text);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  /* 버튼 인지를 돕도록 흰색↔네온그린으로 깜박여 시선을 유도 */
-  animation: menu-blink 1.8s ease-in-out infinite;
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.2s ease;
 }
-.nav-toggle span:nth-child(2) { animation-delay: 0.15s; }
-.nav-toggle span:nth-child(3) { animation-delay: 0.3s; }
-
-/* 메뉴를 열면(≡ → X) 깜박임을 멈추고 흰색으로 고정해 산만함을 없앤다 */
-.nav-toggle.active span {
-  animation: none;
-  background: var(--text);
-}
+/* 다른 버튼처럼: 평소 흰색, 마우스를 올리면 네온 그린 (예전의 상시 깜박임은 과해서 뺐다) */
+.nav-toggle:hover span,
+.nav-toggle:focus-visible span { background: var(--mint-bright); }
+.nav-toggle:focus-visible { outline: none; }
 .nav-toggle.active span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); }
 .nav-toggle.active span:nth-child(2) { opacity: 0; }
 .nav-toggle.active span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); }
 
-@keyframes menu-blink {
-  0%, 100% {
-    background: var(--text);
-    box-shadow: none;
-  }
-  50% {
-    background: var(--mint-bright);
-    box-shadow: 0 0 6px rgba(43, 255, 151, 0.75);
-  }
-}
 
 /* ---------- 전체 화면 메뉴 ---------- */
 .nav {
@@ -522,7 +511,10 @@ html.menu-open { overflow: hidden; }
   display: flex;
   align-items: center;
   gap: 14px;
-  width: 100%;
+  /* 양옆 라인까지 합친 폭을 로고(BI) 폭에 맞춘다. 문구가 로고보다 길면(좁은 화면의 일본어 등)
+     문구 폭 + 최소 길이 라인으로 늘어난다. */
+  width: auto;
+  min-width: var(--logo-w);
   /* 바로 아래가 로고다. 로고 이미지 위쪽 투명 여백(로고 폭의 11.6%)만큼 끌어올리고 14px 만 띄운다.
      (예전엔 사이에 훅 문구가 있어 8px 이었다) */
   margin-bottom: calc(var(--logo-w) * -0.116 + 14px);
@@ -544,6 +536,7 @@ html.menu-open { overflow: hidden; }
 .hero-eyebrow::after {
   content: "";
   flex: 1;
+  min-width: 20px;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45));
 }
@@ -1300,7 +1293,7 @@ html.menu-open { overflow: hidden; }
   .brand-logo { height: 26px; }
   .header-steam { width: 38px; height: 38px; padding: 0; justify-content: center; }
   .header-steam-text { display: none; }
-  .header-right { gap: 18px; }
+  .header-right { gap: 16px; }
 
   /* 푸터 정보표: 좁은 화면에선 글자와 간격을 줄인다 */
   .footer-specs { margin-bottom: 40px; }
