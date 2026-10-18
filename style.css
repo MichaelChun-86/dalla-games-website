@@ -458,13 +458,15 @@ label,
   align-items: center;
   gap: 14px;
   width: 100%;
-  margin-bottom: 8px;
+  /* 바로 아래가 로고다. 로고 이미지 위쪽 투명 여백(로고 폭의 11.6%)만큼 끌어올리고 14px 만 띄운다.
+     (예전엔 사이에 훅 문구가 있어 8px 이었다) */
+  margin-bottom: calc(var(--logo-w) * -0.116 + 14px);
   font-size: clamp(10px, 1.05vw, 13px);
   letter-spacing: 0.34em;
   /* 예전엔 text-transform: uppercase 로 강제했지만, 전부 대문자면
      읽는 속도가 떨어져서 뺐다. 대소문자는 문구 자체에 담는다(i18n.js). */
   white-space: nowrap;
-  color: var(--mint);
+  color: rgba(255, 255, 255, 0.92);   /* 2026-10-18: 그린 → 흰색 (로고 그린과 겹치지 않게) */
   /* 배경 키비주얼 위에 얹히는 글자라 퍼지는 글로우만으로는 묻힌다.
      아래로 떨어지는 또렷한 드롭 쉐도우 + 넓게 깔리는 어둠을 겹쳐
      복잡한 배경에서도 글자 윤곽이 살아나게 한다. */
@@ -478,10 +480,10 @@ label,
   content: "";
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(8, 225, 120, 0.45));
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45));
 }
 .hero-eyebrow::after {
-  background: linear-gradient(90deg, rgba(8, 225, 120, 0.45), transparent);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.45), transparent);
 }
 
 /* 훅: 장르 바로 아래, 로고 위. 이 게임의 핵심 긴장을 한 줄로 못 박는다.
