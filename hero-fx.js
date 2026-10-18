@@ -12,13 +12,13 @@
       속도는 처음 빠르고 끝에서 살짝 느려진다(ease-out).
    3. 선이 각 요소(장르 문구 → 로고 → 출시 → 버튼 → 영상 → 캡션 → 화살표) 위를
       지나는 순간 그 요소에 .fx-in 을 붙여 바로 그 자리에서 나타나게 한다.
-   4. 같은 창에서 다시 보면(새로고침·뒤로가기) 짧은 버전만 재생한다.
+   4. 같은 창에서 다시 보면(새로고침·뒤로가기) 같은 구성으로 스캔만 조금 짧게(1초) 재생한다.
    5. 연출 중 클릭·스크롤·키 입력이 있으면 즉시 끝낸다.
 
    주소 옵션(비교·테스트용)
      ?intro=ab  전체 연출(스캔 + 로고 글리치)을 항상 재생
      ?intro=a   로고 글리치 없이 스캔만, 항상 전체 길이
-     (없음)     첫 방문엔 전체, 그 뒤엔 짧은 버전
+     (없음)     첫 방문엔 1.5초 스캔, 그 뒤엔 1초 스캔 (글리치 등 나머지는 같다)
 
    ※ 모션 최소화(prefers-reduced-motion) 설정과 무관하게 항상 재생한다.
    ========================================================================= */
@@ -28,7 +28,7 @@
   /* ---------- 조절 값 ---------- */
   var SCAN = {
     duration: 1500,       // 전체 연출의 스캔 길이(ms)
-    shortDuration: 520,   // 같은 창에서 다시 볼 때의 스캔 길이(ms)
+    shortDuration: 1000,  // 같은 창에서 다시 볼 때(새로고침·뒤로가기)의 스캔 길이(ms) — 구성은 같고 조금 짧게
     waitVideoMax: 1000,   // 영상 첫 프레임을 기다리는 최대 시간(ms)
     lead: 0.015,          // 선이 요소 위에 닿기 조금 전(전체 높이의 1.5%)에 등장 시작
     easePow: 1.7          // 속도 곡선: 클수록 끝에서 더 느려진다 (1 = 등속)
@@ -48,8 +48,8 @@
   try { mode = new URLSearchParams(location.search).get("intro"); } catch (e) {}
   var seen = false;
   try { seen = sessionStorage.getItem(SEEN_KEY) === "1"; } catch (e) {}
-  var full = mode === "a" || mode === "ab" || !seen;   // 전체 길이로 틀지
-  var glitch = full && mode !== "a";                    // 로고 글리치를 넣을지
+  var full = mode === "a" || mode === "ab" || !seen;   // 스캔을 전체 길이(1.5초)로 틀지
+  var glitch = mode !== "a";                            // 로고 글리치(재방문에도 넣는다, ?intro=a 만 제외)
   if (glitch) root.classList.add("fx-glitch");
 
   if (document.readyState === "loading") {
