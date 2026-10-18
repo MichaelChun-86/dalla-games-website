@@ -197,8 +197,9 @@ label,
 }
 /* 히어로를 지난 뒤: 바 배경이 깔린다 */
 .site-header.is-past {
-  background: rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.85);            /* 검정 85% — 뒤가 살짝 비친다 */
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+          backdrop-filter: blur(14px) saturate(1.2);   /* 비치는 뒷면은 블러 */
   border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 /* 메뉴를 연 동안: 바 배경 없이 메뉴 화면 위에 버튼만 남긴다 */
