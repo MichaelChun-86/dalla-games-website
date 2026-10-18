@@ -245,7 +245,7 @@
     "spec.langs.v":   { ko: "영어, 한국어", en: "English, Korean", zh: "英语、韩语", ja: "英語、韓国語" },
     "spec.engine":    { ko: "엔진", en: "Engine", zh: "引擎", ja: "エンジン" },
     "spec.dev":       { ko: "개발", en: "Developer", zh: "开发", ja: "開発" },
-    "spec.contact":   { ko: "문의", en: "Contact", zh: "联系", ja: "お問い合わせ" },
+
 
     /* ---- 하단 HUD ---- 상태 문구(CALM/RISING/HUNTED)는 영문 고정 ---- */
     /* 헤더 상시 스팀 버튼 문구 */

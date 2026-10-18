@@ -45,7 +45,10 @@
   --sweep-size: 220%;       /* 스윕 속도/두께: 클수록 하이라이트가 더 얇고 빠르게 훑고 지나간다. */
   --sweep-brightness: 1;    /* 하이라이트 밝기(0~1): 마스크 안쪽(흰색)이 받는 최대 세기. 낮출수록 은은. */
   --sweep-angle: 105deg;    /* 하이라이트 기울기(사선 각도). */
-  --sweep-color: 106, 255, 176;  /* 하이라이트 색 (#6affb0, 밝은 네온 그린) — R,G,B 값만 적는다. */
+  /* 하이라이트 색 — R,G,B 값만 적는다.
+     로고가 거의 순수한 네온 그린이라, 같은 그린 빛은 스크린 합성으로 겹쳐도 티가 안 난다.
+     그래서 아주 옅은 민트빛 흰색으로 둔다 (#ebfff2). */
+  --sweep-color: 235, 255, 242;
 
   /* ---- 히어로 하단 문구 블록이 차지하는 높이 ----
      스크롤 화살표와 Epic 배지를 이 값 위로 올려 문구를 가리지 않게 한다. */
@@ -381,7 +384,7 @@ label,
 .hero-title-wrap {
   position: relative;
   display: inline-block;
-  width: min(527px, 73%);     /* 2026-10-18: 15% 축소 (이전 min(620px, 86%)) */
+  width: min(448px, 62%);     /* 2026-10-18: 두 번에 걸쳐 15%씩 축소 (처음 min(620px, 86%)) */
   margin: 0;
   font-size: inherit;
   font-weight: inherit;
@@ -1334,7 +1337,7 @@ label,
     font-size: min(11px, calc((100vw - 56px) / 26.5));
   }
 
-  .hero-title-wrap { width: 77%; }   /* 15% 축소 (이전 90%) */
+  .hero-title-wrap { width: 65%; }   /* 15%씩 두 번 축소 (처음 90%) */
   .hero-coming { font-size: 12px; letter-spacing: 1.5px; margin-top: 12px; }   /* 약 35% 축소 (이전 18px) */
   /* 위시리스트 + 스팀 버튼: 좁은 폭에서도 한 줄을 유지하도록 각각 축소 */
   .hero-cta-row { gap: 12px; margin-top: 6px; }
@@ -1451,7 +1454,7 @@ label,
 
 /* 아주 작은 화면 (420px 이하) 미세 조정 */
 @media (max-width: 420px) {
-  .hero-title-wrap { width: 82%; }   /* 15% 축소 (이전 96%) */
+  .hero-title-wrap { width: 70%; }   /* 15%씩 두 번 축소 (처음 96%) */
   /* 한 줄 배치라 스팀 버튼과 나눠 쓸 만큼만 차지한다 */
   .hero-cta-row { gap: 10px; }
   .hero-subtitle { width: min(140px, 46%); }
