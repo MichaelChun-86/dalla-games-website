@@ -1110,7 +1110,7 @@ label,
   margin-bottom: 36px;
 }
 .footer-ci img {
-  height: 32px;
+  height: 26px;            /* 2026-10-18: 20% 축소 (이전 32px) */
   width: auto;
   /* filter: brightness(0) invert(1); */   /* ← 이 줄의 주석을 풀면 CI 가 완전한 흰색이 된다 */
   opacity: 0.9;
