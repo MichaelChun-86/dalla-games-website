@@ -12,9 +12,12 @@
   var navMenu = document.getElementById("navMenu");
 
   if (navToggle && navMenu) {
+    var header = document.getElementById("siteHeader");
     // 메뉴 열기/닫기
     var setMenu = function (open) {
       navMenu.classList.toggle("open", open);
+      if (header) header.classList.toggle("is-menu", open);   // 메뉴 동안 바 배경·CI 숨김
+      document.documentElement.classList.toggle("menu-open", open);   // 뒤 페이지 스크롤 막기
       navToggle.classList.toggle("active", open);
       navToggle.setAttribute("aria-expanded", open ? "true" : "false");
       navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
@@ -48,6 +51,23 @@
       if (e.key === "Escape") setMenu(false);
     });
   }
+
+  /* ---------- 1-2. 헤더: 히어로를 지났는지 ----------
+     히어로 위에서는 바 배경과 가운데 CI 를 숨기고, 히어로 아래로 내려가면
+     .is-past 를 붙여 나타나게 한다 (레퍼런스 사이트 방식). */
+  (function () {
+    var header = document.getElementById("siteHeader");
+    var hero = document.querySelector(".hero");
+    if (!header || !hero) return;
+    function update() {
+      // 히어로 아랫변이 헤더 아랫변보다 위로 올라가면 "지났다"
+      var past = hero.getBoundingClientRect().bottom <= header.offsetHeight;
+      header.classList.toggle("is-past", past);
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
 
   /* ---------- 2. 스크롤 시 섹션 페이드인 ---------- */
   // 페이드인 대상: OUR GAMES, ABOUT US, 푸터, 그리고 히어로의 Epic MegaGrant 박스

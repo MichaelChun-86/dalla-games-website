@@ -1,15 +1,13 @@
 /* =========================================================================
-   언어 선택 드롭다운 (헤더 우측 상단)
+   언어 선택 드롭다운 (헤더 왼쪽)
    - 지구본 아이콘 + 현재 언어 이름 + 화살표. 누르면 아래로 목록이 펼쳐진다.
-   - 데스크톱: 메뉴(nav) 맨 끝 / 모바일: 헤더 바 안, 햄버거 버튼 앞(.lang-menu-corner).
+   - PC·모바일 모두 헤더 왼쪽 끝 하나만 쓴다.
    - 열고 닫기·언어 전환은 i18n.js 가 맡는다. 강조색은 사이트 네온 그린.
    ========================================================================= */
 .lang-menu {
   position: relative;           /* 목록(.lang-list)을 버튼 바로 아래에 띄우는 기준 */
   display: flex;
   align-items: center;
-  padding-left: 18px;
-  border-left: 1px solid rgba(255, 255, 255, 0.14);   /* 메뉴와 구분선 */
 }
 
 /* 닫혀 있을 때 보이는 버튼: 지구본 + 언어 이름 + 화살표 */
@@ -39,11 +37,11 @@
 .lang-caret { transition: transform 0.2s ease; }
 .lang-toggle[aria-expanded="true"] .lang-caret { transform: rotate(180deg); }
 
-/* 펼쳐지는 목록. 화면 오른쪽 끝에 붙어 있으므로 오른쪽 기준으로 연다(밖으로 안 넘친다). */
+/* 펼쳐지는 목록. 화면 왼쪽 끝에 붙어 있으므로 왼쪽 기준으로 연다(밖으로 안 넘친다). */
 .lang-list {
   position: absolute;
   top: calc(100% + 8px);
-  right: 0;
+  left: 0;
   z-index: 1200;
   min-width: 168px;
   margin: 0;
@@ -89,21 +87,6 @@
   height: 6px;
   margin-left: auto;
   background: var(--mint-bright);
-}
-
-/* ---- 모바일 전용 드롭다운(.lang-menu-corner): 헤더 바 안, 햄버거 버튼 앞 ---- */
-.lang-menu-corner {
-  display: none;       /* 데스크톱에선 숨김(메뉴 끝의 드롭다운 사용) */
-  padding-left: 0;     /* 헤더 안이라 메뉴용 구분선/여백은 쓰지 않는다 */
-  border-left: 0;
-  margin-left: auto;   /* 로고와 떨어져 햄버거 버튼 쪽에 붙는다 */
-  margin-right: 10px;  /* 오른쪽 스팀 아이콘 버튼과의 간격 */
-}
-
-@media (max-width: 768px) {
-  /* 메뉴(햄버거) 안 드롭다운은 숨기고, 헤더 바의 드롭다운만 사용 */
-  .nav .lang-menu { display: none; }
-  .lang-menu-corner { display: flex; }
 }
 
 /* =========================================================================

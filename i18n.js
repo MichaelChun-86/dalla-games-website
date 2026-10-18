@@ -248,6 +248,13 @@
 
 
     /* ---- 하단 HUD ---- 상태 문구(CALM/RISING/HUNTED)는 영문 고정 ---- */
+    /* ---- 전체 화면 메뉴: 큰 글자 (작은 영어 줄은 번역하지 않는다) ---- */
+    "nav.home":    { ko: "홈", en: "Home", zh: "首页", ja: "ホーム" },
+    "nav.game":    { ko: "게임", en: "Game", zh: "游戏", ja: "ゲーム" },
+    "nav.about":   { ko: "팀 소개", en: "About", zh: "关于我们", ja: "チーム紹介" },
+    "nav.faq":     { ko: "자주 묻는 질문", en: "FAQ", zh: "常见问题", ja: "よくある質問" },
+    "nav.contact": { ko: "문의", en: "Contact", zh: "联系我们", ja: "お問い合わせ" },
+
     /* 헤더 상시 스팀 버튼 문구 */
     "header.wishlist": {
       ko: "스팀 위시리스트", en: "Wishlist on Steam",
