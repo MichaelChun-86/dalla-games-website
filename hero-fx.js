@@ -99,8 +99,10 @@
 
     /* 각 요소가 히어로 안에서 차지하는 세로 위치(0~1) — 선이 여기 닿으면 등장 */
     var items = [];
+    var logo = null;   // 글리치 모드에선 로고를 따로 떼어 맨 마지막에 등장시킨다
     REVEAL.forEach(function (sel) {
       hero.querySelectorAll(sel).forEach(function (el) {
+        if (glitch && el.classList.contains("hero-title-wrap")) { logo = el; return; }
         var top = el.getBoundingClientRect().top + window.pageYOffset - heroTop;
         items.push({ el: el, at: Math.max(0, Math.min(1, top / heroH)) });
       });
@@ -151,8 +153,10 @@
       cover.style.clipPath = "inset(100% 0 0 0)";
       line.style.opacity = "0";
       body.classList.add("fx-scan-done");       // 뒤따르는 반복 연출(빛 번짐 등) 시작
-      body.classList.remove("fx-scanning");
+      body.classList.remove("fx-scanning");     // → 녹색 필터가 0.9초에 걸쳐 걷힌다
       root.classList.remove("fx-scan-wait");    // 커버 제거
+      /* 글리치 모드: 색이 돌아오기 시작하고 잠깐 뒤, 로고가 글리치로 마지막에 붙는다 */
+      if (logo) window.setTimeout(function () { logo.classList.add("fx-in"); }, 160);
       try { sessionStorage.setItem(SEEN_KEY, "1"); } catch (e) {}
     }
 
