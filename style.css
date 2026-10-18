@@ -101,16 +101,16 @@ a {
    ★ 이미지는 반드시 32×32 이하여야 한다.
    크롬은 32×32 를 넘는 커서 이미지를 화면 가장자리 근처에서 강제로 무시하고
    기본 화살표로 되돌린다(가짜 커서로 브라우저 UI 를 흉내내는 걸 막는 보안 장치).
-   원본이 35×35 라 화면 맨 아래 고정된 소음 HUD 바 위에서 커서가 사라졌다.
-   그래서 32×32 로 줄인 *_32.png 를 쓴다(원본 35px 파일은 images/ 에 그대로 보존).
+   원본(35×35)을 그대로 쓰면 화면 가장자리에서 커서가 사라진다.
+   그래서 32×32 로 줄인 cursor-*.png 를 쓴다(원본 35px 파일은 images/Old 에 보존).
    잔상 크기(.ct-ghost, cursor-trail.css)도 이 값과 같이 맞춰야 한다. */
 html {
-  cursor: url('images/Cursor_Normal_32.png') 0 0, auto;
+  cursor: url('images/cursor-normal.png') 0 0, auto;
 }
 
 /* 클릭 가능한 요소 위: 호버 커서 1번 프레임이 기본.
    cursor-trail.js 가 html 에 .cur-alt 클래스를 빠르게 토글해
-   Cursor_Hover1 ↔ Cursor_Hover2 깜박임을 만든다(2번 프레임 규칙은 cursor-trail.css 에). */
+   cursor-hover ↔ cursor-normal 깜박임을 만든다(2번 프레임 규칙은 cursor-trail.css 에). */
 a,
 button,
 .nav-toggle,
@@ -120,7 +120,7 @@ button,
 label,
 [role="button"],
 [onclick] {
-  cursor: url('images/Cursor_Hover1_32.png') 0 0, pointer;
+  cursor: url('images/cursor-hover.png') 0 0, pointer;
 }
 
 /* 공통 유틸 */
@@ -302,7 +302,7 @@ label,
   margin-right: -7px;          /* 넓힌 여백만큼 바깥으로 — 선 그림 위치는 그대로 */
   background: none;
   border: none;
-  cursor: url('images/Cursor_Hover1_32.png') 0 0, pointer;
+  cursor: url('images/cursor-hover.png') 0 0, pointer;
 }
 .nav-toggle span {
   display: block;

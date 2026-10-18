@@ -6,7 +6,7 @@
       잠깐 머물렀다가 서서히 사라지게 한다.
       - 미리 만들어 둔 잔상(pool)을 돌려쓰므로 DOM 생성 부하가 없다.
    ② 호버 깜박임: html 에 .cur-alt 클래스를 빠르게 토글해서
-      클릭 가능한 요소 위의 커서가 Cursor_Hover1 ↔ Cursor_Hover2 로 깜박이게 한다.
+      클릭 가능한 요소 위의 커서가 cursor-hover ↔ cursor-normal 로 깜박이게 한다.
       (Hover1 규칙은 style.css, Hover2 규칙은 cursor-trail.css)
    - 터치 기기(마우스 없음)와 모션 최소화 환경에서는 아예 동작하지 않는다.
    - 잔상 수명·불투명도는 cursor-trail.css 상단 변수(--ct-*)에서 조절.
