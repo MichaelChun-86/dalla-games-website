@@ -219,18 +219,9 @@
       ja: 'お問い合わせ: <a href="mailto:dalla.gamedev@gmail.com">dalla.gamedev@gmail.com</a>'
     },
 
-    /* ---- 쿠키 동의 배너 + 푸터 법적 링크 ---- */
-    "cc.title": { ko: "쿠키 사용 안내", en: "We use cookies", zh: "我们使用 Cookie", ja: "Cookie の使用について" },
-    "cc.text": {
-      ko: '방문 통계를 위해, 동의하신 경우에만 Google Analytics 쿠키를 사용합니다. 언제든 페이지 맨 아래 ‘쿠키 설정’에서 바꿀 수 있습니다.<a href="privacy.html#ko">개인정보처리방침</a>',
-      en: 'With your consent, we use Google Analytics cookies to see how visitors use this site. You can change your choice anytime under “Cookie Settings” at the bottom of the page.<a href="privacy.html">Privacy Policy</a>',
-      zh: '仅在您同意后，我们才会使用 Google Analytics Cookie 来了解访客如何使用本网站。您可以随时在页面底部的“Cookie 设置”中更改选择。<a href="privacy.html">隐私政策</a>',
-      ja: '同意いただいた場合のみ、サイトの利用状況を把握するため Google Analytics の Cookie を使用します。ページ下部の「Cookie 設定」からいつでも変更できます。<a href="privacy.html">プライバシーポリシー</a>'
-    },
-    "cc.reject": { ko: "필수만 허용", en: "Necessary Only", zh: "仅必要", ja: "必須のみ" },
-    "cc.accept": { ko: "모두 허용", en: "Accept All", zh: "全部接受", ja: "すべて許可" },
+    /* ---- 푸터 법적 링크 ---- */
     "legal.privacy": { ko: "개인정보처리방침", en: "Privacy Policy", zh: "隐私政策", ja: "プライバシーポリシー" },
-    "legal.cookies": { ko: "쿠키 설정", en: "Cookie Settings", zh: "Cookie 设置", ja: "Cookie 設定" },
+
 
     /* ---- 푸터 게임 정보표 (라벨 / 값) ---- */
     "spec.release":   { ko: "출시", en: "Release", zh: "发售", ja: "発売" },

@@ -1078,6 +1078,23 @@ label,
 .footer-specs dd { color: var(--text); }
 .footer-specs a { color: var(--text); transition: color 0.2s ease; }
 .footer-specs a:hover { color: var(--mint-bright); }
+
+/* 개인정보처리방침 링크 */
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+.footer-legal a {
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.footer-legal a:hover { color: var(--mint-bright); }
 .footer-social {
   display: flex;
   justify-content: center;

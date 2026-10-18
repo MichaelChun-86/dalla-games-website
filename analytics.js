@@ -38,10 +38,6 @@
          placement 처럼 파라미터별로 나눠 보려면 [관리 > 맞춤 정의] 에서
          "맞춤 측정기준"으로 한 번 등록해 주면 된다.
 
-   [쿠키 동의]
-     쿠키 배너에서 "모두 허용"을 고른 방문자만 집계한다(consent.js 참고).
-     고르지 않았거나 "필수만 허용"이면 GA4 를 아예 불러오지 않는다.
-
    [로컬 테스트는 집계에서 제외]
      localhost / 127.0.0.1 / file:// 에서는 전송하지 않는다.
      실제 방문 통계에 개발 중 클릭이 섞이지 않게 하기 위함.
@@ -83,40 +79,12 @@
   // ID 미설정 / 로컬 / 제외 지정 → 통째로 비활성
   if (!MEASUREMENT_ID || isLocal || excluded) return;
 
-  /* ---------- 쿠키 동의 확인 ----------
-     방문자가 쿠키 배너에서 "모두 허용"을 고른 경우에만 GA4 를 불러온다.
-     consent.js 가 선택을 localStorage "dalla-consent" 에 남기고
-     "dalla:consent" 이벤트로 알려 준다.
-       · 아직 안 골랐거나 "필수만 허용" → 아무것도 보내지 않는다(구글로 나가는 요청도 없음)
-       · 나중에 "모두 허용" → 그 순간부터 시작
-       · 허용했다가 "필수만 허용"으로 바꾸면 → 수집을 멈추고 GA 쿠키(_ga…)를 지운다 */
-  var CONSENT_KEY = "dalla-consent";
-  var started = false;
-
-  function consent() {
-    try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
-  }
-
-  // 철회: 남은 페이지 동안 수집을 멈춘다. (GA 쿠키 삭제는 consent.js 가 한다)
-  function revoke() {
-    if (!started) return;
-    window.gtag("consent", "update", { analytics_storage: "denied" });
-  }
-
-  window.addEventListener("dalla:consent", function () {
-    if (consent() === "granted") startAnalytics();
-    else revoke();
-  });
-  if (consent() === "granted") startAnalytics();
+  /* 방문하면 바로 집계를 시작한다 (쿠키 동의 배너 없음 — 2026-10-18 결정:
+     동의한 사람만 세면 방문자 통계가 크게 줄어 배너를 뺐다.
+     수집 내용과 거부 방법은 privacy.html 에 안내한다) */
+  startAnalytics();
 
   function startAnalytics() {
-    // 철회했다가 다시 허용한 경우: 이미 불러온 GA 를 다시 켜기만 한다
-    if (started) {
-      window.gtag("consent", "update", { analytics_storage: "granted" });
-      return;
-    }
-    started = true;
-
     /* ---------- GA4 기본 스니펫 ---------- */
     window.dataLayer = window.dataLayer || [];
     function gtag() { window.dataLayer.push(arguments); }
