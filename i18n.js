@@ -242,7 +242,10 @@
     },
     "spec.platform":  { ko: "플랫폼", en: "Platform", zh: "平台", ja: "プラットフォーム" },
     "spec.langs":     { ko: "지원 언어", en: "Languages", zh: "支持语言", ja: "対応言語" },
-    "spec.langs.v":   { ko: "영어, 한국어", en: "English, Korean", zh: "英语、韩语", ja: "英語、韓国語" },
+    "spec.langs.v": {
+      ko: "영어, 한국어 (추가 언어 지원 예정)", en: "English, Korean (more languages planned)",
+      zh: "英语、韩语（将支持更多语言）", ja: "英語、韓国語（今後追加予定）"
+    },
     "spec.engine":    { ko: "엔진", en: "Engine", zh: "引擎", ja: "エンジン" },
     "spec.dev":       { ko: "개발", en: "Developer", zh: "开发", ja: "開発" },
 
