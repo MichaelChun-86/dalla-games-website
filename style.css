@@ -381,7 +381,7 @@ label,
 .hero-title-wrap {
   position: relative;
   display: inline-block;
-  width: min(620px, 86%);
+  width: min(527px, 73%);     /* 2026-10-18: 15% 축소 (이전 min(620px, 86%)) */
   margin: 0;
   font-size: inherit;
   font-weight: inherit;
@@ -504,8 +504,8 @@ label,
   z-index: 3;
   font-weight: 300;                 /* 이사만루 라이트 */
   color: #ffffff;
-  font-size: clamp(18px, 2.1vw, 26px);
-  letter-spacing: 3px;
+  font-size: clamp(12px, 1.36vw, 17px);   /* 2026-10-18: 약 35% 축소 (이전 18~26px) */
+  letter-spacing: 2px;
   margin-top: 22px;                 /* 타이틀 아래로 살짝 간격 */
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
@@ -622,27 +622,27 @@ label,
   bottom: var(--hero-footer-gap);
   display: flex;
   align-items: center;
-  gap: 18px;
-  max-width: 480px;
-  padding: 16px 24px;
+  gap: 14px;
+  max-width: 400px;
+  padding: 12px 18px;
   background: rgba(0, 0, 0, 0.55);   /* 반투명 블랙 박스 */
   border: 2px solid rgba(255, 255, 255, 0.35);   /* 사이트 공통: 각진 모서리 + 2px 반투명 흰 선 */
   backdrop-filter: blur(3px);
 }
 .epic-badge {
-  width: 116px;                  /* 배지 키움 */
+  width: 88px;
   height: auto;
   flex-shrink: 0;
 }
 .epic-info { min-width: 0; }
 .epic-title {
-  font-size: clamp(18px, 1.6vw, 22px);
+  font-size: clamp(15px, 1.25vw, 18px);
   letter-spacing: 0.5px;
   line-height: 1.2;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .epic-text {
-  font-size: 13.5px;
+  font-size: 12.5px;
   line-height: 1.5;
   color: var(--text);
 }
@@ -777,7 +777,7 @@ label,
 .hero-video {
   position: relative;             /* 파사드(재생 전 썸네일)를 위에 얹기 위한 기준 */
   z-index: 1;                     /* Coming 2027 아래 레이어(위시리스트/스팀과 동일) */
-  width: min(540px, 100%);        /* 원래 크기 유지 — 줄이면 PC에서 화질이 뭉갠다 */
+  width: min(460px, 100%);        /* 로고를 15% 줄인 만큼 같이 줄였다 (이전 540px) */
   margin: 22px auto 0;            /* 스팀 버튼과의 간격 */
   aspect-ratio: 16 / 9;
   border: 2px solid rgba(255, 255, 255, 0.5);    /* 흰색 아웃라인 */
@@ -860,7 +860,7 @@ label,
   display: flex;
   align-items: baseline;
   gap: 14px;
-  width: min(540px, 100%);        /* 영상 폭과 같게 */
+  width: min(460px, 100%);        /* 영상 폭과 같게 */
   margin: 0 auto;
   padding: 14px 2px 0;
   text-align: left;
@@ -1163,11 +1163,11 @@ label,
   }
   .epic-megagrant {
     right: 3%;
-    max-width: 420px;
-    gap: 14px;
-    padding: 14px 18px;
+    max-width: 380px;
+    gap: 12px;
+    padding: 12px 16px;
   }
-  .epic-badge { width: 96px; }
+  .epic-badge { width: 80px; }
 }
 
 /* 메뉴가 5개(FAQ 추가)가 되면서 좁은 데스크톱 폭에서 로고와 맞붙는다.
@@ -1183,7 +1183,7 @@ label,
    ① 1621px 이상 : 카피라이트와 아래 정렬 (기본 규칙, 우측 고정)
    ② 1241~1620px : 문구와 가로로 겹치기 시작하므로 문구 위로 올린다.
                     (배지는 계속 우측, 영상과는 겹치지 않는 폭)
-   ③ 769~1240px  : 트레일러 영상(540px)과도 겹치므로 아래 줄로 내린다.
+   ③ 769~1240px  : 트레일러 영상(460px)과도 겹치므로 아래 줄로 내린다.
    768px 이하(모바일)는 이미 흐름 배치라 제외.
    ========================================================= */
 @media (min-width: 1241px) and (max-width: 1620px) {
@@ -1212,7 +1212,7 @@ label,
     margin-right: auto;
     bottom: calc(var(--hero-footer-gap) + var(--hero-footer-h)
                  + var(--hero-arrow-band) + 14px);
-    width: min(470px, 100%);   /* 영상과 비슷한 폭으로 맞춤 */
+    width: min(400px, 100%);   /* 영상과 비슷한 폭으로 맞춤 */
     max-width: 470px;
   }
 }
@@ -1334,8 +1334,8 @@ label,
     font-size: min(11px, calc((100vw - 56px) / 26.5));
   }
 
-  .hero-title-wrap { width: 90%; }
-  .hero-coming { font-size: 18px; letter-spacing: 2px; margin-top: 14px; }
+  .hero-title-wrap { width: 77%; }   /* 15% 축소 (이전 90%) */
+  .hero-coming { font-size: 12px; letter-spacing: 1.5px; margin-top: 12px; }   /* 약 35% 축소 (이전 18px) */
   /* 위시리스트 + 스팀 버튼: 좁은 폭에서도 한 줄을 유지하도록 각각 축소 */
   .hero-cta-row { gap: 12px; margin-top: 6px; }
   .hero-subtitle { width: min(150px, 44%); }
@@ -1344,23 +1344,24 @@ label,
 
   /* 트레일러 영상: 모바일에선 아래 Epic 박스와 같은 폭으로 키움
      (둘 다 히어로 좌우 패딩 안쪽을 꽉 채워 폭이 정확히 맞는다) */
-  .hero-video { width: 100%; margin-top: 18px; }
-  .trailer-cap { width: 100%; gap: 10px; padding-top: 10px; }
+  /* 로고가 줄어든 만큼 영상·캡션·Epic 박스도 같은 폭(85%)으로 맞춘다 */
+  .hero-video { width: 85%; margin-top: 18px; }
+  .trailer-cap { width: 85%; gap: 10px; padding-top: 10px; }
   .trailer-cap-title { font-size: 15px; }
 
   /* Epic 박스: 트레일러 영상 아래로 흐름(가로 박스 유지). */
   .epic-megagrant {
     position: static;
     margin: 56px auto 0;     /* 영상 아래 적당한 간격 → 스크롤하면 등장 */
-    max-width: 100%;
-    gap: 14px;
-    padding: 14px 16px;
+    max-width: 85%;
+    gap: 12px;
+    padding: 12px 14px;
     text-align: left;
     z-index: 2;
   }
-  .epic-badge { width: 84px; }
-  .epic-title { font-size: 17px; }
-  .epic-text { font-size: 12.5px; }
+  .epic-badge { width: 68px; }
+  .epic-title { font-size: 15px; }
+  .epic-text { font-size: 11.5px; }
 
   .scroll-down { display: none; }     /* 모바일에선 숨김 */
 
@@ -1450,7 +1451,7 @@ label,
 
 /* 아주 작은 화면 (420px 이하) 미세 조정 */
 @media (max-width: 420px) {
-  .hero-title-wrap { width: 96%; }
+  .hero-title-wrap { width: 82%; }   /* 15% 축소 (이전 96%) */
   /* 한 줄 배치라 스팀 버튼과 나눠 쓸 만큼만 차지한다 */
   .hero-cta-row { gap: 10px; }
   .hero-subtitle { width: min(140px, 46%); }
@@ -1458,10 +1459,10 @@ label,
   .steam-btn-icon { width: 26px; height: 26px; }
   .brand-logo { height: 22px; }
   /* Epic 박스: 가로 배치 유지(시안), 좁은 화면에선 살짝 축소 */
-  .epic-megagrant { gap: 12px; padding: 12px 14px; }
-  .epic-badge { width: 72px; }
-  .epic-title { font-size: 15.5px; }
-  .epic-text { font-size: 12px; }
+  .epic-megagrant { gap: 10px; padding: 10px 12px; }
+  .epic-badge { width: 60px; }
+  .epic-title { font-size: 14px; }
+  .epic-text { font-size: 11px; }
   /* 역할 텍스트가 아주 좁은 화면에서 넘치면 살짝 더 축소 */
   .member-role { font-size: 11.5px; }
 }

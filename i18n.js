@@ -40,7 +40,7 @@
       ja: "成長と安全は、決して同じ選択にはなり得ない"
     },
     "hero.coming": {
-      ko: "2027 출시 예정", en: "Coming 2027", zh: "预计 2027 年发售", ja: "2027年 発売予定"
+      ko: "2027년 출시 예정", en: "Coming 2027", zh: "预计 2027 年发售", ja: "2027年 発売予定"
     },
     "epic.title": {
       ko: "에픽 메가그랜트 선정", en: "Epic MegaGrant Recipient",
