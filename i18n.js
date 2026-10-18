@@ -62,6 +62,11 @@
     },
 
     /* ---- OUR GAMES ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
+    /* 섹션 제목(라벨 OUR GAME 아래) */
+    "games.heading": {
+      ko: "우리가 만드는 게임", en: "What We’re Making",
+      zh: "我们正在打造的游戏", ja: "私たちが作っているゲーム"
+    },
     "games.subtitle": {
       ko: "AeonFall – 하드코어 로그라이크 디펜스",
       en: "AeonFall – Hardcore Roguelike Defense",
@@ -98,6 +103,11 @@
     },
 
     /* ---- FAQ ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
+    /* 섹션 제목(라벨 FAQ 아래) */
+    "faq.heading": {
+      ko: "자주 묻는 질문", en: "Frequently Asked Questions",
+      zh: "常见问题", ja: "よくある質問"
+    },
     "faq.subtitle": {
       ko: "지금 확실히 말씀드릴 수 있는 것들",
       en: "What we can tell you right now",
@@ -245,6 +255,11 @@
     },
 
     /* ---- ABOUT US ---- 제목은 ko 키 없음(영문 유지), 하위 내용은 번역 ---- */
+    /* 섹션 제목(라벨 ABOUT US 아래) */
+    "about.heading": {
+      ko: "게임을 만드는 사람들", en: "The People Behind It",
+      zh: "幕后团队", ja: "ゲームを作る人たち"
+    },
     "about.subtitle": {
       en: "Dalla Games Inc.", zh: "Dalla Games Inc.", ja: "Dalla Games Inc."
     },

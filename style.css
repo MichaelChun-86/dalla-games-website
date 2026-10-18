@@ -147,14 +147,14 @@ label,
   padding: 150px 24px;     /* 섹션 간 여백 넓게(답답함 해소) */
 }
 
-/* 섹션 제목 (OUR GAME / ABOUT US / FAQ 공통)
-   작은 영어 라벨(그린, 넓은 자간) 아래에 큰 제목(선택한 언어)을 둔다.
+/* 섹션 제목 (OUR GAME / ABOUT US / FAQ 공통) — 3단
+   ① 영어 라벨(그린, 넓은 자간)  ② 제목(선택한 언어)  ③ 소제목(작은 회색)
    라벨은 트레일러 캡션의 TRAILER 처럼 모든 언어에서 영어 그대로다. */
 .sec-head {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 12px;
   margin-bottom: 56px;
   text-align: center;
 }
@@ -165,11 +165,16 @@ label,
   padding-left: 0.4em;        /* 자간이 오른쪽에만 붙어 가운데에서 밀려 보이는 것 보정 */
 }
 .sec-title {
-  margin: 0;
+  margin: 4px 0 0;
   color: var(--text);
-  font-size: clamp(26px, 3.4vw, 46px);
+  font-size: clamp(22px, 2.4vw, 32px);
   line-height: 1.3;
   text-wrap: balance;         /* 두 줄이 될 때 위아래 길이를 비슷하게 */
+}
+.sec-sub {
+  color: var(--text-dim);
+  font-size: clamp(14px, 1.3vw, 16px);
+  letter-spacing: 0.02em;
 }
 
 /* =========================================================
