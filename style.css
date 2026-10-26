@@ -881,7 +881,7 @@ html.menu-open { overflow: hidden; }
 .vf-thumb {
   position: absolute;
   inset: 0;
-  background: url("images/youtube.webp?v=4") center / cover no-repeat;
+  background: url("images/youtube.webp?v=5") center / cover no-repeat;
   transition: transform 0.4s ease;     /* OUR GAME 이미지와 같은 속도 */
 }
 .video-facade:hover .vf-thumb,
