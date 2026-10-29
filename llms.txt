@@ -1,0 +1,45 @@
+# Dalla Games — AeonFall
+
+> Dalla Games Inc. (달라게임즈) is a two-person indie game studio. Its first game,
+> AeonFall (이온폴), is a hardcore roguelike defense game for PC (Steam), planned for
+> Steam Early Access in the second half of 2027.
+
+## AeonFall at a glance
+- Genre: hardcore roguelike defense (Steam genres: Action, Indie, Strategy)
+- Platform: PC (Windows), Steam. Console is planned for review in stages after the PC release.
+- Release: Steam Early Access first, second half of 2027. Wishlist on Steam to get updates.
+- Players: single-player
+- Languages: English and Korean; more languages are planned
+- Engine: Unreal Engine 5
+- Funding: recipient of an Epic MegaGrant
+- Steam page: https://store.steampowered.com/app/4582730/THE_AEON_FALL/
+
+## How it plays
+- Every action makes noise. Mining, building and fighting all raise the noise, and the noise draws the infected swarm. The bigger and stronger the base, the louder it gets and the more enemies come.
+- Hybrid control: you directly control a lone survivor in real time while building and defending a base.
+- Massive waves: huge infected swarms move across the whole map in real time. Waves come on a cycle, and on the final day they attack from every direction with a boss.
+- Every run is different: terrain, resource placement, nest locations, boss types and attack directions are randomised.
+- It is deliberately hard. If oxygen or health runs out, or the base is overrun, the run ends.
+
+## Studio
+- Dalla Games Inc. (달라게임즈) — a two-person indie studio
+- Joonyoung Chun — CEO, Lead Artist / Concept Designer (art director, 16 years of experience)
+- Yunkyu Kim — CTO, Lead Programmer / Lead Game Designer (full-stack developer, 13 years of experience)
+
+## Links
+- Website: https://dallagames.com/
+- Steam: https://store.steampowered.com/app/4582730/THE_AEON_FALL/
+- YouTube: https://www.youtube.com/@DallaGames
+- Gameplay trailer: https://www.youtube.com/watch?v=hbOC0TWPv0c
+- FAQ: https://dallagames.com/#faq
+
+## Contact
+- Email: dalla.gamedev@gmail.com
+
+## 한국어 요약
+- 달라게임즈(Dalla Games Inc.)는 2인 인디 게임 스튜디오입니다.
+- 첫 작품 이온폴(AeonFall)은 하드코어 로그라이크 디펜스 게임으로, 2027년 하반기 Steam 앞서 해보기 출시를 목표로 합니다.
+- 채굴·건설·전투 등 모든 행동이 소음을 만들고, 소음이 감염체 무리를 부릅니다. 캐릭터를 직접 조작하며 기지를 짓고 지킵니다.
+- 언리얼 엔진 5로 개발 중이며, 에픽 메가그랜트에 선정되었습니다.
+- 지원 언어: 영어, 한국어 (추가 언어 지원 예정)
+- 문의: dalla.gamedev@gmail.com

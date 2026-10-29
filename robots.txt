@@ -1,4 +1,39 @@
+# 모든 검색엔진·AI 크롤러에 사이트 전체를 허용한다.
+# (아래 AI 크롤러들은 "User-agent: *" 로도 이미 허용되지만, 의도를 분명히 하려고 이름으로 적어 둔다.
+#  막고 싶어지면 해당 이름 아래 Allow 를 Disallow 로 바꾸면 된다.)
+
 User-agent: *
+Allow: /
+
+# OpenAI (ChatGPT 학습 / ChatGPT 검색 / 사용자 요청 시 열람)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Google AI(Gemini) / Apple Intelligence
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://dallagames.com/sitemap.xml
