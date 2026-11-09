@@ -364,9 +364,9 @@
   <nav class="nav" id="navMenu" aria-label="Menu">
     <a href="#home" class="nav-link"><span class="nav-main" data-i18n="nav.home">Home</span><span class="nav-sub">HOME</span></a>
     <a href="#games" class="nav-link"><span class="nav-main" data-i18n="nav.game">Game</span><span class="nav-sub">GAME</span></a>
-    <a href="#press" class="nav-link"><span class="nav-main" data-i18n="nav.press">Press Kit</span><span class="nav-sub">PRESS KIT</span></a>
     <a href="#about" class="nav-link"><span class="nav-main" data-i18n="nav.about">About</span><span class="nav-sub">ABOUT</span></a>
     <a href="#faq" class="nav-link"><span class="nav-main" data-i18n="nav.faq">FAQ</span><span class="nav-sub">FAQ</span></a>
+    <a href="#press" class="nav-link"><span class="nav-main" data-i18n="nav.press">Press Kit</span><span class="nav-sub">PRESS KIT</span></a>
     <a href="#contact" class="nav-link"><span class="nav-main" data-i18n="nav.contact">Contact</span><span class="nav-sub">CONTACT</span></a>
 
     <!-- 메일 · 유튜브 · 스팀 바로가기 -->
@@ -580,46 +580,6 @@
       </div>
     </section>
 
-    <!-- ===================== PRESS KIT =====================
-         Canva 로 만든 프레스킷(16:9 슬라이드)을 그대로 보여 주는 섹션.
-         - 영문/한글 두 버전. 처음엔 사이트에서 고른 언어(한국어면 한글, 그 외는 영문)로 열린다.
-         - 아래 버튼으로 언어를 바꾸면 슬라이드·새 탭 링크·PDF 링크가 함께 바뀐다(presskit.js).
-         - Canva 화면은 섹션 근처까지 스크롤했을 때 불러온다(loading="lazy") → 첫 화면 속도에 영향 없음.
-         - 기자에게 줄 주소: https://dallagames.com/#press -->
-    <section class="presskit" id="press">
-      <div class="section-inner">
-        <div class="sec-head">
-          <span class="sec-kicker">PRESS KIT</span>
-          <h2 class="sec-title font-medium" data-i18n="press.heading">Press Kit</h2>
-          <p class="sec-sub" data-i18n="press.subtitle">Everything you need to cover AeonFall</p>
-        </div>
-
-        <!-- 언어 전환 버튼 (EN / KO). data-deck 값이 presskit.js 의 DECKS 키와 같아야 한다. -->
-        <div class="pk-langs" role="group" aria-label="Press kit language">
-          <button type="button" class="pk-lang" data-deck="en">English</button>
-          <button type="button" class="pk-lang" data-deck="ko">한국어</button>
-        </div>
-
-        <!-- 16:9 슬라이드 틀. 안의 iframe 주소는 presskit.js 가 언어에 맞게 넣는다. -->
-        <div class="pk-frame">
-          <iframe id="pkViewer" loading="lazy" allowfullscreen allow="fullscreen"
-                  title="AeonFall Press Kit"
-                  src="https://www.canva.com/design/DAHaEAFaDok/GoHfrveLz-ZiZrDf_n-Tiw/view?embed"></iframe>
-        </div>
-
-        <div class="pk-actions">
-          <a id="pkOpen" class="pk-btn" target="_blank" rel="noopener"
-             href="https://www.canva.com/design/DAHaEAFaDok/GoHfrveLz-ZiZrDf_n-Tiw/view">
-            <span data-i18n="press.open">Open full screen</span>
-          </a>
-          <a id="pkPdf" class="pk-btn pk-btn-fill" download
-             href="presskit/AeonFall_PressKit_EN.pdf">
-            <span data-i18n="press.pdf">Download PDF</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
     <!-- ===================== ABOUT US ===================== -->
     <section class="about" id="about">
       <div class="section-inner">
@@ -801,6 +761,46 @@
       </div>
     </section>
 
+    <!-- ===================== PRESS KIT =====================
+         Canva 로 만든 프레스킷(16:9 슬라이드)을 그대로 보여 주는 섹션.
+         - 영문/한글 두 버전. 처음엔 사이트에서 고른 언어(한국어면 한글, 그 외는 영문)로 열린다.
+         - 아래 버튼으로 언어를 바꾸면 슬라이드·새 탭 링크·PDF 링크가 함께 바뀐다(presskit.js).
+         - Canva 화면은 섹션 근처까지 스크롤했을 때 불러온다(loading="lazy") → 첫 화면 속도에 영향 없음.
+         - 기자에게 줄 주소: https://dallagames.com/#press -->
+    <section class="presskit" id="press">
+      <div class="section-inner">
+        <div class="sec-head">
+          <span class="sec-kicker">PRESS KIT</span>
+          <h2 class="sec-title font-medium" data-i18n="press.heading">Press Kit</h2>
+          <p class="sec-sub" data-i18n="press.subtitle">Everything you need to cover AeonFall</p>
+        </div>
+
+        <!-- 언어 전환 버튼 (EN / KO). data-deck 값이 presskit.js 의 DECKS 키와 같아야 한다. -->
+        <div class="pk-langs" role="group" aria-label="Press kit language">
+          <button type="button" class="pk-lang" data-deck="en">English</button>
+          <button type="button" class="pk-lang" data-deck="ko">한국어</button>
+        </div>
+
+        <!-- 16:9 슬라이드 틀. 안의 iframe 주소는 presskit.js 가 언어에 맞게 넣는다. -->
+        <div class="pk-frame">
+          <iframe id="pkViewer" loading="lazy" allowfullscreen allow="fullscreen"
+                  title="AeonFall Press Kit"
+                  src="https://www.canva.com/design/DAHaEAFaDok/GoHfrveLz-ZiZrDf_n-Tiw/view?embed"></iframe>
+        </div>
+
+        <div class="pk-actions">
+          <a id="pkOpen" class="pk-btn" target="_blank" rel="noopener"
+             href="https://www.canva.com/design/DAHaEAFaDok/GoHfrveLz-ZiZrDf_n-Tiw/view">
+            <span data-i18n="press.open">Open full screen</span>
+          </a>
+          <a id="pkPdf" class="pk-btn pk-btn-fill" download
+             href="presskit/AeonFall_PressKit_EN.pdf">
+            <span data-i18n="press.pdf">Download PDF</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ===================== 푸터 ===================== -->
@@ -837,7 +837,6 @@
 
     <!-- 개인정보처리방침 -->
     <nav class="footer-legal" aria-label="Legal">
-      <a href="#press" data-i18n="legal.press">Press Kit</a>
       <a href="privacy.html" data-i18n="legal.privacy">Privacy Policy</a>
     </nav>
 
