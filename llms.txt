@@ -32,6 +32,7 @@
 - YouTube: https://www.youtube.com/@DallaGames
 - Gameplay trailer: https://www.youtube.com/watch?v=MTjmNXMEQUo
 - FAQ: https://dallagames.com/#faq
+- Press kit (EN/KO, PDF download): https://dallagames.com/#press
 
 ## Contact
 - Email: dalla.gamedev@gmail.com

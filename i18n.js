@@ -224,6 +224,12 @@
     },
 
     /* ---- 푸터 법적 링크 ---- */
+    "legal.press": { ko: "프레스킷", en: "Press Kit", zh: "媒体资料", ja: "プレスキット" },
+    /* ---- 프레스킷 섹션 ---- */
+    "press.heading":  { ko: "프레스킷", en: "Press Kit", zh: "媒体资料", ja: "プレスキット" },
+    "press.subtitle": { ko: "이온폴 소개에 필요한 자료를 한곳에 모았습니다", en: "Everything you need to cover AeonFall", zh: "报道 AeonFall 所需的全部资料", ja: "AeonFall の紹介に必要な資料をまとめました" },
+    "press.open":     { ko: "새 탭에서 크게 보기", en: "Open full screen", zh: "在新标签页中查看", ja: "新しいタブで開く" },
+    "press.pdf":      { ko: "PDF 다운로드", en: "Download PDF", zh: "下载 PDF", ja: "PDF をダウンロード" },
     "legal.privacy": { ko: "개인정보처리방침", en: "Privacy Policy", zh: "隐私政策", ja: "プライバシーポリシー" },
 
 
@@ -254,6 +260,7 @@
     /* ---- 전체 화면 메뉴: 큰 글자 (작은 영어 줄은 번역하지 않는다) ---- */
     "nav.home":    { ko: "홈", en: "Home", zh: "首页", ja: "ホーム" },
     "nav.game":    { ko: "게임", en: "Game", zh: "游戏", ja: "ゲーム" },
+    "nav.press":   { ko: "프레스킷", en: "Press Kit", zh: "媒体资料", ja: "プレスキット" },
     "nav.about":   { ko: "팀 소개", en: "About", zh: "关于我们", ja: "チーム紹介" },
     "nav.faq":     { ko: "자주 묻는 질문", en: "FAQ", zh: "常见问题", ja: "よくある質問" },
     "nav.contact": { ko: "문의", en: "Contact", zh: "联系我们", ja: "お問い合わせ" },

@@ -283,33 +283,35 @@
 
   <!-- css/js 뒤의 ?v= 는 캐시 무효화용 버전. 파일을 고치면 이 숫자를 함께 올린다.
        (안 올리면 방문자 브라우저가 최대 10분간 옛 파일을 그대로 쓴다) -->
-  <link rel="stylesheet" href="style.css?v=41" />
+  <link rel="stylesheet" href="style.css?v=42" />
 
   <!-- 히어로 특수효과: 스캐너 스윕 리빌 (기존 코드와 분리된 추가 파일)
        JS는 head에서 동기 로드 — 첫 페인트 전에 스캔 커버를 씌워 깜빡임(FOUC)을 막는다. -->
-  <link rel="stylesheet" href="hero-fx.css?v=41" />
-  <script src="hero-fx.js?v=41"></script>
+  <link rel="stylesheet" href="hero-fx.css?v=42" />
+  <script src="hero-fx.js?v=42"></script>
   <!-- 히어로 배경 영상 레이어 -->
-  <link rel="stylesheet" href="hero-bg-swap.css?v=41" />
+  <link rel="stylesheet" href="hero-bg-swap.css?v=42" />
 
   <!-- 마우스 커서 잔상(트레일) 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="cursor-trail.css?v=41" />
+  <link rel="stylesheet" href="cursor-trail.css?v=42" />
 
   <!-- 다국어(로컬라이제이션) 국기 버튼 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="i18n.css?v=41" />
+  <link rel="stylesheet" href="i18n.css?v=42" />
 
   <!-- 추가 섹션(FAQ) 스타일 -->
-  <link rel="stylesheet" href="enhancements.css?v=41" />
+  <link rel="stylesheet" href="enhancements.css?v=42" />
   <!-- 섹션 배경: 인게임 팝업 홀로그램 (빼려면 이 줄만 지운다) -->
-  <link rel="stylesheet" href="sections-bg.css?v=41" />
+  <link rel="stylesheet" href="sections-bg.css?v=42" />
   <!-- 섹션 높이 + 스크롤 스냅, PC 전용 (빼려면 이 줄만 지운다) -->
-  <link rel="stylesheet" href="sections-snap.css?v=41" />
+  <link rel="stylesheet" href="sections-snap.css?v=42" />
+  <!-- 프레스킷 섹션 -->
+  <link rel="stylesheet" href="presskit.css?v=42" />
 
   <!-- 방문자 분석(GA4) + 스팀 위시리스트 클릭 추적.
        head 에 두는 이유: 아주 짧게 머물다 나가는 방문도 집계되게 하기 위함.
        내부에서 gtag 를 async 로 불러오므로 렌더링은 막지 않는다.
        측정 ID 를 넣기 전까지는 아무 것도 하지 않는다 → analytics.js 상단 참고. -->
-  <script src="analytics.js?v=41"></script>
+  <script src="analytics.js?v=42"></script>
 </head>
 <body>
 
@@ -362,6 +364,7 @@
   <nav class="nav" id="navMenu" aria-label="Menu">
     <a href="#home" class="nav-link"><span class="nav-main" data-i18n="nav.home">Home</span><span class="nav-sub">HOME</span></a>
     <a href="#games" class="nav-link"><span class="nav-main" data-i18n="nav.game">Game</span><span class="nav-sub">GAME</span></a>
+    <a href="#press" class="nav-link"><span class="nav-main" data-i18n="nav.press">Press Kit</span><span class="nav-sub">PRESS KIT</span></a>
     <a href="#about" class="nav-link"><span class="nav-main" data-i18n="nav.about">About</span><span class="nav-sub">ABOUT</span></a>
     <a href="#faq" class="nav-link"><span class="nav-main" data-i18n="nav.faq">FAQ</span><span class="nav-sub">FAQ</span></a>
     <a href="#contact" class="nav-link"><span class="nav-main" data-i18n="nav.contact">Contact</span><span class="nav-sub">CONTACT</span></a>
@@ -573,6 +576,46 @@
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PRESS KIT =====================
+         Canva 로 만든 프레스킷(16:9 슬라이드)을 그대로 보여 주는 섹션.
+         - 영문/한글 두 버전. 처음엔 사이트에서 고른 언어(한국어면 한글, 그 외는 영문)로 열린다.
+         - 아래 버튼으로 언어를 바꾸면 슬라이드·새 탭 링크·PDF 링크가 함께 바뀐다(presskit.js).
+         - Canva 화면은 섹션 근처까지 스크롤했을 때 불러온다(loading="lazy") → 첫 화면 속도에 영향 없음.
+         - 기자에게 줄 주소: https://dallagames.com/#press -->
+    <section class="presskit" id="press">
+      <div class="section-inner">
+        <div class="sec-head">
+          <span class="sec-kicker">PRESS KIT</span>
+          <h2 class="sec-title font-medium" data-i18n="press.heading">Press Kit</h2>
+          <p class="sec-sub" data-i18n="press.subtitle">Everything you need to cover AeonFall</p>
+        </div>
+
+        <!-- 언어 전환 버튼 (EN / KO). data-deck 값이 presskit.js 의 DECKS 키와 같아야 한다. -->
+        <div class="pk-langs" role="group" aria-label="Press kit language">
+          <button type="button" class="pk-lang" data-deck="en">English</button>
+          <button type="button" class="pk-lang" data-deck="ko">한국어</button>
+        </div>
+
+        <!-- 16:9 슬라이드 틀. 안의 iframe 주소는 presskit.js 가 언어에 맞게 넣는다. -->
+        <div class="pk-frame">
+          <iframe id="pkViewer" loading="lazy" allowfullscreen allow="fullscreen"
+                  title="AeonFall Press Kit"
+                  src="https://www.canva.com/design/DAHaEAFaDok/GoHfrveLz-ZiZrDf_n-Tiw/view?embed"></iframe>
+        </div>
+
+        <div class="pk-actions">
+          <a id="pkOpen" class="pk-btn" target="_blank" rel="noopener"
+             href="https://www.canva.com/design/DAHaEAFaDok/GoHfrveLz-ZiZrDf_n-Tiw/view">
+            <span data-i18n="press.open">Open full screen</span>
+          </a>
+          <a id="pkPdf" class="pk-btn pk-btn-fill" download
+             href="presskit/AeonFall_PressKit_EN.pdf">
+            <span data-i18n="press.pdf">Download PDF</span>
+          </a>
         </div>
       </div>
     </section>
@@ -794,6 +837,7 @@
 
     <!-- 개인정보처리방침 -->
     <nav class="footer-legal" aria-label="Legal">
+      <a href="#press" data-i18n="legal.press">Press Kit</a>
       <a href="privacy.html" data-i18n="legal.privacy">Privacy Policy</a>
     </nav>
 
@@ -803,15 +847,17 @@
     </p>
   </footer>
 
-  <script src="script.js?v=41"></script>
+  <script src="script.js?v=42"></script>
   <!-- 합성 사운드 효과 (타이핑/CRT/스팀 버튼) — 기존 코드와 분리된 추가 파일 -->
-  <script src="sfx.js?v=41"></script>
+  <script src="sfx.js?v=42"></script>
   <!-- 마우스 커서 잔상(트레일) — 기존 코드와 분리된 추가 파일 -->
-  <script src="cursor-trail.js?v=41"></script>
+  <script src="cursor-trail.js?v=42"></script>
   <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
-  <script src="i18n.js?v=41"></script>
+  <script src="i18n.js?v=42"></script>
+  <!-- 프레스킷: 언어 전환 (i18n.js 뒤에 와야 현재 언어를 읽을 수 있다) -->
+  <script src="presskit.js?v=42"></script>
 
   <!-- 히어로 배경 영상: 데스크톱에서만 내려받아 재생 -->
-  <script src="hero-video.js?v=41"></script>
+  <script src="hero-video.js?v=42"></script>
 </body>
 </html>

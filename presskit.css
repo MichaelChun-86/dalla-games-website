@@ -1,0 +1,96 @@
+/* =========================================================================
+   PRESS KIT 섹션 (OUR GAME 아래)
+   - 본 사이트 규칙 그대로: 각진 모서리, 2px 반투명 흰 선, 네온 그린 강조.
+   ========================================================================= */
+.presskit {
+  background: var(--bg);
+  position: relative;
+}
+.presskit > .section-inner { position: relative; z-index: 1; }
+
+/* 언어 전환 버튼 줄 */
+.pk-langs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 0 auto 20px;
+  width: max-content;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+.pk-lang {
+  font: inherit;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  padding: 10px 26px;
+  background: transparent;
+  color: var(--text-dim);
+  border: 0;
+  cursor: inherit;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.pk-lang + .pk-lang { border-left: 2px solid rgba(255, 255, 255, 0.5); }
+.pk-lang:hover { color: var(--mint-bright); }
+.pk-lang.is-active { background: var(--mint); color: #000; }
+
+/* 16:9 슬라이드 틀 */
+.pk-frame {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: #050807;
+}
+.pk-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* 아래 버튼 2개 */
+.pk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 16px;
+  margin-top: 24px;
+}
+.pk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  padding: 13px 26px;
+  border: 2px solid var(--mint);
+  color: var(--mint);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.pk-btn:hover,
+.pk-btn:focus-visible { border-color: var(--mint-bright); color: var(--mint-bright); }
+.pk-btn-fill { background: var(--mint); color: #000; }
+.pk-btn-fill:hover,
+.pk-btn-fill:focus-visible { background: var(--mint-bright); color: #000; }
+
+/* PC: 다른 섹션처럼 화면 한 장 + 스냅 (sections-snap.css 와 같은 규칙) */
+@media (min-width: 769px) {
+  .presskit {
+    scroll-snap-align: start;
+    min-height: calc(100vh - var(--header-h));
+    display: flex;
+    align-items: center;
+  }
+  .presskit > .section-inner { width: 100%; padding-top: 96px; padding-bottom: 96px; }
+}
+
+/* 모바일: 버튼을 꽉 차게, 슬라이드는 작으니 "새 탭에서 크게 보기"를 맨 위로 */
+@media (max-width: 768px) {
+  .pk-actions { flex-direction: column; }
+  .pk-btn { width: 100%; min-width: 0; }
+  .pk-lang { padding: 10px 20px; }
+}
