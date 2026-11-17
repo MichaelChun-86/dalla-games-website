@@ -283,35 +283,35 @@
 
   <!-- css/js 뒤의 ?v= 는 캐시 무효화용 버전. 파일을 고치면 이 숫자를 함께 올린다.
        (안 올리면 방문자 브라우저가 최대 10분간 옛 파일을 그대로 쓴다) -->
-  <link rel="stylesheet" href="style.css?v=42" />
+  <link rel="stylesheet" href="style.css?v=43" />
 
   <!-- 히어로 특수효과: 스캐너 스윕 리빌 (기존 코드와 분리된 추가 파일)
        JS는 head에서 동기 로드 — 첫 페인트 전에 스캔 커버를 씌워 깜빡임(FOUC)을 막는다. -->
-  <link rel="stylesheet" href="hero-fx.css?v=42" />
-  <script src="hero-fx.js?v=42"></script>
+  <link rel="stylesheet" href="hero-fx.css?v=43" />
+  <script src="hero-fx.js?v=43"></script>
   <!-- 히어로 배경 영상 레이어 -->
-  <link rel="stylesheet" href="hero-bg-swap.css?v=42" />
+  <link rel="stylesheet" href="hero-bg-swap.css?v=43" />
 
   <!-- 마우스 커서 잔상(트레일) 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="cursor-trail.css?v=42" />
+  <link rel="stylesheet" href="cursor-trail.css?v=43" />
 
   <!-- 다국어(로컬라이제이션) 국기 버튼 스타일 — 스크립트는 body 끝에서 로드 -->
-  <link rel="stylesheet" href="i18n.css?v=42" />
+  <link rel="stylesheet" href="i18n.css?v=43" />
 
   <!-- 추가 섹션(FAQ) 스타일 -->
-  <link rel="stylesheet" href="enhancements.css?v=42" />
+  <link rel="stylesheet" href="enhancements.css?v=43" />
   <!-- 섹션 배경: 인게임 팝업 홀로그램 (빼려면 이 줄만 지운다) -->
-  <link rel="stylesheet" href="sections-bg.css?v=42" />
+  <link rel="stylesheet" href="sections-bg.css?v=43" />
   <!-- 섹션 높이 + 스크롤 스냅, PC 전용 (빼려면 이 줄만 지운다) -->
-  <link rel="stylesheet" href="sections-snap.css?v=42" />
+  <link rel="stylesheet" href="sections-snap.css?v=43" />
   <!-- 프레스킷 섹션 -->
-  <link rel="stylesheet" href="presskit.css?v=42" />
+  <link rel="stylesheet" href="presskit.css?v=43" />
 
   <!-- 방문자 분석(GA4) + 스팀 위시리스트 클릭 추적.
        head 에 두는 이유: 아주 짧게 머물다 나가는 방문도 집계되게 하기 위함.
        내부에서 gtag 를 async 로 불러오므로 렌더링은 막지 않는다.
        측정 ID 를 넣기 전까지는 아무 것도 하지 않는다 → analytics.js 상단 참고. -->
-  <script src="analytics.js?v=42"></script>
+  <script src="analytics.js?v=43"></script>
 </head>
 <body>
 
@@ -542,7 +542,11 @@
         <div class="games-grid">
           <!-- 위: 게임 키아트 (한 줄 전체 폭) -->
           <div class="games-art">
-            <img src="images/game-art.webp?v=7" alt="AeonFall key art" />
+            <!-- 2.5D 느낌: 배경(아래)만 마우스 호버 시 확대되고,
+                 로고·카피라이트·메가그랜트 배지(위, 투명 PNG)는 제자리에 고정된다.
+                 두 이미지는 크기(2000×1125)가 같아서 정확히 겹친다. -->
+            <img class="games-art-bg" src="images/game-art-bg.webp?v=1" alt="AeonFall key art" />
+            <img class="games-art-overlay" src="images/game-art-overlay.webp?v=1" alt="" aria-hidden="true" />
           </div>
 
           <!-- 아래: 4가지 특징 (PC 4칸 / 태블릿 2×2 / 모바일 1칸) -->
@@ -846,17 +850,17 @@
     </p>
   </footer>
 
-  <script src="script.js?v=42"></script>
+  <script src="script.js?v=43"></script>
   <!-- 합성 사운드 효과 (타이핑/CRT/스팀 버튼) — 기존 코드와 분리된 추가 파일 -->
-  <script src="sfx.js?v=42"></script>
+  <script src="sfx.js?v=43"></script>
   <!-- 마우스 커서 잔상(트레일) — 기존 코드와 분리된 추가 파일 -->
-  <script src="cursor-trail.js?v=42"></script>
+  <script src="cursor-trail.js?v=43"></script>
   <!-- 다국어(로컬라이제이션) — 국기 클릭 시 지정 영역 언어 전환 -->
-  <script src="i18n.js?v=42"></script>
+  <script src="i18n.js?v=43"></script>
   <!-- 프레스킷: 언어 전환 (i18n.js 뒤에 와야 현재 언어를 읽을 수 있다) -->
-  <script src="presskit.js?v=42"></script>
+  <script src="presskit.js?v=43"></script>
 
   <!-- 히어로 배경 영상: 데스크톱에서만 내려받아 재생 -->
-  <script src="hero-video.js?v=42"></script>
+  <script src="hero-video.js?v=43"></script>
 </body>
 </html>
